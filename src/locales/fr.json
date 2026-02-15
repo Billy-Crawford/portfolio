@@ -1,0 +1,32 @@
+
+{
+  "heroBadge": "Ingénieur IA • Développeur Fullstack",
+  "heroTitle": "BILLY — Construire des systèmes intelligents pour le futur",
+  "heroSubtitle": "Ingénieur IA spécialisé dans les systèmes prêts pour la production, applications web & mobile, et technologies pour transformer l'Afrique.",
+  "aboutTitle": "À propos de moi",
+  "aboutText": "Je suis Billy, Ingénieur IA et Développeur Fullstack, passionné par la création de systèmes intelligents et d'applications web/mobile qui transforment l'avenir de l'Afrique.",
+  "skillsTitle": "Compétences",
+
+
+  "projectsTitle": "Projets",
+  "project1Name": "Blog Médecine",
+  "project1Desc": "Blog pour partager des articles médicaux avec commentaires et likes sans compte.",
+  "project2Name": "Rentify",
+  "project2Desc": "Application web & mobile pour gérer les biens locatifs, paiements et contrats.",
+  "project3Name": "Forum-Discussion",
+  "project3Desc": "Forum & chat en temps réel pour étudiants, échanges privés et collaboration.",
+  "project4Name": "Gestion Élections",
+  "project4Desc": "Gestion complète des élections et événements (frontend React).",
+
+  "contactTitle": "Contactez-moi",
+  "contactName": "Votre Nom",
+  "contactEmail": "Votre Email",
+  "contactMessage": "Votre Message",
+  "contactSubmit": "Envoyer",
+  "contactThanks": "Merci ! Votre message a été envoyé.",
+
+  "footerText": "© 2026 Billy. Tous droits réservés."
+
+
+
+}

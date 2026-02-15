@@ -1,0 +1,29 @@
+
+{
+  "heroBadge": "AI Engineer • Fullstack Developer",
+  "heroTitle": "BILLY — Building Intelligent Systems for the Future",
+  "heroSubtitle": "AI Engineer focused on production-ready systems, fullstack web & mobile applications, and technology built to impact Africa’s future.",
+  "aboutTitle": "About Me",
+  "aboutText": "I am Billy, an AI Engineer and Fullstack Developer, passionate about building intelligent systems and web/mobile applications that impact Africa's future.",
+  "skillsTitle": "Skills",
+
+
+  "projectsTitle": "Projects",
+  "project1Name": "Blog Medicine",
+  "project1Desc": "Blog to share medical articles with comments and likes without an account.",
+  "project2Name": "Rentify",
+  "project2Desc": "Web & mobile app to manage rental properties, payments, and contracts.",
+  "project3Name": "Forum-Discussion",
+  "project3Desc": "Real-time forum & chat for students, private exchanges, collaboration.",
+  "project4Name": "Election Management",
+  "project4Desc": "Complete elections & events management (React frontend).",
+
+  "contactTitle": "Contact Me",
+  "contactName": "Your Name",
+  "contactEmail": "Your Email",
+  "contactMessage": "Your Message",
+  "contactSubmit": "Send Message",
+  "contactThanks": "Thank you! Your message has been sent.",
+
+  "footerText": "© 2026 Billy. All rights reserved."
+}
