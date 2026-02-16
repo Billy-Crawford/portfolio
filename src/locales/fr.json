@@ -38,6 +38,9 @@
   "project3Desc": "Plateforme de discussion temps réel pour étudiants avec messagerie privée et collaboration communautaire.",
   "project4Name": "Gestion Élections",
   "project4Desc": "Application de gestion d’élections et d’événements développée en équipe, avec contribution frontend orientée expérience utilisateur.",
+  "project5Name": "Analyseur de CV",
+  "project5Desc": "Un petit modèle IA que j'ai écrit en Python pour analyser votre CV, identifier ce qui manque et suggérer des améliorations.",
+  
 
   "contactTitle": "Contactez-moi",
   "contactName": "Votre nom",

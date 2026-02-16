@@ -4,7 +4,7 @@
   "heroSubtitle": "AI Master’s student and fullstack developer building web, mobile, and intelligent systems through real-world projects. My goal is to learn by building useful solutions that solve practical problems.",
 
   "aboutTitle": "About Me",
-  "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I design complete applications — from backend architecture to modern frontend interfaces — while continuously strengthening my AI skills through practical projects. My goal is to create scalable and useful solutions that address real challenges, especially within the African tech ecosystem, while growing as an engineer.",
+  "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I design complete applications  from backend architecture to modern frontend interfaces, while continuously strengthening my AI skills through practical projects. My goal is to create scalable and useful solutions that address real challenges, especially within the African tech ecosystem, while growing as an engineer.",
 
   "servicesTitle": "What I Can Do",
   "servicesList": [
@@ -38,6 +38,9 @@
   "project3Desc": "A real-time discussion platform for students with private messaging and collaborative features.",
   "project4Name": "Election Management",
   "project4Desc": "A team-based election and event management system with a frontend focused on user experience.",
+  "project5Name": "CV Analyzer",
+  "project5Desc": "A small AI model I wrote in Python to analyze your CV, identify missing elements, and suggest improvements.",
+
 
   "contactTitle": "Contact Me",
   "contactName": "Your Name",

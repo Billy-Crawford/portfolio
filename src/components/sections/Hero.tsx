@@ -1,5 +1,4 @@
-// billy-portfolio/src/components/sections/Hero.tsx
-
+// src/components/sections/Hero.tsx
 "use client";
 
 import Image from "next/image";
@@ -25,18 +24,30 @@ export default function Hero({ locale }: Props) {
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
+          {/* Badge */}
           <p className="inline-block px-4 py-1 rounded-full bg-[var(--muted)] text-sm">
             {t.heroBadge}
           </p>
 
+          {/* Hero Title */}
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            {t.heroTitle}
-          </h1>
+  <motion.span
+    className="gradient-text-3d"
+    animate={{ y: [0, -5, 0] }}
+    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+  >
+    OUMAROU BILLY
+  </motion.span>
+  <span className="text-gray-300"> — {locale === "fr" ? "Construire, apprendre, et créer des solutions intelligentes" : "Building, learning, and creating intelligent solutions"}</span>
+</h1>
 
+
+          {/* Hero Subtitle */}
           <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl">
             {t.heroSubtitle}
           </p>
 
+          {/* Buttons */}
           <div className="flex gap-4 pt-2">
             <a
               href="#projects"
@@ -53,7 +64,7 @@ export default function Hero({ locale }: Props) {
           </div>
         </motion.div>
 
-        {/* RIGHT SIDE — PHOTO + effet halo AI */}
+        {/* RIGHT SIDE — PHOTO + halo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

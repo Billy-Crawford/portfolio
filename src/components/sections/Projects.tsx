@@ -35,6 +35,12 @@ export default function Projects({ locale }: Props) {
       stack: ["React", "Laravel", "Tailwind"],
       link: "#",
     },
+    {
+        name: t.project5Name,
+        description: t.project5Desc,
+        stack: ["Python", "AI", "NLP"],
+        link: "#",
+    },
   ];
 
   return (

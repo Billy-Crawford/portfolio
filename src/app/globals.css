@@ -46,3 +46,29 @@ body::before {
   animation: blob 8s infinite;
 }
 
+/* NOM DANS LE HERO */
+
+.gradient-text-3d {
+  font-weight: bold;
+  font-size: inherit;
+  background: linear-gradient(90deg, #5f5f5b, #77b1b6, #f6763b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-slide 5s ease infinite;
+
+  /* Effet 3D / shadow */
+  text-shadow:
+    1px 1px 0 #00000040,
+    2px 2px 2px #00000030,
+    3px 3px 4px #00000020;
+}
+
+/* Gradient animé */
+@keyframes gradient-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
