@@ -14,20 +14,12 @@ type Skill = {
   tooltip?: string;
 };
 
-const skillsList: Skill[] = [
-  { name: "Next.js", level: 85, tooltip: "Framework React moderne pour frontend SSR/SSG" },
-  { name: "React", level: 65, tooltip: "Bibliothèque principale pour UI web" },
-  { name: "Tailwind CSS", level: 80, tooltip: "Framework CSS utilitaire rapide" },
-  { name: "TypeScript", level: 75, tooltip: "Typage statique pour JS" },
-  { name: "Django + DRF", level: 70, tooltip: "Backend Python RESTful API" },
-  { name: "Python AI (TensorFlow, PyTorch, Scikit-learn)", level: 65, tooltip: "Apprentissage automatique et deep learning" },
-  { name: "NLP / Computer Vision", level: 50, tooltip: "Projets IA sur texte et image" },
-  { name: "Databases (PostgreSQL, MongoDB, MySQL, SQLServer)", level: 75, tooltip: "Bases de données relationnelles et NoSQL" },
-];
-
 export default function Skills({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
+  // récupère dynamiquement selon la locale
+  const skillsList: Skill[] = t.skillsList;
 
   const radius = 50;
   const stroke = 8;

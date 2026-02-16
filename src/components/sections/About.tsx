@@ -11,7 +11,7 @@ export default function About({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
 
   return (
-    <section id="about" className="min-h-screen py-20">
+    <section id="about" className="py-20">
       <motion.h2
         className="text-3xl md:text-5xl font-bold text-[var(--accent)] mb-10"
         initial={{ opacity: 0, y: 20 }}

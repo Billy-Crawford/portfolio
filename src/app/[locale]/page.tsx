@@ -8,6 +8,7 @@ import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import PageTransition from "@/components/layout/PageTransition";
+import Services from "@/components/sections/Services";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -24,6 +25,7 @@ export default async function Home({ params }: Props) {
         <Container>
           <Hero locale={safeLocale} />
           <About locale={safeLocale} />
+          <Services locale={safeLocale} />
           <Skills locale={safeLocale} />
           <Projects locale={safeLocale} />
           <Contact locale={safeLocale} />

@@ -1,15 +1,33 @@
 {
   "heroBadge": "AI Master’s Student • Fullstack Developer",
-
   "heroTitle": "OUMAROU BILLY — Building, learning, and creating intelligent solutions",
   "heroSubtitle": "AI Master’s student and fullstack developer building web, mobile, and intelligent systems through real-world projects. My goal is to learn by building useful solutions that solve practical problems.",
 
-
   "aboutTitle": "About Me",
-
   "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I design complete applications — from backend architecture to modern frontend interfaces — while continuously strengthening my AI skills through practical projects. My goal is to create scalable and useful solutions that address real challenges, especially within the African tech ecosystem, while growing as an engineer.",
 
+  "servicesTitle": "What I Can Do",
+  "servicesList": [
+    "Build responsive web and mobile applications",
+    "Develop robust APIs",
+    "Integrate real AI models (NLP, CV)",
+    "Optimize user experiences"
+  ],
+
   "skillsTitle": "Skills",
+  "skillsList": [
+    { "name": "Next.js", "level": 85, "tooltip": "Modern React framework for SSR/SSG" },
+    { "name": "React", "level": 65, "tooltip": "Main library for web UI" },
+    { "name": "Tailwind CSS", "level": 80, "tooltip": "Fast utility-first CSS framework" },
+    { "name": "TypeScript", "level": 75, "tooltip": "Static typing for JS" },
+    { "name": "Django + DRF", "level": 70, "tooltip": "Python backend for RESTful APIs" },
+    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Machine learning and deep learning" },
+    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "AI projects on text and images" },
+    { "name": "Databases (PostgreSQL, MongoDB, MySQL, SQLServer)", "level": 75, "tooltip": "Relational and NoSQL databases" },
+    { "name": "Git", "level": 70, "tooltip": "Version control and collaboration" },
+    { "name": "GitHub", "level": 70, "tooltip": "Git hosting and workflow management" },
+    { "name": "WordPress", "level": 50, "tooltip": "CMS website development" }
+  ],
 
   "projectsTitle": "Projects",
   "project1Name": "Medical Blog",

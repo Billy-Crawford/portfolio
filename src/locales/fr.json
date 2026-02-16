@@ -1,15 +1,33 @@
 {
   "heroBadge": "Étudiant en Master IA • Développeur Fullstack",
-
- "heroTitle": "OUMAROU BILLY — Construire, apprendre, et créer des solutions intelligentes",
-
- "heroSubtitle": "Étudiant en Master Intelligence Artificielle et développeur fullstack, je construis des applications web, mobiles et des systèmes intelligents à travers des projets concrets. Mon objectif : apprendre en créant des solutions utiles et adaptées aux réalités du monde réel.",
-
+  "heroTitle": "OUMAROU BILLY — Construire, apprendre, et créer des solutions intelligentes",
+  "heroSubtitle": "Étudiant en Master Intelligence Artificielle et développeur fullstack, je construis des applications web, mobiles et des systèmes intelligents à travers des projets concrets. Mon objectif : apprendre en créant des solutions utiles et adaptées aux réalités du monde réel.",
+  
   "aboutTitle": "À propos de moi",
-
   "aboutText": "Je suis Oumarou Billy, étudiant en master en Intelligence Artificielle et développeur fullstack. Je construis des applications complètes du backend au frontend, tout en approfondissant mes compétences en IA appliquée. Mon objectif est de créer des solutions utiles, évolutives et adaptées aux réalités africaines, tout en continuant à apprendre auprès de projets concrets et de défis techniques réels.",
 
-  "skillsTitle": "Compétences",
+  "servicesTitle": "Ce que je peux faire",
+  "servicesList": [
+    "Construire des applications web et mobiles réactives",
+    "Développer des APIs robustes",
+    "Intégrer des modèles IA réels (NLP, CV)",
+    "Optimiser des expériences utilisateurs"
+  ],
+
+    "skillsTitle": "Compétences",
+    "skillsList": [
+    { "name": "Next.js", "level": 85, "tooltip": "Framework React moderne pour frontend SSR/SSG" },
+    { "name": "React", "level": 65, "tooltip": "Bibliothèque principale pour UI web" },
+    { "name": "Tailwind CSS", "level": 80, "tooltip": "Framework CSS utilitaire rapide" },
+    { "name": "TypeScript", "level": 75, "tooltip": "Typage statique pour JS" },
+    { "name": "Django + DRF", "level": 70, "tooltip": "Backend Python RESTful API" },
+    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Apprentissage automatique et deep learning" },
+    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "Projets IA sur texte et image" },
+    { "name": "Databases (PostgreSQL, MongoDB, MySQL, SQLServer)", "level": 75, "tooltip": "Bases de données relationnelles et NoSQL" },
+    { "name": "Git", "level": 70, "tooltip": "Gestion de version et collaboration sur projets" },
+    { "name": "GitHub", "level": 70, "tooltip": "Hébergement de projets Git et workflow collaboratif" },
+    { "name": "WordPress", "level": 50, "tooltip": "Création et gestion de sites web CMS" }
+    ],
 
   "projectsTitle": "Projets",
   "project1Name": "Blog Médecine",
