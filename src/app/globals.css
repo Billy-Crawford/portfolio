@@ -51,7 +51,7 @@ body::before {
 .gradient-text-3d {
   font-weight: bold;
   font-size: inherit;
-  background: linear-gradient(90deg, #5f5f5b, #77b1b6, #f6763b);
+  background: linear-gradient(90deg, #15d492, #e4e6e6, #f49c97);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 200%;
