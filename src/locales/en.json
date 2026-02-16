@@ -1,22 +1,25 @@
-
 {
-  "heroBadge": "AI Engineer • Fullstack Developer",
-  "heroTitle": "BILLY — Building Intelligent Systems for the Future",
-  "heroSubtitle": "AI Engineer focused on production-ready systems, fullstack web & mobile applications, and technology built to impact Africa’s future.",
+  "heroBadge": "AI Master’s Student • Fullstack Developer",
+
+  "heroTitle": "OUMAROU BILLY — Building, learning, and creating intelligent solutions",
+  "heroSubtitle": "AI Master’s student and fullstack developer building web, mobile, and intelligent systems through real-world projects. My goal is to learn by building useful solutions that solve practical problems.",
+
+
   "aboutTitle": "About Me",
-  "aboutText": "I am Billy, an AI Engineer and Fullstack Developer, passionate about building intelligent systems and web/mobile applications that impact Africa's future.",
+
+  "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I design complete applications — from backend architecture to modern frontend interfaces — while continuously strengthening my AI skills through practical projects. My goal is to create scalable and useful solutions that address real challenges, especially within the African tech ecosystem, while growing as an engineer.",
+
   "skillsTitle": "Skills",
 
-
   "projectsTitle": "Projects",
-  "project1Name": "Blog Medicine",
-  "project1Desc": "Blog to share medical articles with comments and likes without an account.",
+  "project1Name": "Medical Blog",
+  "project1Desc": "A medical content platform allowing users to interact through comments and likes without requiring account creation.",
   "project2Name": "Rentify",
-  "project2Desc": "Web & mobile app to manage rental properties, payments, and contracts.",
+  "project2Desc": "A web and mobile property management platform integrating communication, administration, and tenant-owner workflows.",
   "project3Name": "Forum-Discussion",
-  "project3Desc": "Real-time forum & chat for students, private exchanges, collaboration.",
+  "project3Desc": "A real-time discussion platform for students with private messaging and collaborative features.",
   "project4Name": "Election Management",
-  "project4Desc": "Complete elections & events management (React frontend).",
+  "project4Desc": "A team-based election and event management system with a frontend focused on user experience.",
 
   "contactTitle": "Contact Me",
   "contactName": "Your Name",
@@ -25,5 +28,5 @@
   "contactSubmit": "Send Message",
   "contactThanks": "Thank you! Your message has been sent.",
 
-  "footerText": "© 2026 Billy. All rights reserved."
+  "footerText": "© 2026 Oumarou Billy — Personal Portfolio."
 }

@@ -1,32 +1,32 @@
-
 {
-  "heroBadge": "Ingénieur IA • Développeur Fullstack",
-  "heroTitle": "BILLY — Construire des systèmes intelligents pour le futur",
-  "heroSubtitle": "Ingénieur IA spécialisé dans les systèmes prêts pour la production, applications web & mobile, et technologies pour transformer l'Afrique.",
-  "aboutTitle": "À propos de moi",
-  "aboutText": "Je suis Billy, Ingénieur IA et Développeur Fullstack, passionné par la création de systèmes intelligents et d'applications web/mobile qui transforment l'avenir de l'Afrique.",
-  "skillsTitle": "Compétences",
+  "heroBadge": "Étudiant en Master IA • Développeur Fullstack",
 
+ "heroTitle": "OUMAROU BILLY — Construire, apprendre, et créer des solutions intelligentes",
+
+ "heroSubtitle": "Étudiant en Master Intelligence Artificielle et développeur fullstack, je construis des applications web, mobiles et des systèmes intelligents à travers des projets concrets. Mon objectif : apprendre en créant des solutions utiles et adaptées aux réalités du monde réel.",
+
+  "aboutTitle": "À propos de moi",
+
+  "aboutText": "Je suis Oumarou Billy, étudiant en master en Intelligence Artificielle et développeur fullstack. Je construis des applications complètes du backend au frontend, tout en approfondissant mes compétences en IA appliquée. Mon objectif est de créer des solutions utiles, évolutives et adaptées aux réalités africaines, tout en continuant à apprendre auprès de projets concrets et de défis techniques réels.",
+
+  "skillsTitle": "Compétences",
 
   "projectsTitle": "Projets",
   "project1Name": "Blog Médecine",
-  "project1Desc": "Blog pour partager des articles médicaux avec commentaires et likes sans compte.",
+  "project1Desc": "Plateforme de publication d’articles médicaux permettant interactions (likes et commentaires) sans création de compte, avec une expérience utilisateur simplifiée.",
   "project2Name": "Rentify",
-  "project2Desc": "Application web & mobile pour gérer les biens locatifs, paiements et contrats.",
+  "project2Desc": "Application web et mobile de gestion immobilière intégrant communication, administration et gestion complète entre propriétaires et locataires.",
   "project3Name": "Forum-Discussion",
-  "project3Desc": "Forum & chat en temps réel pour étudiants, échanges privés et collaboration.",
+  "project3Desc": "Plateforme de discussion temps réel pour étudiants avec messagerie privée et collaboration communautaire.",
   "project4Name": "Gestion Élections",
-  "project4Desc": "Gestion complète des élections et événements (frontend React).",
+  "project4Desc": "Application de gestion d’élections et d’événements développée en équipe, avec contribution frontend orientée expérience utilisateur.",
 
   "contactTitle": "Contactez-moi",
-  "contactName": "Votre Nom",
-  "contactEmail": "Votre Email",
-  "contactMessage": "Votre Message",
+  "contactName": "Votre nom",
+  "contactEmail": "Votre email",
+  "contactMessage": "Votre message",
   "contactSubmit": "Envoyer",
-  "contactThanks": "Merci ! Votre message a été envoyé.",
+  "contactThanks": "Merci ! Votre message a bien été envoyé.",
 
-  "footerText": "© 2026 Billy. Tous droits réservés."
-
-
-
+  "footerText": "© 2026 Oumarou Billy — Portfolio personnel."
 }

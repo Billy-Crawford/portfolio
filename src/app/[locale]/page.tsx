@@ -7,6 +7,7 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -18,15 +19,17 @@ export default async function Home({ params }: Props) {
   const safeLocale: "en" | "fr" = locale === "fr" ? "fr" : "en";
 
   return (
-    <main>
-      <Container>
-        <Hero locale={safeLocale} />
-        <About locale={safeLocale} />
-        <Skills locale={safeLocale} />
-        <Projects locale={safeLocale} />
-        <Contact locale={safeLocale} />
-        <Footer locale={safeLocale} />
-      </Container>
-    </main>
+    <PageTransition>
+      <main>
+        <Container>
+          <Hero locale={safeLocale} />
+          <About locale={safeLocale} />
+          <Skills locale={safeLocale} />
+          <Projects locale={safeLocale} />
+          <Contact locale={safeLocale} />
+          <Footer locale={safeLocale} />
+        </Container>
+      </main>
+    </PageTransition>
   );
 }
