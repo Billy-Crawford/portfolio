@@ -1,5 +1,6 @@
 // src/app/[locale]/layout.tsx
 import Navbar from "@/components/layout/Navbar";
+import { PortfolioProvider } from "@/context/PortfolioContext";
 
 type Props = {
   children: React.ReactNode;
@@ -15,8 +16,10 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <>
-      <Navbar locale={safeLocale} />
-      {children}
+      <PortfolioProvider locale={safeLocale}>
+        <Navbar locale={safeLocale} />
+        {children}
+      </PortfolioProvider>
     </>
   );
 }
