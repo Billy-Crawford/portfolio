@@ -3,37 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #f4f4f5; /* Gris tres tres clair, presque blanc */
-  --foreground: #09090b; /* Noir profond */
-  
+  --background: #f4f4f5;
+  --foreground: #09090b;
   --muted: #e4e4e7;
   --muted-foreground: #71717a;
-  
   --primary: #09090b;
   --primary-foreground: #fafafa;
-  
-  --accent: #18181b; /* Accent tres sombre */
+  --accent: #18181b;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
-}
-
-/* Typographie géante */
-.title-editorial {
-  font-family: 'Arial Black', Impact, sans-serif;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-}
-
-/* Badges flottants style Pinterest */
-.floating-badge {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
