@@ -3,17 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --background: #f4f4f5;
-  --foreground: #09090b;
-  --muted: #e4e4e7;
-  --muted-foreground: #71717a;
-  --primary: #09090b;
-  --primary-foreground: #fafafa;
-  --accent: #18181b;
+  --bg: #FAFAF9;
+  --fg: #0A0A0A;
+  --muted: #F0EFED;
+  --muted-fg: #6B7280;
+  --border: #E5E5E3;
+  --accent: #0A0A0A;
+  --warm: #C9A96E;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: var(--bg);
+  color: var(--fg);
   overflow-x: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #0A0A0A;
+  color: #FAFAF9;
 }

@@ -1,6 +1,4 @@
-// src/components/sections/Skills.tsx
 "use client";
-
 import { motion } from "framer-motion";
 import en from "@/locales/en.json";
 import fr from "@/locales/fr.json";
@@ -8,46 +6,87 @@ import { usePortfolio } from "@/context/PortfolioContext";
 
 type Props = { locale: string };
 
+const CATEGORIES: Record<string, string[]> = {
+  "Frontend":   ["Next.js", "React", "Tailwind CSS", "TypeScript"],
+  "Backend":    ["Django + DRF", "Flask", "Python"],
+  "IA & Data":  ["Python AI (TensorFlow, PyTorch, Scikit-learn)", "NLP / Computer Vision"],
+  "Databases":  ["Databases (PostgreSQL, MongoDB, MySQL, SQLServer)"],
+  "Tooling":    ["Git", "GitHub", "WordPress"],
+};
+
 export default function Skills({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { skills, loading } = usePortfolio();
 
-  return (
-    <section id="skills" className="py-20 min-h-screen flex flex-col justify-center">
-      <motion.h2 className="text-3xl md:text-5xl font-bold text-[var(--accent)] mb-14 text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
-        {t.skillsTitle}
-      </motion.h2>
+  const getLevelLabel = (level: number) => {
+    if (level >= 80) return locale === "fr" ? "Expert" : "Expert";
+    if (level >= 65) return locale === "fr" ? "Avancé" : "Advanced";
+    return locale === "fr" ? "Intermédiaire" : "Intermediate";
+  };
 
-      {loading ? (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto w-full">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="flex flex-col items-center p-6 rounded-2xl bg-[var(--muted)] border border-gray-800 animate-pulse">
-              <div className="h-6 bg-gray-700 rounded-md w-1/2 mb-4"></div>
-              <div className="w-full bg-gray-800 rounded-full h-2.5">
-                <div className="h-2.5 rounded-full bg-gray-700 w-full"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto w-full">
-          {skills.map((skill, index) => (
-            <motion.div key={index} className="group flex flex-col items-center p-6 rounded-2xl bg-[var(--muted)] border border-gray-800 hover:border-[var(--accent)] transition-colors relative" initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: index * 0.1 }} viewport={{ once: true }}>
-              <div className="text-lg md:text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors z-10 mb-4 text-center">
-                {skill.name}
-              </div>
-              <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">
-                <motion.div className="h-2.5 rounded-full bg-[var(--accent)]" initial={{ width: 0 }} whileInView={{ width: `${skill.level}%` }} transition={{ duration: 1, delay: 0.5 + index * 0.1 }} viewport={{ once: true }}></motion.div>
-              </div>
-              {skill.tooltip && (
-                <div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform bg-[var(--accent)] text-black text-xs px-3 py-1 rounded shadow-lg whitespace-nowrap z-20">
-                  {skill.tooltip}
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      )}
+  const getLevelColor = (level: number) => {
+    if (level >= 80) return "bg-[#0A0A0A] text-[#FAFAF9]";
+    if (level >= 65) return "bg-[#374151] text-white";
+    return "bg-[#E5E5E3] text-[#6B7280]";
+  };
+
+  return (
+    <section id="skills" className="py-28 border-t border-[#E5E5E3] bg-[#FAFAF9]">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-3 mb-5"
+        >
+          <div className="w-6 h-px bg-[#C9A96E]" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
+            {t.skillsTitle}
+          </span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-4xl sm:text-5xl xl:text-6xl font-black leading-[0.9] tracking-tighter text-[#0A0A0A] uppercase mb-16"
+        >
+          {locale === "fr" ? "Mon Stack\nTechnique" : "My Tech\nStack"}
+        </motion.h2>
+
+        {loading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-14 bg-[#F0EFED] rounded-xl animate-pulse" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                viewport={{ once: true }}
+                className="group relative flex items-center justify-between gap-3 bg-white border border-[#E5E5E3] rounded-xl px-5 py-4 hover:border-[#0A0A0A] hover:shadow-md transition-all duration-200 cursor-default"
+                title={skill.tooltip_fr || skill.name}
+              >
+                <span className="text-sm font-bold text-[#0A0A0A] leading-tight truncate">
+                  {skill.name}
+                </span>
+                <span className={`shrink-0 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${getLevelColor(skill.level)}`}>
+                  {getLevelLabel(skill.level)}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

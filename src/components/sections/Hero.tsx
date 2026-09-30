@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { usePortfolio } from "@/context/PortfolioContext";
@@ -12,108 +11,189 @@ export default function Hero({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content } = usePortfolio();
 
-  const badge = content?.hero_badge ? (locale === "fr" ? content.hero_badge.value_fr : content.hero_badge.value_en) : t.heroBadge;
-  const subtitle = content?.hero_subtitle ? (locale === "fr" ? content.hero_subtitle.value_fr : content.hero_subtitle.value_en) : t.heroSubtitle;
+  const badge    = (locale === "fr" ? content?.hero_badge?.value_fr : content?.hero_badge?.value_en) ?? t.heroBadge;
+  const subtitle = (locale === "fr" ? content?.hero_subtitle?.value_fr : content?.hero_subtitle?.value_en) ?? t.heroSubtitle;
 
   return (
-    <section className="relative w-full min-h-screen bg-[#f4f4f5] text-black pt-32 pb-16 flex items-center overflow-hidden">
-      
-      {/* ─── SCROLL MOUSE (BAS GAUCHE) ─── */}
-      <div className="absolute left-6 md:left-12 bottom-8 flex items-center gap-4 z-50">
-        <div className="w-5 h-8 border-2 border-black rounded-full flex justify-center pt-1">
-          <motion.div 
-            className="w-1 h-2 bg-black rounded-full"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-        <span className="text-xs font-bold text-gray-800 uppercase tracking-widest hidden md:block">Scroll Mouse</span>
-      </div>
+    <section
+      id="home"
+      className="relative min-h-screen bg-[#FAFAF9] flex flex-col pt-16 overflow-hidden"
+    >
+      {/* Ligne décorative dorée horizontale */}
+      <div className="absolute top-16 inset-x-0 h-px bg-[#E5E5E3]" />
 
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-        
-        {/* COLONNE GAUCHE (TEXTE) */}
-        <div className="lg:col-span-7 flex flex-col z-10 order-2 lg:order-1">
-          
+      {/* ── GRILLE PRINCIPALE ── */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto w-full px-6 md:px-12 gap-0">
+
+        {/* GAUCHE — TEXTE */}
+        <div className="flex flex-col justify-center pt-16 pb-12 lg:py-0 lg:pr-16 border-r border-[#E5E5E3]">
+
+          {/* Eyebrow tag */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-8"
           >
-            <h1 className="text-6xl sm:text-8xl lg:text-[9rem] font-black uppercase leading-[0.85] tracking-tighter text-black">
-              Oumarou<br/>Billy
-            </h1>
-            <p className="mt-8 text-xs sm:text-sm font-bold tracking-[0.2em] text-gray-500 uppercase">
-              Published By {locale === "fr" ? "Moi-même" : "Myself"}
-            </p>
+            <div className="w-6 h-px bg-[#C9A96E]" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
+              Portfolio — 2026
+            </span>
           </motion.div>
 
-          {/* Badges intégrés proprement dans le flux */}
-          <motion.div 
-            className="flex flex-wrap gap-4 mt-10"
+          {/* Titre géant */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.9] tracking-tighter text-[#0A0A0A] uppercase"
+          >
+            Oumarou<br />
+            <span className="text-[#C9A96E]">Billy</span>
+          </motion.h1>
+
+          {/* Badge rôle */}
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-8 text-sm font-semibold text-[#6B7280] uppercase tracking-[0.15em]"
           >
-            <div className="bg-white border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-              <span className="text-xs font-bold uppercase tracking-widest">
-                {locale === "fr" ? "Ingénierie Logicielle" : "Software Engineering"}
-              </span>
-            </div>
-            <div className="bg-white border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-              <span className="text-xs font-bold uppercase tracking-widest">
-                {locale === "fr" ? "Développeur Full-Stack" : "Full-Stack Developer"}
-              </span>
-            </div>
+            {badge}
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-6 text-base text-[#6B7280] leading-relaxed max-w-md"
+          >
+            {subtitle}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 bg-[#0A0A0A] text-[#FAFAF9] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-[#2D2D2D] transition-colors duration-200"
+            >
+              {locale === "fr" ? "Voir mes projets" : "View Projects"}
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full border border-[#E5E5E3] hover:border-[#0A0A0A] transition-colors duration-200 text-[#0A0A0A]"
+            >
+              Contact
+            </a>
           </motion.div>
 
-          {/* Block texte description */}
-          <motion.div 
-            className="mt-12 max-w-md"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="mt-16 flex items-center gap-4"
           >
-            <div className="w-2 h-2 bg-gray-400 rounded-full mb-4"></div>
-            <h3 className="text-lg font-black text-black uppercase tracking-wider mb-3">{badge}</h3>
-            <p className="text-sm text-gray-600 font-medium leading-relaxed">
-              {subtitle}
-            </p>
+            <div className="w-5 h-8 border border-[#D1D5DB] rounded-full flex justify-center pt-1.5">
+              <motion.div
+                className="w-0.5 h-2 bg-[#0A0A0A] rounded-full"
+                animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+            <span className="text-xs font-medium text-[#9CA3AF] uppercase tracking-widest">
+              Scroll
+            </span>
           </motion.div>
         </div>
 
-        {/* COLONNE DROITE (IMAGE) */}
-        <motion.div 
-          className="lg:col-span-5 relative w-full aspect-[4/5] lg:h-[75vh] order-1 lg:order-2"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          {/* Un conteneur propre, bords arrondis, ombre élégante */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
-            <Image 
-              src="/profile.jpg" 
-              alt="Oumarou Billy" 
-              fill 
-              className="object-cover grayscale contrast-125 hover:scale-105 transition-transform duration-700 ease-out" 
-              priority 
-            />
-          </div>
-          
-          {/* Pagination verticale accrochée à l'image */}
-          <div className="absolute -right-6 top-1/2 -translate-y-1/2 flex-col items-center gap-4 hidden xl:flex z-50">
-            <span className="text-xs font-black tracking-widest text-black">01</span>
-            <div className="w-5 h-5 rounded-full border-2 border-black flex items-center justify-center">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-            </div>
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <span className="text-xs font-bold tracking-widest text-gray-400 mt-2">05</span>
-          </div>
-        </motion.div>
+        {/* DROITE — PHOTO */}
+        <div className="hidden lg:flex flex-col justify-center items-center pl-12 relative">
 
+          {/* Numérotation éditoriale */}
+          <div className="absolute top-1/2 -translate-y-1/2 right-0 flex flex-col items-center gap-3">
+            <span className="text-xs font-black text-[#0A0A0A] tracking-widest">01</span>
+            <div className="w-4 h-4 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
+              <div className="w-1.5 h-1.5 bg-[#0A0A0A] rounded-full" />
+            </div>
+            {[2,3,4].map(n => (
+              <div key={n} className="w-1.5 h-1.5 bg-[#D1D5DB] rounded-full" />
+            ))}
+            <span className="text-xs font-bold text-[#D1D5DB] tracking-widest">05</span>
+          </div>
+
+          {/* Photo — cadre élégant */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            className="relative w-[380px] h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-[#E5E5E3] bg-[#F0EFED]"
+          >
+            <Image
+              src="/profile.jpg"
+              alt="Oumarou Billy"
+              fill
+              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              priority
+            />
+            {/* Overlay bas avec badge flottant */}
+            <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div className="w-2 h-2 bg-[#22C55E] rounded-full animate-pulse" />
+                <span className="text-xs font-bold text-[#0A0A0A] uppercase tracking-widest">
+                  {locale === "fr" ? "Disponible" : "Available for work"}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Stat badges */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="absolute top-1/4 -left-4 bg-white border border-[#E5E5E3] shadow-lg px-5 py-3 rounded-2xl"
+          >
+            <p className="text-2xl font-black text-[#0A0A0A]">5+</p>
+            <p className="text-xs text-[#6B7280] font-medium uppercase tracking-wider">
+              {locale === "fr" ? "Projets" : "Projects"}
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.75 }}
+            className="absolute bottom-1/4 -left-4 bg-[#0A0A0A] shadow-lg px-5 py-3 rounded-2xl"
+          >
+            <p className="text-2xl font-black text-[#C9A96E]">AI</p>
+            <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Master</p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Barre de stat mobile (uniquement mobile) */}
+      <div className="lg:hidden border-t border-[#E5E5E3] grid grid-cols-3 divide-x divide-[#E5E5E3]">
+        {[
+          { value: "5+", label: locale === "fr" ? "Projets" : "Projects" },
+          { value: "AI", label: "Master" },
+          { value: "FS", label: "Full-Stack" },
+        ].map(s => (
+          <div key={s.label} className="py-5 flex flex-col items-center">
+            <p className="text-xl font-black text-[#0A0A0A]">{s.value}</p>
+            <p className="text-xs text-[#6B7280] uppercase tracking-wider">{s.label}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
