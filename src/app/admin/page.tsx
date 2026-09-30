@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { z } from "zod";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001";
 
@@ -12,6 +13,32 @@ type Content = Record<string, { value_fr: string; value_en: string }>;
 const emptyProject = (): Omit<Project,"id"> => ({ name_fr:"", name_en:"", description_fr:"", description_en:"", stack:[], link:"#", order_index:0 });
 const emptySkill   = (): Omit<Skill,"id">   => ({ name:"", level:50, tooltip_fr:"", tooltip_en:"", order_index:0 });
 const emptyService = (): Omit<Service,"id"> => ({ text_fr:"", text_en:"", order_index:0 });
+
+
+// ─── Zod Schemas ──────────────────────────────────────────────────────────────
+const ProjectSchema = z.object({
+  name_fr: z.string().min(2, "Le nom FR doit contenir au moins 2 caractères"),
+  name_en: z.string().min(2, "Le nom EN doit contenir au moins 2 caractères"),
+  description_fr: z.string().min(5, "La description FR est trop courte"),
+  description_en: z.string().min(5, "La description EN est trop courte"),
+  stack: z.union([z.string(), z.array(z.string())]),
+  link: z.string().url("Le lien doit être une URL valide").or(z.literal("#")),
+  order_index: z.number().int("L'ordre doit être un entier"),
+});
+
+const SkillSchema = z.object({
+  name: z.string().min(2, "Le nom de la compétence est requis"),
+  level: z.number().min(0, "Le niveau minimum est 0").max(100, "Le niveau maximum est 100"),
+  tooltip_fr: z.string(),
+  tooltip_en: z.string(),
+  order_index: z.number().int("L'ordre doit être un entier"),
+});
+
+const ServiceSchema = z.object({
+  text_fr: z.string().min(5, "Le service FR est trop court"),
+  text_en: z.string().min(5, "Le service EN est trop court"),
+  order_index: z.number().int("L'ordre doit être un entier"),
+});
 
 // ─── Helpers UI ───────────────────────────────────────────────────────────────
 const Input = ({ label, value, onChange, type="text", rows=0 }: { label:string; value:string|number; onChange:(v:string)=>void; type?:string; rows?:number }) => (
@@ -93,11 +120,17 @@ export default function AdminPage() {
 
   // ── CRUD Projects ──────────────────────────────────────────────────────────
   const addProject = async () => {
+    const parsed = ProjectSchema.safeParse(newProject);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/projects`, { method:"POST", headers:headers(), body: JSON.stringify({ ...newProject, stack: typeof newProject.stack === "string" ? (newProject.stack as unknown as string).split(",").map(s=>s.trim()) : newProject.stack }) });
     if (r.ok) { flash("Projet ajouté !"); setNewProject(emptyProject()); loadAll(); }
     else flash("Erreur");
   };
   const saveProject = async (p: Project) => {
+    const parsed = ProjectSchema.safeParse(p);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/projects/${p.id}`, { method:"PUT", headers:headers(), body: JSON.stringify({ ...p, stack: typeof p.stack === "string" ? (p.stack as unknown as string).split(",").map(s=>s.trim()) : p.stack }) });
     if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[p.id]:false})); loadAll(); }
     else flash("Erreur");
@@ -110,11 +143,17 @@ export default function AdminPage() {
 
   // ── CRUD Skills ────────────────────────────────────────────────────────────
   const addSkill = async () => {
+    const parsed = SkillSchema.safeParse(newSkill);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/skills`, { method:"POST", headers:headers(), body: JSON.stringify(newSkill) });
     if (r.ok) { flash("Compétence ajoutée !"); setNewSkill(emptySkill()); loadAll(); }
     else flash("Erreur");
   };
   const saveSkill = async (s: Skill) => {
+    const parsed = SkillSchema.safeParse(s);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/skills/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(s) });
     if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[s.id]:false})); loadAll(); }
     else flash("Erreur");
@@ -127,11 +166,17 @@ export default function AdminPage() {
 
   // ── CRUD Services ──────────────────────────────────────────────────────────
   const addService = async () => {
+    const parsed = ServiceSchema.safeParse(newService);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/services`, { method:"POST", headers:headers(), body: JSON.stringify(newService) });
     if (r.ok) { flash("Service ajouté !"); setNewService(emptyService()); loadAll(); }
     else flash("Erreur");
   };
   const saveService = async (s: Service) => {
+    const parsed = ServiceSchema.safeParse(s);
+    if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
+    setLoginErr("");
     const r = await fetch(`${API_URL}/api/services/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(s) });
     if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[s.id]:false})); loadAll(); }
     else flash("Erreur");
@@ -184,6 +229,7 @@ export default function AdminPage() {
         </div>
 
         {msg && <div className="bg-green-700 text-white px-4 py-2 rounded mb-4 text-sm">{msg}</div>}
+        {loginErr && <div className="bg-red-700 text-white px-4 py-2 rounded mb-4 text-sm">{loginErr}</div>}
 
         {/* Tabs */}
         <div className="flex gap-2 mb-6 flex-wrap">
