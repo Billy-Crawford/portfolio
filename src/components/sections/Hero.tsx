@@ -16,22 +16,10 @@ export default function Hero({ locale }: Props) {
   const subtitle = content?.hero_subtitle ? (locale === "fr" ? content.hero_subtitle.value_fr : content.hero_subtitle.value_en) : t.heroSubtitle;
 
   return (
-    <section className="relative w-full h-screen bg-[#f4f4f5] text-black overflow-hidden flex items-center">
+    <section className="relative w-full min-h-screen bg-[#f4f4f5] text-black pt-32 pb-16 flex items-center overflow-hidden">
       
-      {/* ─── NUMÉROTATION VERTICALE (DROITE) ─── */}
-      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex-col items-center gap-4 hidden lg:flex z-50">
-        <span className="text-xs font-black tracking-widest text-black">01</span>
-        <div className="w-5 h-5 rounded-full border-2 border-black flex items-center justify-center">
-          <div className="w-2 h-2 bg-black rounded-full"></div>
-        </div>
-        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-        <span className="text-xs font-bold tracking-widest text-gray-400 mt-2">05</span>
-      </div>
-
       {/* ─── SCROLL MOUSE (BAS GAUCHE) ─── */}
-      <div className="absolute left-6 md:left-12 bottom-12 flex items-center gap-4 z-50">
+      <div className="absolute left-6 md:left-12 bottom-8 flex items-center gap-4 z-50">
         <div className="w-5 h-8 border-2 border-black rounded-full flex justify-center pt-1">
           <motion.div 
             className="w-1 h-2 bg-black rounded-full"
@@ -39,96 +27,92 @@ export default function Hero({ locale }: Props) {
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
-        <span className="text-xs font-bold text-gray-800 uppercase tracking-widest">Scroll Mouse</span>
+        <span className="text-xs font-bold text-gray-800 uppercase tracking-widest hidden md:block">Scroll Mouse</span>
       </div>
 
-      {/* ─── CONTENU PRINCIPAL ─── */}
-      <div className="w-full max-w-[1600px] mx-auto relative px-6 md:px-12 h-full flex items-center">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         
-        {/* COLONNE GAUCHE (TEXTE GÉANT) */}
-        <div className="w-full md:w-3/5 z-10 flex flex-col justify-between h-[60vh] mt-20 relative">
+        {/* COLONNE GAUCHE (TEXTE) */}
+        <div className="lg:col-span-7 flex flex-col z-10 order-2 lg:order-1">
           
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            {/* Typographie Géante - Calquée sur le style Joker */}
-            <h1 className="text-[22vw] md:text-[14vw] font-black uppercase leading-[0.75] tracking-tighter text-black whitespace-nowrap">
-              Oumarou
+            <h1 className="text-6xl sm:text-8xl lg:text-[9rem] font-black uppercase leading-[0.85] tracking-tighter text-black">
+              Oumarou<br/>Billy
             </h1>
-            <h1 className="text-[22vw] md:text-[14vw] font-black uppercase leading-[0.75] tracking-tighter text-black whitespace-nowrap md:ml-24">
-              Billy
-            </h1>
-            <p className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-[0.2em] mt-8 ml-2">
+            <p className="mt-8 text-xs sm:text-sm font-bold tracking-[0.2em] text-gray-500 uppercase">
               Published By {locale === "fr" ? "Moi-même" : "Myself"}
             </p>
           </motion.div>
 
-          {/* Block texte inférieur (comme "Power") */}
+          {/* Badges intégrés proprement dans le flux */}
           <motion.div 
-            className="mb-10 max-w-sm ml-2 mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-wrap gap-4 mt-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="w-2 h-2 bg-gray-400 rounded-full mb-5"></div>
-            <h3 className="text-lg font-black text-black uppercase tracking-wider mb-2">{badge}</h3>
+            <div className="bg-white border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <span className="text-xs font-bold uppercase tracking-widest">
+                {locale === "fr" ? "Ingénierie Logicielle" : "Software Engineering"}
+              </span>
+            </div>
+            <div className="bg-white border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-3 shadow-sm">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <span className="text-xs font-bold uppercase tracking-widest">
+                {locale === "fr" ? "Développeur Full-Stack" : "Full-Stack Developer"}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Block texte description */}
+          <motion.div 
+            className="mt-12 max-w-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <div className="w-2 h-2 bg-gray-400 rounded-full mb-4"></div>
+            <h3 className="text-lg font-black text-black uppercase tracking-wider mb-3">{badge}</h3>
             <p className="text-sm text-gray-600 font-medium leading-relaxed">
               {subtitle}
             </p>
           </motion.div>
         </div>
 
-        {/* ─── IMAGE CENTRALE (QUI CHEVAUCHE LE TEXTE) ─── */}
-        {/* L'image est z-20 pour passer au-dessus des lettres du titre */}
-        <div className="absolute right-[-10%] md:right-[5%] lg:right-[15%] top-[40%] md:top-1/2 -translate-y-1/2 w-[110vw] md:w-[60vw] lg:w-[45vw] h-[60vh] md:h-[85vh] z-20 pointer-events-none">
-          
-          {/* 
-            mix-blend-multiply est LE secret. Il va faire disparaitre le fond de ton image 
-            pour la fusionner dans le gris du site, comme si c'était détouré. 
-          */}
-          <motion.div 
-            className="relative w-full h-full"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
+        {/* COLONNE DROITE (IMAGE) */}
+        <motion.div 
+          className="lg:col-span-5 relative w-full aspect-[4/5] lg:h-[75vh] order-1 lg:order-2"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          {/* Un conteneur propre, bords arrondis, ombre élégante */}
+          <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
             <Image 
               src="/profile.jpg" 
               alt="Oumarou Billy" 
               fill 
-              className="object-contain grayscale contrast-[1.2] mix-blend-multiply drop-shadow-2xl" 
+              className="object-cover grayscale contrast-125 hover:scale-105 transition-transform duration-700 ease-out" 
               priority 
             />
-          </motion.div>
-
-          {/* BADGES FLOTTANTS (Glassmorphism Tailwind) */}
-          <motion.div 
-            className="absolute top-[25%] right-[10%] lg:-right-10 bg-white/60 backdrop-blur-md border border-white/40 shadow-xl px-5 py-2.5 rounded-full flex items-center gap-3 pointer-events-auto"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <div className="w-2.5 h-2.5 bg-black rounded-full shadow-inner"></div>
-            <span className="text-xs font-bold text-black uppercase tracking-widest">
-              {locale === "fr" ? "Ingénierie Logicielle" : "Software Engineering"}
-            </span>
-          </motion.div>
-
-          <motion.div 
-            className="absolute bottom-[20%] left-[5%] lg:-left-12 bg-white/60 backdrop-blur-md border border-white/40 shadow-xl px-5 py-2.5 rounded-full flex items-center gap-3 pointer-events-auto"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          >
-            <div className="w-2.5 h-2.5 bg-black rounded-full shadow-inner"></div>
-            <span className="text-xs font-bold text-black uppercase tracking-widest">
-              {locale === "fr" ? "Développeur Full-Stack" : "Full-Stack Developer"}
-            </span>
-          </motion.div>
-        </div>
+          </div>
+          
+          {/* Pagination verticale accrochée à l'image */}
+          <div className="absolute -right-6 top-1/2 -translate-y-1/2 flex-col items-center gap-4 hidden xl:flex z-50">
+            <span className="text-xs font-black tracking-widest text-black">01</span>
+            <div className="w-5 h-5 rounded-full border-2 border-black flex items-center justify-center">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+            </div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+            <span className="text-xs font-bold tracking-widest text-gray-400 mt-2">05</span>
+          </div>
+        </motion.div>
 
       </div>
     </section>
