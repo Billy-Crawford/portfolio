@@ -15,7 +15,8 @@ export default function Contact({ locale }: Props) {
   const [showForm, setShowForm] = useState(true);
 
   // Formspree hook
-  const [state, handleSubmit] = useForm("xpqjdgpj");
+  const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID || "xpqjdgpj";
+  const [state, handleSubmit] = useForm(FORMSPREE_ID);
 
   // Réafficher le formulaire 3s après succès
   useEffect(() => {
