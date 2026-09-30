@@ -1,93 +1,40 @@
-// src/components/layout/Navbar.tsx
 "use client";
 
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import en from "@/locales/en.json";
+import fr from "@/locales/fr.json";
 
-type Props = {
-  locale: "en" | "fr";
-};
-
-export default function Navbar({ locale }: Props) {
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("about");
-
-  const otherLocale = locale === "fr" ? "en" : "fr";
-
-  const labels =
-    locale === "fr"
-      ? {
-          about: "À propos",
-          skills: "Compétences",
-          projects: "Projets",
-          contact: "Contact",
-        }
-      : {
-          about: "About",
-          skills: "Skills",
-          projects: "Projects",
-          contact: "Contact",
-        };
-
-  // effet background navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      const sections = ["about", "skills", "projects", "contact"];
-
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-
-        const rect = el.getBoundingClientRect();
-
-        if (rect.top <= 120 && rect.bottom >= 120) {
-          setActive(id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+export default function Navbar({ locale }: { locale: "en" | "fr" }) {
+  const t = locale === "fr" ? fr : en;
+  const pathname = usePathname();
+  const oppositeLocale = locale === "fr" ? "en" : "fr";
+  const newPath = pathname.replace(`/${locale}`, `/${oppositeLocale}`);
 
   return (
-    <nav
-      className={`fixed w-full top-0 left-0 z-50 px-6 py-4 flex justify-between items-center transition-all ${
-        scrolled
-          ? "bg-[var(--background)]/90 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
-      {/* Logo */}
-      <div className="text-[var(--accent)] font-bold text-xl">
-        OUMAROU BILLY N.
+    <nav className="absolute top-0 left-0 w-full z-50 pt-8 px-6 lg:px-12 flex justify-between items-center">
+      
+      {/* ─── LOGO + LIENS (GAUCHE) ─── */}
+      <div className="flex items-center gap-12 bg-white/80 backdrop-blur-md px-8 py-3 rounded-full shadow-sm border border-gray-200/50">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white font-bold text-xl tracking-tighter">
+          OB
+        </div>
+        
+        <div className="hidden md:flex gap-8 text-sm font-semibold text-gray-800 uppercase tracking-widest">
+          <Link href="#home" className="hover:text-black transition-colors">Home</Link>
+          <Link href="#projects" className="hover:text-black transition-colors">Projects</Link>
+          <Link href="#about" className="hover:text-black transition-colors">About</Link>
+          <Link href="#contact" className="hover:text-black transition-colors">Contact</Link>
+        </div>
       </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex gap-8 text-sm">
-        {Object.entries(labels).map(([id, label]) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            className={`transition ${
-              active === id
-                ? "text-[var(--accent)]"
-                : "text-white hover:text-[var(--accent)]"
-            }`}
-          >
-            {label}
-          </a>
-        ))}
-      </div>
-
-      {/* Language Switch */}
-      <Link href={`/${otherLocale}`} scroll={false}>
-        <button className="px-3 py-1 rounded-xl border border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition">
-          {otherLocale.toUpperCase()}
-        </button>
+      {/* ─── LANGUE (DROITE) ─── */}
+      <Link 
+        href={newPath}
+        className="px-4 py-2 text-xs font-bold bg-black text-white rounded-full uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg"
+      >
+        {locale === "fr" ? "EN" : "FR"}
       </Link>
     </nav>
   );
