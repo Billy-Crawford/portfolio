@@ -19,8 +19,15 @@ export default function Skills({ locale }: Props) {
       </motion.h2>
 
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--accent)]"></div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto w-full">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="flex flex-col items-center p-6 rounded-2xl bg-[var(--muted)] border border-gray-800 animate-pulse">
+              <div className="h-6 bg-gray-700 rounded-md w-1/2 mb-4"></div>
+              <div className="w-full bg-gray-800 rounded-full h-2.5">
+                <div className="h-2.5 rounded-full bg-gray-700 w-full"></div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto w-full">

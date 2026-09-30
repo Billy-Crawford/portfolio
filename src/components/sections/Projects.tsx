@@ -19,8 +19,22 @@ export default function Projects({ locale }: Props) {
       </motion.h2>
 
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--accent)]"></div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto w-full">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex flex-col h-[280px] rounded-2xl bg-[var(--muted)] animate-pulse shadow-lg p-6">
+              <div className="h-8 bg-gray-700 rounded-md w-3/4 mb-4"></div>
+              <div className="space-y-3 mb-6 flex-grow">
+                <div className="h-4 bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-700 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-700 rounded w-4/6"></div>
+              </div>
+              <div className="flex gap-2 mt-auto">
+                <div className="h-6 bg-gray-700 rounded-full w-16"></div>
+                <div className="h-6 bg-gray-700 rounded-full w-20"></div>
+                <div className="h-6 bg-gray-700 rounded-full w-14"></div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
