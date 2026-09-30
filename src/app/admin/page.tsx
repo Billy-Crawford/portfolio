@@ -51,7 +51,19 @@ export default function AdminPage() {
 
   useEffect(() => {
     const t = localStorage.getItem("portfolio_admin_token") || "";
-    if (t) setToken(t);
+    if (!t) return;
+    // Verifier si le token JWT est toujours valide cote serveur
+    fetch(`${API_URL}/api/auth/verify`, {
+      headers: { Authorization: `Bearer ${t}` },
+    })
+      .then((r) => {
+        if (r.ok) setToken(t);
+        else {
+          localStorage.removeItem("portfolio_admin_token");
+          setLoginErr("Session expiree, reconnectez-vous.");
+        }
+      })
+      .catch(() => setToken(t)); // si API offline, on garde le token
   }, []);
 
   const headers = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${token}` });
