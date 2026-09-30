@@ -74,7 +74,7 @@ export default function Skills({ locale }: Props) {
                 transition={{ duration: 0.3, delay: i * 0.04 }}
                 viewport={{ once: true }}
                 className="group relative flex items-center justify-between gap-3 bg-white border border-[#E5E5E3] rounded-xl px-5 py-4 hover:border-[#0A0A0A] hover:shadow-md transition-all duration-200 cursor-default"
-                title={skill.tooltip_fr || skill.name}
+                title={skill.tooltip || skill.name}
               >
                 <span className="text-sm font-bold text-[#0A0A0A] leading-tight truncate">
                   {skill.name}
