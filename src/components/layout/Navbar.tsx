@@ -13,64 +13,72 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30);
+    const fn = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const links = [
-    { label: locale === "fr" ? "Projets" : "Projects", href: "#projects" },
-    { label: locale === "fr" ? "Compétences" : "Skills", href: "#skills" },
     { label: locale === "fr" ? "À propos" : "About", href: "#about" },
+    { label: locale === "fr" ? "Services" : "Services", href: "#services" },
+    { label: locale === "fr" ? "Compétences" : "Skills", href: "#skills" },
+    { label: locale === "fr" ? "Projets" : "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ];
 
   return (
     <header
-      className={[
-        "fixed top-0 inset-x-0 z-50 transition-all duration-300",
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0c0c0c]/90 backdrop-blur-md border-b border-neutral-800/80 py-3.5"
-          : "bg-transparent py-5",
-      ].join(" ")}
+          ? "bg-[#0d0d0d]/90 backdrop-blur-md border-b border-neutral-800/80 py-4 shadow-lg"
+          : "bg-transparent py-6 pointer-events-none"
+      }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 flex items-center justify-between">
+      <div className="max-w-[1360px] mx-auto px-6 sm:px-12 flex items-center justify-between">
         
-        {/* LOGO STYLE ÉDITORIAL / MAGAZINE */}
-        <Link href={`/${locale}`} className="flex items-center gap-2 group">
-          <span className="font-black text-xl tracking-tighter text-white uppercase group-hover:opacity-75 transition-opacity">
+        {/* LOGO */}
+        <Link
+          href={`/${locale}`}
+          className={`flex items-center gap-2 group transition-opacity ${
+            scrolled ? "pointer-events-auto opacity-100" : "opacity-0"
+          }`}
+        >
+          <span className="font-black text-lg tracking-tight text-white uppercase">
             OB.
-          </span>
-          <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-[0.25em] text-neutral-500 pl-2 border-l border-neutral-800">
-            Portfolio
           </span>
         </Link>
 
-        {/* NAVIGATION DESKTOP ÉPURÉE */}
-        <nav className="hidden md:flex items-center gap-10">
+        {/* LIENS DE NAVIGATION CENTRÉS / ÉPURÉS */}
+        <nav
+          className={`hidden md:flex items-center gap-8 px-6 py-2 rounded-full border transition-all ${
+            scrolled
+              ? "pointer-events-auto bg-neutral-900/60 border-neutral-800"
+              : "pointer-events-auto bg-black/40 backdrop-blur-md border-white/10"
+          }`}
+        >
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-xs uppercase font-bold tracking-[0.18em] text-neutral-400 hover:text-white transition-colors duration-200"
+              className="text-[11px] uppercase font-bold tracking-[0.2em] text-neutral-300 hover:text-white transition-colors"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* ACTIONS : SÉLECTEUR DE LANGUE & BURGER */}
-        <div className="flex items-center gap-5">
+        {/* BOUTON LANGUE & BURGER */}
+        <div className="flex items-center gap-4 pointer-events-auto">
           <Link
             href={otherPath}
-            className="text-[11px] font-bold uppercase tracking-widest text-neutral-400 hover:text-white px-3 py-1 rounded-full border border-neutral-800 hover:border-neutral-600 transition-all"
+            className="text-[11px] font-bold uppercase tracking-widest text-neutral-300 hover:text-white px-3.5 py-1.5 rounded-full border border-neutral-700 bg-neutral-900/60 hover:border-neutral-500 transition-all shadow-sm"
           >
             {other}
           </Link>
 
           <button
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden flex flex-col justify-center items-center gap-1.5 w-9 h-9 rounded-full border border-neutral-800 text-white"
+            className="md:hidden flex flex-col justify-center items-center gap-1.5 w-9 h-9 rounded-full border border-neutral-700 bg-neutral-900 text-white"
             aria-label="Menu"
           >
             <span
@@ -92,14 +100,14 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
         </div>
       </div>
 
-      {/* MENU MOBILE DÉROULANT */}
+      {/* MENU MOBILE */}
       <AnimatePresence>
         {open && (
           <motion.nav
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0c0c0c] border-b border-neutral-800 px-6 py-6"
+            className="md:hidden pointer-events-auto bg-[#0d0d0d] border-b border-neutral-800 px-6 py-6"
           >
             <div className="flex flex-col gap-4">
               {links.map((l) => (
@@ -107,7 +115,7 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-sm uppercase tracking-widest font-bold text-neutral-300 hover:text-white py-2 border-b border-neutral-900"
+                  className="text-xs uppercase tracking-widest font-bold text-neutral-300 hover:text-white py-2 border-b border-neutral-900"
                 >
                   {l.label}
                 </a>
@@ -119,4 +127,3 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
     </header>
   );
 }
-
