@@ -10,57 +10,56 @@ export default function About({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content } = usePortfolio();
   const text = locale === "fr"
-    ? content?.about_text?.value_fr ?? t.aboutText
-    : content?.about_text?.value_en ?? t.aboutText;
+    ? (content?.about_text?.value_fr ?? t.aboutText)
+    : (content?.about_text?.value_en ?? t.aboutText);
 
-  const items = [
-    { icon: "🎓", label: "Formation", value: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence" },
-    { icon: "📍", label: locale === "fr" ? "Localisation" : "Location", value: "Ouagadougou, Burkina Faso" },
-    { icon: "🌐", label: "Stack", value: "Next.js · Flask · Python · PostgreSQL" },
-    { icon: "🎯", label: "Focus", value: locale === "fr" ? "Web · IA · Mobile" : "Web · AI · Mobile" },
+  const cards = [
+    { icon: "🎓", label: locale === "fr" ? "Formation"     : "Education",  value: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence" },
+    { icon: "📍", label: locale === "fr" ? "Localisation"  : "Location",   value: "Ouagadougou, Burkina Faso" },
+    { icon: "🌐", label: "Stack",                                            value: "Next.js · Flask · Python · PostgreSQL" },
+    { icon: "🎯", label: "Focus",                                            value: locale === "fr" ? "Web · IA · Mobile" : "Web · AI · Mobile" },
   ];
 
   return (
-    <section id="about" className="py-28 bg-[#080808] relative overflow-hidden">
-      <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-[#10b981]/3 rounded-full blur-[100px] pointer-events-none" />
+    <section id="about" className="w-full bg-[#080808] py-24">
+      <div className="max-w-6xl mx-auto px-6 md:px-16">
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }} viewport={{ once: true }}
-          className="flex items-center gap-3 mb-4"
+          className="flex items-center gap-3 mb-5"
         >
-          <div className="w-8 h-px bg-[#10b981]" />
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#10b981]">
+          <div className="w-8 h-px bg-emerald-500" />
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-emerald-400">
             {locale === "fr" ? "À propos" : "About me"}
           </span>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* TEXTE */}
+        {/* Layout 2 colonnes */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+
+          {/* Col 1 : texte */}
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05 }} viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight mb-6"
+              transition={{ duration: 0.6, delay: 0.1 }} viewport={{ once: true }}
+              className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight mb-6"
             >
-              {locale === "fr" ? "Construire des choses\nqui comptent." : "Building things\nthat matter."}
+              {locale === "fr" ? "Construire des choses qui comptent." : "Building things that matter."}
             </motion.h2>
-
             <motion.p
-              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }} viewport={{ once: true }}
-              className="text-[#a3a3a3] text-base leading-relaxed mb-8"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
+              className="text-neutral-400 text-base leading-relaxed mb-8"
             >
               {text}
             </motion.p>
-
             <motion.a
               href="#contact"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }} viewport={{ once: true }}
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#10b981] border border-[#10b981]/30 px-5 py-2.5 rounded-full hover:bg-[#10b981]/10 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-bold text-emerald-400 border border-emerald-500/30 px-5 py-2.5 rounded-full hover:bg-emerald-500/10 transition-colors duration-200"
             >
               {locale === "fr" ? "Me contacter" : "Get in touch"}
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,18 +68,18 @@ export default function About({ locale }: Props) {
             </motion.a>
           </div>
 
-          {/* CARDS */}
+          {/* Col 2 : cards 2x2 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {items.map((item, i) => (
+            {cards.map((card, i) => (
               <motion.div
-                key={item.label}
+                key={card.label}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * i }} viewport={{ once: true }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 hover:border-[#10b981]/30 transition-colors group"
+                transition={{ duration: 0.4, delay: 0.08 * i }} viewport={{ once: true }}
+                className="bg-[#0f0f0f] border border-neutral-800 hover:border-emerald-500/30 rounded-2xl p-5 transition-colors duration-200"
               >
-                <span className="text-2xl mb-3 block">{item.icon}</span>
-                <p className="text-xs text-[#737373] uppercase tracking-wider mb-1">{item.label}</p>
-                <p className="text-sm font-semibold text-white leading-snug">{item.value}</p>
+                <span className="text-2xl mb-3 block">{card.icon}</span>
+                <p className="text-[11px] font-bold uppercase tracking-widest text-neutral-500 mb-1">{card.label}</p>
+                <p className="text-sm font-semibold text-white leading-snug">{card.value}</p>
               </motion.div>
             ))}
           </div>

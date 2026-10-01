@@ -7,161 +7,196 @@ import fr from "@/locales/fr.json";
 
 type Props = { locale: string };
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 32 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay },
-});
-
 export default function Hero({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content } = usePortfolio();
   const subtitle = locale === "fr"
-    ? content?.hero_subtitle?.value_fr ?? t.heroSubtitle
-    : content?.hero_subtitle?.value_en ?? t.heroSubtitle;
+    ? (content?.hero_subtitle?.value_fr ?? t.heroSubtitle)
+    : (content?.hero_subtitle?.value_en ?? t.heroSubtitle);
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center bg-[#080808] overflow-hidden">
+    <section
+      id="home"
+      className="relative w-full min-h-screen bg-[#080808] overflow-hidden flex items-center"
+    >
+      {/* Glow haut gauche */}
+      <div className="pointer-events-none absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-emerald-500/5 blur-[120px]" />
+      {/* Glow bas droite */}
+      <div className="pointer-events-none absolute -bottom-48 -right-48 w-[400px] h-[400px] rounded-full bg-emerald-500/5 blur-[100px]" />
+      {/* Grille de fond */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03] bg-[linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] bg-[size:60px_60px]" />
 
-      {/* Glow ambiant top-left */}
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#10b981]/5 rounded-full blur-[120px] pointer-events-none" />
-      {/* Glow ambiant bottom-right */}
-      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#10b981]/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* CONTENU CENTRÉ */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-16 pt-24 pb-16">
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16">
 
-      {/* Grid de fond subtile */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
+          {/* ── GAUCHE : TEXTE ── */}
+          <div className="flex-1 flex flex-col items-start text-left">
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-        {/* ── GAUCHE : TEXTE ── */}
-        <div className="flex flex-col">
-
-          {/* Status badge */}
-          <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2 mb-8 w-fit">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]" />
-            </span>
-            <span className="text-xs font-semibold text-[#10b981] uppercase tracking-widest">
-              {locale === "fr" ? "Disponible pour des opportunités" : "Open to opportunities"}
-            </span>
-          </motion.div>
-
-          {/* Titre principal */}
-          <motion.h1 {...fadeUp(0.1)} className="text-[clamp(2.8rem,7vw,5.5rem)] font-black leading-[1] tracking-tighter text-white">
-            Oumarou<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b981] to-[#34d399]">
-              Billy
-            </span>
-          </motion.h1>
-
-          {/* Role */}
-          <motion.p {...fadeUp(0.2)} className="mt-5 text-xl font-medium text-[#a3a3a3]">
-            {locale === "fr" ? "Développeur Full-Stack & Étudiant Master IA" : "Full-Stack Developer & AI Master Student"}
-          </motion.p>
-
-          {/* Description */}
-          <motion.p {...fadeUp(0.3)} className="mt-4 text-base text-[#737373] leading-relaxed max-w-lg">
-            {subtitle}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div {...fadeUp(0.4)} className="mt-10 flex flex-wrap gap-4">
-            <a href="#projects"
-              className="group relative inline-flex items-center gap-2 bg-[#10b981] text-[#080808] text-sm font-bold px-6 py-3 rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-              <span className="relative z-10">{locale === "fr" ? "Voir mes projets" : "View my work"}</span>
-              <svg className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a href="#contact"
-              className="inline-flex items-center gap-2 text-sm font-bold text-white px-6 py-3 rounded-full border border-[#1f1f1f] hover:border-[#10b981] hover:text-[#10b981] transition-all duration-300">
-              Contact
-            </a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div {...fadeUp(0.5)} className="mt-14 flex gap-8 pt-8 border-t border-[#1f1f1f]">
-            {[
-              { value: "5+", label: locale === "fr" ? "Projets" : "Projects" },
-              { value: "11+", label: locale === "fr" ? "Technos" : "Tech Stack" },
-              { value: "2", label: locale === "fr" ? "Ans de code" : "Years coding" },
-            ].map(s => (
-              <div key={s.label}>
-                <p className="text-2xl font-black text-white">{s.value}</p>
-                <p className="text-xs text-[#737373] uppercase tracking-wider mt-0.5">{s.label}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* ── DROITE : PHOTO ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-          className="hidden lg:flex justify-center items-center relative"
-        >
-          {/* Halo derrière la photo */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[380px] h-[380px] bg-[#10b981]/10 rounded-full blur-3xl" />
-          </div>
-
-          {/* Cadre photo */}
-          <div className="relative w-[360px] h-[420px] rounded-3xl overflow-hidden border border-[#1f1f1f] shadow-2xl shadow-black/60">
-            <Image
-              src="/me.jpeg"
-              alt="Oumarou Billy"
-              fill
-              className="object-cover"
-              priority
-            />
-            {/* Overlay gradient bas */}
-            <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-[#080808] to-transparent" />
-          </div>
-
-          {/* Badge Tech Stack — flottant */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="absolute -right-4 top-16 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl px-5 py-4 shadow-xl"
-          >
-            <p className="text-xs text-[#737373] uppercase tracking-wider mb-2">Stack</p>
-            <div className="flex flex-col gap-1">
-              {["Next.js", "Flask", "Python AI"].map(t => (
-                <span key={t} className="text-xs font-semibold text-white">{t}</span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Badge Dispo — flottant */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="absolute -left-4 bottom-20 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl px-5 py-3 shadow-xl"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-              <span className="text-xs font-bold text-white">
-                {locale === "fr" ? "Disponible" : "Available"}
+            {/* Badge disponible */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.0 }}
+              className="flex items-center gap-2 mb-8"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
               </span>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">
+                {locale === "fr" ? "Disponible pour des opportunités" : "Open to opportunities"}
+              </span>
+            </motion.div>
+
+            {/* Titre */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tighter text-white"
+            >
+              Oumarou
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300">
+                Billy
+              </span>
+            </motion.h1>
+
+            {/* Sous-titre */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-5 text-lg font-medium text-neutral-400"
+            >
+              {locale === "fr"
+                ? "Développeur Full-Stack · Étudiant Master IA"
+                : "Full-Stack Developer · AI Master Student"}
+            </motion.p>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-4 text-base text-neutral-500 leading-relaxed max-w-md"
+            >
+              {subtitle}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-8 flex flex-wrap gap-4"
+            >
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-bold px-6 py-3 rounded-full transition-colors duration-200 hover:shadow-[0_0_25px_rgba(52,211,153,0.35)]"
+              >
+                {locale === "fr" ? "Voir mes projets" : "View my work"}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 text-sm font-bold text-white px-6 py-3 rounded-full border border-neutral-700 hover:border-emerald-500 hover:text-emerald-400 transition-colors duration-200"
+              >
+                Contact
+              </a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="mt-12 flex items-center gap-10 pt-8 border-t border-neutral-800 w-full"
+            >
+              {[
+                { v: "5+",  l: locale === "fr" ? "Projets"     : "Projects"   },
+                { v: "11+", l: locale === "fr" ? "Technos"     : "Tech Stack" },
+                { v: "2",   l: locale === "fr" ? "Ans de code" : "Yrs coding" },
+              ].map(s => (
+                <div key={s.l}>
+                  <p className="text-2xl font-black text-white">{s.v}</p>
+                  <p className="text-xs text-neutral-500 uppercase tracking-widest mt-0.5">{s.l}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ── DROITE : PHOTO ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative flex-shrink-0 w-[280px] h-[340px] sm:w-[320px] sm:h-[390px] lg:w-[360px] lg:h-[440px]"
+          >
+            {/* Halo */}
+            <div className="absolute inset-0 rounded-3xl bg-emerald-500/10 blur-2xl scale-110" />
+
+            {/* Cadre photo */}
+            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl">
+              <Image
+                src="/me.jpeg"
+                alt="Oumarou Billy"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+              {/* Gradient bas */}
+              <div className="absolute bottom-0 inset-x-0 h-1/4 bg-gradient-to-t from-[#080808] to-transparent" />
             </div>
+
+            {/* Badge Stack */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="absolute -right-4 top-10 bg-[#111] border border-neutral-800 rounded-2xl px-4 py-3 shadow-xl hidden sm:block"
+            >
+              <p className="text-[10px] text-neutral-500 uppercase tracking-wider mb-1.5">Stack</p>
+              {["Next.js", "Flask", "Python AI"].map(t => (
+                <p key={t} className="text-xs font-semibold text-white leading-relaxed">{t}</p>
+              ))}
+            </motion.div>
+
+            {/* Badge Dispo */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+              className="absolute -left-4 bottom-16 bg-[#111] border border-neutral-800 rounded-2xl px-4 py-2.5 shadow-xl hidden sm:block"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-white">
+                  {locale === "fr" ? "Disponible" : "Available"}
+                </span>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+        </div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-5 h-8 border border-[#333] rounded-full flex justify-center pt-1.5"
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-5 h-8 border border-neutral-700 rounded-full flex justify-center pt-1.5"
         >
-          <div className="w-0.5 h-2 bg-[#10b981] rounded-full" />
+          <div className="w-0.5 h-2 bg-emerald-500 rounded-full" />
         </motion.div>
       </motion.div>
     </section>
