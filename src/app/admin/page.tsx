@@ -14,7 +14,6 @@ const emptyProject = (): Omit<Project,"id"> => ({ name_fr:"", name_en:"", descri
 const emptySkill   = (): Omit<Skill,"id">   => ({ name:"", level:50, tooltip_fr:"", tooltip_en:"", order_index:0 });
 const emptyService = (): Omit<Service,"id"> => ({ text_fr:"", text_en:"", order_index:0 });
 
-
 // ─── Zod Schemas ──────────────────────────────────────────────────────────────
 const ProjectSchema = z.object({
   name_fr: z.string().min(2, "Le nom FR doit contenir au moins 2 caractères"),
@@ -40,20 +39,25 @@ const ServiceSchema = z.object({
   order_index: z.number().int("L'ordre doit être un entier"),
 });
 
-// ─── Helpers UI ───────────────────────────────────────────────────────────────
+// ─── Helpers UI Monochrome ───────────────────────────────────────────────────
 const Input = ({ label, value, onChange, type="text", rows=0 }: { label:string; value:string|number; onChange:(v:string)=>void; type?:string; rows?:number }) => (
-  <div className="flex flex-col gap-1">
-    <label className="text-xs text-gray-400">{label}</label>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-[11px] font-mono uppercase tracking-wider text-neutral-400">{label}</label>
     {rows > 0
-      ? <textarea rows={rows} className="bg-gray-700 text-white rounded p-2 text-sm resize-y" value={value} onChange={e=>onChange(e.target.value)} />
-      : <input type={type} className="bg-gray-700 text-white rounded p-2 text-sm" value={value} onChange={e=>onChange(e.target.value)} />
+      ? <textarea rows={rows} className="bg-[#121212] border border-neutral-800 focus:border-white text-white rounded-xl p-3 text-sm resize-y outline-none transition-colors" value={value} onChange={e=>onChange(e.target.value)} />
+      : <input type={type} className="bg-[#121212] border border-neutral-800 focus:border-white text-white rounded-xl p-3 text-sm outline-none transition-colors" value={value} onChange={e=>onChange(e.target.value)} />
     }
   </div>
 );
 
 const Btn = ({ onClick, children, color="blue", disabled=false }: { onClick:()=>void; children:React.ReactNode; color?:string; disabled?:boolean }) => {
-  const colors: Record<string,string> = { blue:"bg-blue-600 hover:bg-blue-700", red:"bg-red-600 hover:bg-red-700", green:"bg-green-600 hover:bg-green-700", gray:"bg-gray-600 hover:bg-gray-700" };
-  return <button onClick={onClick} disabled={disabled} className={`px-3 py-1 rounded text-white text-sm ${colors[color] || colors.blue} disabled:opacity-40`}>{children}</button>;
+  const colors: Record<string,string> = {
+    blue: "bg-white text-black hover:bg-neutral-200",
+    green: "bg-white text-black hover:bg-neutral-200 font-bold",
+    red: "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20",
+    gray: "bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white"
+  };
+  return <button onClick={onClick} disabled={disabled} className={`px-4 py-2 rounded-xl text-xs uppercase tracking-wider font-semibold transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed ${colors[color] || colors.blue}`}>{children}</button>;
 };
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -79,7 +83,6 @@ export default function AdminPage() {
   useEffect(() => {
     const t = localStorage.getItem("portfolio_admin_token") || "";
     if (!t) return;
-    // Verifier si le token JWT est toujours valide cote serveur
     fetch(`${API_URL}/api/auth/verify`, {
       headers: { Authorization: `Bearer ${t}` },
     })
@@ -87,10 +90,10 @@ export default function AdminPage() {
         if (r.ok) setToken(t);
         else {
           localStorage.removeItem("portfolio_admin_token");
-          setLoginErr("Session expiree, reconnectez-vous.");
+          setLoginErr("Session expirée, reconnectez-vous.");
         }
       })
-      .catch(() => setToken(t)); // si API offline, on garde le token
+      .catch(() => setToken(t));
   }, []);
 
   const headers = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${token}` });
@@ -102,7 +105,7 @@ export default function AdminPage() {
       const d = await r.json();
       if (d.token) { setToken(d.token); localStorage.setItem("portfolio_admin_token", d.token); setLoginErr(""); }
       else setLoginErr("Mot de passe incorrect");
-    } catch { setLoginErr("Erreur de connexion avec l API Flask"); }
+    } catch { setLoginErr("Erreur de connexion avec l'API Flask"); }
   };
 
   // ── Fetch all ──────────────────────────────────────────────────────────────
@@ -189,7 +192,7 @@ export default function AdminPage() {
 
   // ── Update Content ─────────────────────────────────────────────────────────
   const saveContent = async (key: string) => {
-    const r = await fetch(`${API_URL}/api/content/${key}`, { method:"PUT", headers:headers(), body: JSON.stringify(content[key]) });
+    const r = await fetch(`${API_URL}/api/content/${key}`, { method:"PUT", headers:headers(), body: JSON.stringify(content[key])});
     if (r.ok) flash("Sauvegardé !");
     else flash("Erreur");
   };
@@ -199,42 +202,85 @@ export default function AdminPage() {
 
   // ── Not logged in ──────────────────────────────────────────────────────────
   if (!token) return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-2xl w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-bold text-white text-center">🔒 Admin</h1>
-        <input type="password" placeholder="Mot de passe" className="w-full bg-gray-700 text-white rounded p-3" value={pwd} onChange={e=>setPwd(e.target.value)} onKeyDown={e=>e.key==="Enter"&&login()} />
-        {loginErr && <p className="text-red-400 text-sm">{loginErr}</p>}
-        <button onClick={login} className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded p-3 font-semibold">Se connecter</button>
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6">
+      <div className="bg-[#121212] border border-neutral-800 p-8 sm:p-10 rounded-3xl w-full max-w-sm space-y-6 shadow-2xl">
+        <div className="text-center space-y-2">
+          <span className="w-10 h-10 rounded-full bg-white text-black font-black text-xs inline-flex items-center justify-center">
+            OB
+          </span>
+          <h1 className="text-xl font-black uppercase tracking-wider text-white">Espace Studio</h1>
+          <p className="text-xs text-neutral-500 font-mono">// Accès gestionnaire sécurisé</p>
+        </div>
+
+        <div className="space-y-4">
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            className="w-full bg-[#181818] border border-neutral-800 focus:border-white text-white rounded-xl p-3.5 text-sm outline-none transition-colors"
+            value={pwd}
+            onChange={e=>setPwd(e.target.value)}
+            onKeyDown={e=>e.key==="Enter"&&login()}
+          />
+          {loginErr && <p className="text-red-400 text-xs font-mono">{loginErr}</p>}
+          <button
+            onClick={login}
+            className="w-full bg-white hover:bg-neutral-200 text-black font-black uppercase tracking-widest text-xs py-3.5 rounded-xl transition-all duration-150 active:scale-[0.99]"
+          >
+            S'authentifier
+          </button>
+        </div>
       </div>
     </div>
   );
 
   const TABS = [
-    { key:"projects", label:"📁 Projets" },
-    { key:"skills",   label:"⚡ Compétences" },
-    { key:"services", label:"🛠️ Services" },
-    { key:"content",  label:"✏️ Textes" },
+    { key:"projects", label:"Projets" },
+    { key:"skills",   label:"Compétences" },
+    { key:"services", label:"Services" },
+    { key:"content",  label:"Textes" },
   ] as const;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">🎛️ Dashboard Portfolio</h1>
-          <div className="flex gap-3 items-center">
-            <a href="/" className="text-sm text-gray-400 hover:text-white">← Portfolio</a>
-            <button onClick={()=>{ localStorage.removeItem("portfolio_admin_token"); setToken(""); }} className="text-sm bg-gray-700 px-3 py-1 rounded">Déconnexion</button>
+    <div className="min-h-screen bg-[#0a0a0a] text-white p-6 sm:p-10 selection:bg-white selection:text-black">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Header Dashboard */}
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-8 pb-6 border-b border-neutral-800">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-500 block mb-1">
+              PORTFOLIO // BACKSTAGE
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">Studio Dashboard</h1>
+          </div>
+
+          <div className="flex gap-4 items-center">
+            <a href="/" className="text-xs uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">
+              ← Voir le site
+            </a>
+            <button
+              onClick={()=>{ localStorage.removeItem("portfolio_admin_token"); setToken(""); }}
+              className="text-xs uppercase tracking-widest bg-neutral-900 border border-neutral-800 hover:border-neutral-700 px-4 py-2 rounded-xl text-neutral-300 transition-colors"
+            >
+              Déconnexion
+            </button>
           </div>
         </div>
 
-        {msg && <div className="bg-green-700 text-white px-4 py-2 rounded mb-4 text-sm">{msg}</div>}
-        {loginErr && <div className="bg-red-700 text-white px-4 py-2 rounded mb-4 text-sm">{loginErr}</div>}
+        {msg && <div className="bg-neutral-800 border border-neutral-700 text-white px-4 py-3 rounded-xl mb-6 text-xs font-mono uppercase tracking-wider">{msg}</div>}
+        {loginErr && <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-6 text-xs font-mono">{loginErr}</div>}
 
-        {/* Tabs */}
-        <div className="flex gap-2 mb-6 flex-wrap">
+        {/* Tabs Stylisées */}
+        <div className="flex gap-2 mb-8 flex-wrap">
           {TABS.map(t => (
-            <button key={t.key} onClick={()=>setTab(t.key)} className={`px-4 py-2 rounded-lg text-sm font-medium ${tab===t.key ? "bg-purple-600 text-white" : "bg-gray-700 text-gray-300 hover:bg-gray-600"}`}>
+            <button
+              key={t.key}
+              onClick={()=>setTab(t.key)}
+              className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                tab===t.key
+                  ? "bg-white text-black shadow-sm"
+                  : "bg-neutral-900 text-neutral-400 border border-neutral-800 hover:text-white hover:border-neutral-700"
+              }`}
+            >
               {t.label}
             </button>
           ))}
@@ -243,12 +289,16 @@ export default function AdminPage() {
         {/* ── PROJETS ── */}
         {tab === "projects" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Projets ({projects.length})</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-black uppercase tracking-wider">Projets Répertoire ({projects.length})</h2>
+            </div>
 
             {/* Formulaire ajout */}
-            <div className="bg-gray-800 p-5 rounded-xl space-y-3">
-              <h3 className="font-medium text-green-400">+ Nouveau projet</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-[#121212] border border-neutral-800 p-6 rounded-2xl space-y-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 block border-b border-neutral-800 pb-2">
+                + Nouveau projet
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input label="Nom FR" value={newProject.name_fr} onChange={v=>setNewProject(p=>({...p,name_fr:v}))} />
                 <Input label="Nom EN" value={newProject.name_en} onChange={v=>setNewProject(p=>({...p,name_en:v}))} />
                 <Input label="Description FR" value={newProject.description_fr} onChange={v=>setNewProject(p=>({...p,description_fr:v}))} rows={2} />
@@ -257,166 +307,208 @@ export default function AdminPage() {
                 <Input label="Lien" value={newProject.link} onChange={v=>setNewProject(p=>({...p,link:v}))} />
                 <Input label="Ordre" type="number" value={newProject.order_index} onChange={v=>setNewProject(p=>({...p,order_index:+v}))} />
               </div>
-              <Btn onClick={addProject} color="green">Ajouter</Btn>
+              <div className="pt-2">
+                <Btn onClick={addProject} color="green">Enregistrer le projet</Btn>
+              </div>
             </div>
 
             {/* Liste projets */}
-            {projects.map(p => (
-              <div key={p.id} className="bg-gray-800 p-4 rounded-xl">
-                {editing[p.id] ? (
-                  <div className="space-y-3">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <Input label="Nom FR" value={p.name_fr} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,name_fr:v}:x))} />
-                      <Input label="Nom EN" value={p.name_en} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,name_en:v}:x))} />
-                      <Input label="Description FR" value={p.description_fr} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,description_fr:v}:x))} rows={3} />
-                      <Input label="Description EN" value={p.description_en} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,description_en:v}:x))} rows={3} />
-                      <Input label="Stack" value={Array.isArray(p.stack)?p.stack.join(", "):(p.stack as unknown as string)} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,stack:v as unknown as string[]}:x))} />
-                      <Input label="Lien" value={p.link} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,link:v}:x))} />
-                      <Input label="Ordre" type="number" value={p.order_index} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,order_index:+v}:x))} />
+            <div className="grid grid-cols-1 gap-4">
+              {projects.map(p => (
+                <div key={p.id} className="bg-[#121212] border border-neutral-800/80 rounded-2xl p-5">
+                  {editing[p.id] ? (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input label="Nom FR" value={p.name_fr} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,name_fr:v}:x))} />
+                        <Input label="Nom EN" value={p.name_en} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,name_en:v}:x))} />
+                        <Input label="Description FR" value={p.description_fr} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,description_fr:v}:x))} rows={3} />
+                        <Input label="Description EN" value={p.description_en} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,description_en:v}:x))} rows={3} />
+                        <Input label="Stack" value={Array.isArray(p.stack)?p.stack.join(", "):(p.stack as unknown as string)} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,stack:v as unknown as string[]}:x))} />
+                        <Input label="Lien" value={p.link} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,link:v}:x))} />
+                        <Input label="Ordre" type="number" value={p.order_index} onChange={v=>setProjects(ps=>ps.map(x=>x.id===p.id?{...x,order_index:+v}:x))} />
+                      </div>
+                      <div className="flex gap-2">
+                        <Btn onClick={()=>saveProject(p)} color="green">Sauvegarder</Btn>
+                        <Btn onClick={()=>setEditing(e=>({...e,[p.id]:false}))} color="gray">Annuler</Btn>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Btn onClick={()=>saveProject(p)} color="green">💾 Sauvegarder</Btn>
-                      <Btn onClick={()=>setEditing(e=>({...e,[p.id]:false}))} color="gray">Annuler</Btn>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-neutral-500">#{p.order_index}</span>
+                          <p className="font-bold text-base text-white tracking-tight">{p.name_fr} / {p.name_en}</p>
+                        </div>
+                        <p className="text-neutral-400 text-xs mt-1.5 line-clamp-2 max-w-2xl">{p.description_fr}</p>
+                        <div className="flex flex-wrap gap-1.5 mt-3">
+                          {(Array.isArray(p.stack) ? p.stack : [p.stack]).map((st, i) => (
+                            <span key={i} className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400">
+                              {st}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <Btn onClick={()=>setEditing(e=>({...e,[p.id]:true}))} color="gray">Modifier</Btn>
+                        <Btn onClick={()=>delProject(p.id)} color="red">Supprimer</Btn>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="font-semibold">{p.name_fr} / {p.name_en}</p>
-                      <p className="text-gray-400 text-sm mt-1">{p.description_fr.slice(0,80)}…</p>
-                      <p className="text-xs text-purple-400 mt-1">{Array.isArray(p.stack)?p.stack.join(", "):p.stack}</p>
-                    </div>
-                    <div className="flex gap-2 flex-shrink-0">
-                      <Btn onClick={()=>setEditing(e=>({...e,[p.id]:true}))} color="blue">✏️</Btn>
-                      <Btn onClick={()=>delProject(p.id)} color="red">🗑️</Btn>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
         {/* ── SKILLS ── */}
         {tab === "skills" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Compétences ({skills.length})</h2>
+            <h2 className="text-lg font-black uppercase tracking-wider">Arsenal Technique ({skills.length})</h2>
 
-            <div className="bg-gray-800 p-5 rounded-xl space-y-3">
-              <h3 className="font-medium text-green-400">+ Nouvelle compétence</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-[#121212] border border-neutral-800 p-6 rounded-2xl space-y-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 block border-b border-neutral-800 pb-2">
+                + Nouvelle compétence
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input label="Nom" value={newSkill.name} onChange={v=>setNewSkill(s=>({...s,name:v}))} />
                 <Input label="Niveau (0-100)" type="number" value={newSkill.level} onChange={v=>setNewSkill(s=>({...s,level:Math.min(100,Math.max(0,+v))}))} />
                 <Input label="Infobulle FR" value={newSkill.tooltip_fr} onChange={v=>setNewSkill(s=>({...s,tooltip_fr:v}))} />
                 <Input label="Infobulle EN" value={newSkill.tooltip_en} onChange={v=>setNewSkill(s=>({...s,tooltip_en:v}))} />
                 <Input label="Ordre" type="number" value={newSkill.order_index} onChange={v=>setNewSkill(s=>({...s,order_index:+v}))} />
               </div>
-              <Btn onClick={addSkill} color="green">Ajouter</Btn>
+              <div className="pt-2">
+                <Btn onClick={addSkill} color="green">Ajouter la compétence</Btn>
+              </div>
             </div>
 
-            {skills.map(s => (
-              <div key={s.id} className="bg-gray-800 p-4 rounded-xl">
-                {editing[s.id] ? (
-                  <div className="space-y-3">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <Input label="Nom" value={s.name} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,name:v}:x))} />
-                      <Input label="Niveau" type="number" value={s.level} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,level:+v}:x))} />
-                      <Input label="Infobulle FR" value={s.tooltip_fr} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_fr:v}:x))} />
-                      <Input label="Infobulle EN" value={s.tooltip_en} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_en:v}:x))} />
-                      <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
-                    </div>
-                    <div className="flex gap-2">
-                      <Btn onClick={()=>saveSkill(s)} color="green">💾 Sauvegarder</Btn>
-                      <Btn onClick={()=>setEditing(e=>({...e,[s.id]:false}))} color="gray">Annuler</Btn>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">{s.name}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <div className="h-2 bg-gray-600 rounded-full w-32">
-                          <div className="h-2 bg-purple-500 rounded-full" style={{width:`${s.level}%`}} />
-                        </div>
-                        <span className="text-sm text-gray-400">{s.level}%</span>
+            <div className="grid grid-cols-1 gap-4">
+              {skills.map(s => (
+                <div key={s.id} className="bg-[#121212] border border-neutral-800/80 rounded-2xl p-5">
+                  {editing[s.id] ? (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input label="Nom" value={s.name} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,name:v}:x))} />
+                        <Input label="Niveau" type="number" value={s.level} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,level:+v}:x))} />
+                        <Input label="Infobulle FR" value={s.tooltip_fr} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_fr:v}:x))} />
+                        <Input label="Infobulle EN" value={s.tooltip_en} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_en:v}:x))} />
+                        <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
+                      </div>
+                      <div className="flex gap-2">
+                        <Btn onClick={()=>saveSkill(s)} color="green">Sauvegarder</Btn>
+                        <Btn onClick={()=>setEditing(e=>({...e,[s.id]:false}))} color="gray">Annuler</Btn>
                       </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="blue">✏️</Btn>
-                      <Btn onClick={()=>delSkill(s.id)} color="red">🗑️</Btn>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-neutral-500">#{s.order_index}</span>
+                          <p className="font-bold text-base text-white">{s.name}</p>
+                        </div>
+                        <div className="flex items-center gap-3 mt-2">
+                          <div className="h-1.5 bg-neutral-800 rounded-full w-40 overflow-hidden">
+                            <div className="h-full bg-white rounded-full" style={{width:`${s.level}%`}} />
+                          </div>
+                          <span className="text-xs font-mono text-neutral-400">{s.level}%</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="gray">Modifier</Btn>
+                        <Btn onClick={()=>delSkill(s.id)} color="red">Supprimer</Btn>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
         {/* ── SERVICES ── */}
         {tab === "services" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Services ({services.length})</h2>
+            <h2 className="text-lg font-black uppercase tracking-wider">Catalogue Services ({services.length})</h2>
 
-            <div className="bg-gray-800 p-5 rounded-xl space-y-3">
-              <h3 className="font-medium text-green-400">+ Nouveau service</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-[#121212] border border-neutral-800 p-6 rounded-2xl space-y-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 block border-b border-neutral-800 pb-2">
+                + Nouveau service
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input label="Texte FR" value={newService.text_fr} onChange={v=>setNewService(s=>({...s,text_fr:v}))} />
                 <Input label="Texte EN" value={newService.text_en} onChange={v=>setNewService(s=>({...s,text_en:v}))} />
                 <Input label="Ordre" type="number" value={newService.order_index} onChange={v=>setNewService(s=>({...s,order_index:+v}))} />
               </div>
-              <Btn onClick={addService} color="green">Ajouter</Btn>
+              <div className="pt-2">
+                <Btn onClick={addService} color="green">Ajouter le service</Btn>
+              </div>
             </div>
 
-            {services.map(s => (
-              <div key={s.id} className="bg-gray-800 p-4 rounded-xl">
-                {editing[s.id] ? (
-                  <div className="space-y-3">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <Input label="Texte FR" value={s.text_fr} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_fr:v}:x))} />
-                      <Input label="Texte EN" value={s.text_en} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_en:v}:x))} />
-                      <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
+            <div className="grid grid-cols-1 gap-4">
+              {services.map(s => (
+                <div key={s.id} className="bg-[#121212] border border-neutral-800/80 rounded-2xl p-5">
+                  {editing[s.id] ? (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input label="Texte FR" value={s.text_fr} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_fr:v}:x))} />
+                        <Input label="Texte EN" value={s.text_en} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_en:v}:x))} />
+                        <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
+                      </div>
+                      <div className="flex gap-2">
+                        <Btn onClick={()=>saveService(s)} color="green">Sauvegarder</Btn>
+                        <Btn onClick={()=>setEditing(e=>({...e,[s.id]:false}))} color="gray">Annuler</Btn>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <Btn onClick={()=>saveService(s)} color="green">💾 Sauvegarder</Btn>
-                      <Btn onClick={()=>setEditing(e=>({...e,[s.id]:false}))} color="gray">Annuler</Btn>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-neutral-500">#{s.order_index}</span>
+                          <p className="font-bold text-white text-sm">{s.text_fr}</p>
+                        </div>
+                        <p className="text-neutral-500 text-xs mt-1 font-mono">{s.text_en}</p>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="gray">Modifier</Btn>
+                        <Btn onClick={()=>delService(s.id)} color="red">Supprimer</Btn>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">{s.text_fr}</p>
-                      <p className="text-gray-400 text-sm">{s.text_en}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="blue">✏️</Btn>
-                      <Btn onClick={()=>delService(s.id)} color="red">🗑️</Btn>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        {/* ── TEXTES ── */}
+        {/* ── TEXTES DU SITE ── */}
         {tab === "content" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Textes du portfolio</h2>
-            <p className="text-gray-400 text-sm">Modifie les textes du Hero, About et Footer directement ici.</p>
+            <div>
+              <h2 className="text-lg font-black uppercase tracking-wider">Textes & Éditoriaux</h2>
+              <p className="text-neutral-500 text-xs font-mono mt-1">// Modifiez les contenus du Hero, About et Footer.</p>
+            </div>
 
-            {Object.entries(content).map(([key, val]) => (
-              <div key={key} className="bg-gray-800 p-5 rounded-xl space-y-3">
-                <h3 className="font-medium text-purple-400 capitalize">{key.replace(/_/g," ")}</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <Input label="Français" value={val.value_fr} onChange={v=>updateContent(key,"value_fr",v)} rows={3} />
-                  <Input label="English" value={val.value_en} onChange={v=>updateContent(key,"value_en",v)} rows={3} />
+            <div className="grid grid-cols-1 gap-6">
+              {Object.entries(content).map(([key, val]) => (
+                <div key={key} className="bg-[#121212] border border-neutral-800 p-6 rounded-2xl space-y-4">
+                  <div className="flex items-center justify-between border-b border-neutral-800 pb-2">
+                    <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-300 font-bold">{key.replace(/_/g," ")}</h3>
+                    <span className="text-[10px] font-mono text-neutral-500">[DYNAMIC_FIELD]</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Input label="Français" value={val.value_fr} onChange={v=>updateContent(key,"value_fr",v)} rows={3} />
+                    <Input label="English" value={val.value_en} onChange={v=>updateContent(key,"value_en",v)} rows={3} />
+                  </div>
+                  <div className="pt-2">
+                    <Btn onClick={()=>saveContent(key)} color="green">Sauvegarder les modifications</Btn>
+                  </div>
                 </div>
-                <Btn onClick={()=>saveContent(key)} color="green">💾 Sauvegarder</Btn>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
+
       </div>
     </div>
   );
 }
+

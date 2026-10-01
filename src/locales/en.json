@@ -1,53 +1,52 @@
 {
   "heroBadge": "AI Master’s Student • Fullstack Developer",
   "heroTitle": "OUMAROU BILLY — Building, learning, and creating intelligent solutions",
-  "heroSubtitle": "AI Master’s student and fullstack developer building web, mobile, and intelligent systems through real-world projects. My goal is to learn by building useful solutions that solve practical problems.",
+  "heroSubtitle": "AI Master’s student and fullstack developer designing modern web architectures, scalable services, and intelligent models based on real-world engineering challenges.",
 
   "aboutTitle": "About Me",
-  "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I design complete applications  from backend architecture to modern frontend interfaces, while continuously strengthening my AI skills through practical projects. My goal is to create scalable and useful solutions that address real challenges, especially within the African tech ecosystem, while growing as an engineer.",
+  "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I build complete applications from backend architecture to high-fidelity frontend interfaces, while continuously advancing my applied AI research. My goal is to build reliable, scalable, and impactful solutions aligned with modern tech demands.",
 
-  "servicesTitle": "What I Can Do",
+  "servicesTitle": "Services & Core Expertise",
   "servicesList": [
-    "Build responsive web and mobile applications",
-    "Develop robust APIs",
-    "Integrate real AI models (NLP, CV)",
-    "Optimize user experiences"
+    "Architecture and engineering of modern web & mobile applications",
+    "Design and implementation of robust, scalable REST APIs",
+    "Integration of applied machine learning and deep learning models (NLP, CV)",
+    "Performance optimization and high-fidelity user experiences"
   ],
 
-  "skillsTitle": "Skills",
+  "skillsTitle": "Technical Arsenal",
   "skillsList": [
-    { "name": "Next.js", "level": 85, "tooltip": "Modern React framework for SSR/SSG" },
-    { "name": "React", "level": 65, "tooltip": "Main library for web UI" },
-    { "name": "Tailwind CSS", "level": 80, "tooltip": "Fast utility-first CSS framework" },
-    { "name": "TypeScript", "level": 75, "tooltip": "Static typing for JS" },
-    { "name": "Django + DRF", "level": 70, "tooltip": "Python backend for RESTful APIs" },
-    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Machine learning and deep learning" },
-    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "AI projects on text and images" },
-    { "name": "Databases (PostgreSQL, MongoDB, MySQL, SQLServer)", "level": 75, "tooltip": "Relational and NoSQL databases" },
-    { "name": "Git", "level": 70, "tooltip": "Version control and collaboration" },
-    { "name": "GitHub", "level": 70, "tooltip": "Git hosting and workflow management" },
-    { "name": "WordPress", "level": 50, "tooltip": "CMS website development" }
+    { "name": "Next.js", "level": 85, "tooltip": "Modern React framework for SSR/SSG workflows" },
+    { "name": "React", "level": 65, "tooltip": "Core library for building interactive web UI" },
+    { "name": "Tailwind CSS", "level": 80, "tooltip": "Utility-first framework for rapid responsive design" },
+    { "name": "TypeScript", "level": 75, "tooltip": "Static typing and robust application structure" },
+    { "name": "Django + DRF", "level": 70, "tooltip": "Python backend services and RESTful APIs" },
+    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Applied machine learning and neural networks" },
+    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "Natural language processing and vision algorithms" },
+    { "name": "Databases (PostgreSQL, MongoDB, MySQL)", "level": 75, "tooltip": "Optimized relational and NoSQL data modeling" },
+    { "name": "Git & Collaborative Workflow", "level": 70, "tooltip": "Version control, code reviews and CI integration" },
+    { "name": "GitHub & CI/CD", "level": 70, "tooltip": "Automated builds, testing and cloud deployment" },
+    { "name": "WordPress & Headless CMS", "level": 50, "tooltip": "Dynamic and scalable content management systems" }
   ],
 
-  "projectsTitle": "Projects",
+  "projectsTitle": "Selected Work",
   "project1Name": "Medical Blog",
-  "project1Desc": "A medical content platform allowing users to interact through comments and likes without requiring account creation.",
+  "project1Desc": "A medical publication platform enabling direct interactions and reading clarity with a frictionless user flow.",
   "project2Name": "Rentify",
-  "project2Desc": "A web and mobile property management platform integrating communication, administration, and tenant-owner workflows.",
+  "project2Desc": "A web and mobile property management platform centralizing communication, leasing, and accounting between owners and tenants.",
   "project3Name": "Forum-Discussion",
-  "project3Desc": "A real-time discussion platform for students with private messaging and collaborative features.",
+  "project3Desc": "A real-time student discussion platform with private channels and community collaboration.",
   "project4Name": "Election Management",
-  "project4Desc": "A team-based election and event management system with a frontend focused on user experience.",
-  "project5Name": "CV Analyzer",
-  "project5Desc": "A small AI model I wrote in Python to analyze your CV, identify missing elements, and suggest improvements.",
+  "project4Desc": "An election and event management platform developed with strong emphasis on interface simplicity and transaction reliability.",
+  "project5Name": "AI CV Analyzer",
+  "project5Desc": "A semantic analysis tool written in Python to audit resumes, extract key traits, and suggest targeted improvements.",
 
-
-  "contactTitle": "Contact Me",
+  "contactTitle": "Let's Connect",
   "contactName": "Your Name",
   "contactEmail": "Your Email",
   "contactMessage": "Your Message",
   "contactSubmit": "Send Message",
   "contactThanks": "Thank you! Your message has been sent.",
 
-  "footerText": "© 2026 Oumarou Billy — Personal Portfolio."
+  "footerText": "© 2026 Oumarou Billy — Monochrome Editorial Portfolio."
 }

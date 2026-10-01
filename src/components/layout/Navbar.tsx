@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,75 +13,102 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    const fn = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const links = [
-    { label: locale === "fr" ? "Projets"     : "Projects", href: "#projects" },
-    { label: locale === "fr" ? "Compétences" : "Skills",   href: "#skills"   },
-    { label: locale === "fr" ? "À propos"    : "About",    href: "#about"    },
-    { label: "Contact",                                      href: "#contact"  },
+    { label: locale === "fr" ? "Projets" : "Projects", href: "#projects" },
+    { label: locale === "fr" ? "Compétences" : "Skills", href: "#skills" },
+    { label: locale === "fr" ? "À propos" : "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
   ];
 
   return (
     <header
       className={[
-        "fixed top-0 inset-x-0 z-50 transition-all duration-500",
-        scrolled ? "bg-[#080808]/95 backdrop-blur-md border-b border-neutral-800" : "",
+        "fixed top-0 inset-x-0 z-50 transition-all duration-300",
+        scrolled
+          ? "bg-[#0c0c0c]/90 backdrop-blur-md border-b border-neutral-800/80 py-3.5"
+          : "bg-transparent py-5",
       ].join(" ")}
     >
-      <div className="max-w-6xl mx-auto px-6 md:px-16 h-16 flex items-center justify-between gap-8">
-
-        {/* Logo */}
-        <Link href={`/${locale}`} className="flex items-center gap-2 shrink-0">
-          <span className="text-emerald-400 font-black text-xl tracking-tight">OB.</span>
-          <span className="hidden sm:block text-neutral-600 text-sm font-light">portfolio</span>
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 flex items-center justify-between">
+        
+        {/* LOGO STYLE ÉDITORIAL / MAGAZINE */}
+        <Link href={`/${locale}`} className="flex items-center gap-2 group">
+          <span className="font-black text-xl tracking-tighter text-white uppercase group-hover:opacity-75 transition-opacity">
+            OB.
+          </span>
+          <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-[0.25em] text-neutral-500 pl-2 border-l border-neutral-800">
+            Portfolio
+          </span>
         </Link>
 
-        {/* Nav desktop */}
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map(l => (
-            <a key={l.href} href={l.href}
-              className="relative text-sm text-neutral-400 hover:text-white transition-colors duration-200 group">
+        {/* NAVIGATION DESKTOP ÉPURÉE */}
+        <nav className="hidden md:flex items-center gap-10">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-xs uppercase font-bold tracking-[0.18em] text-neutral-400 hover:text-white transition-colors duration-200"
+            >
               {l.label}
-              <span className="absolute -bottom-0.5 left-0 w-0 group-hover:w-full h-px bg-emerald-500 transition-all duration-300" />
             </a>
           ))}
         </nav>
 
-        {/* Droite : langue + burger */}
-        <div className="flex items-center gap-4 shrink-0">
-          <Link href={otherPath}
-            className="text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-emerald-400 transition-colors duration-200">
+        {/* ACTIONS : SÉLECTEUR DE LANGUE & BURGER */}
+        <div className="flex items-center gap-5">
+          <Link
+            href={otherPath}
+            className="text-[11px] font-bold uppercase tracking-widest text-neutral-400 hover:text-white px-3 py-1 rounded-full border border-neutral-800 hover:border-neutral-600 transition-all"
+          >
             {other}
           </Link>
+
           <button
-            onClick={() => setOpen(v => !v)}
-            className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+            onClick={() => setOpen((v) => !v)}
+            className="md:hidden flex flex-col justify-center items-center gap-1.5 w-9 h-9 rounded-full border border-neutral-800 text-white"
             aria-label="Menu"
           >
-            <span className={`block h-px w-5 bg-white transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block h-px w-5 bg-white transition-all duration-200 ${open ? "opacity-0 scale-x-0" : ""}`} />
-            <span className={`block h-px w-5 bg-white transition-all duration-300 origin-center ${open ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <span
+              className={`block h-[1.5px] w-4 bg-white transition-all duration-300 origin-center ${
+                open ? "rotate-45 translate-y-[4.5px]" : ""
+              }`}
+            />
+            <span
+              className={`block h-[1.5px] w-4 bg-white transition-all duration-200 ${
+                open ? "opacity-0 scale-x-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-[1.5px] w-4 bg-white transition-all duration-300 origin-center ${
+                open ? "-rotate-45 -translate-y-[4.5px]" : ""
+              }`}
+            />
           </button>
         </div>
       </div>
 
-      {/* Menu mobile */}
+      {/* MENU MOBILE DÉROULANT */}
       <AnimatePresence>
         {open && (
           <motion.nav
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-[#0a0a0a] border-t border-neutral-800"
+            className="md:hidden bg-[#0c0c0c] border-b border-neutral-800 px-6 py-6"
           >
-            <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-4">
-              {links.map(l => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)}
-                  className="text-base text-neutral-300 hover:text-white py-2 transition-colors">
+            <div className="flex flex-col gap-4">
+              {links.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm uppercase tracking-widest font-bold text-neutral-300 hover:text-white py-2 border-b border-neutral-900"
+                >
                   {l.label}
                 </a>
               ))}
@@ -91,3 +119,4 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
     </header>
   );
 }
+

@@ -1,5 +1,6 @@
-// Container is now a no-op wrapper — each section manages its own max-width
+// Container conservé comme wrapper transparent pour préserver l'agencement individuel des sections
 type Props = { children: React.ReactNode };
+
 export default function Container({ children }: Props) {
   return <>{children}</>;
 }

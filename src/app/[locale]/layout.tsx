@@ -15,11 +15,12 @@ export default async function LocaleLayout({ children, params }: Props) {
   const safeLocale: "en" | "fr" = locale === "fr" ? "fr" : "en";
 
   return (
-    <>
-      <PortfolioProvider locale={safeLocale}>
+    <PortfolioProvider locale={safeLocale}>
+      <div className="relative w-full min-h-screen bg-[#0c0c0c] text-white">
         <Navbar locale={safeLocale} />
         {children}
-      </PortfolioProvider>
-    </>
+      </div>
+    </PortfolioProvider>
   );
 }
+

@@ -21,7 +21,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <PageTransition>
-      <main>
+      <main className="w-full bg-[#0c0c0c] text-white flex flex-col selection:bg-white selection:text-black">
         <Container>
           <Hero locale={safeLocale} />
           <About locale={safeLocale} />
@@ -35,3 +35,4 @@ export default async function Home({ params }: Props) {
     </PageTransition>
   );
 }
+

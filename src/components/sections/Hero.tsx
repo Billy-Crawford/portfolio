@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { usePortfolio } from "@/context/PortfolioContext";
@@ -10,195 +11,218 @@ type Props = { locale: string };
 export default function Hero({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content } = usePortfolio();
-  const subtitle = locale === "fr"
-    ? (content?.hero_subtitle?.value_fr ?? t.heroSubtitle)
-    : (content?.hero_subtitle?.value_en ?? t.heroSubtitle);
+  const subtitle =
+    locale === "fr"
+      ? (content?.hero_subtitle?.value_fr ?? t.heroSubtitle)
+      : (content?.hero_subtitle?.value_en ?? t.heroSubtitle);
 
   return (
     <section
       id="home"
-      className="relative w-full min-h-screen bg-[#080808] overflow-hidden flex items-center"
+      className="relative w-full min-h-screen bg-[#0d0d0d] flex items-center justify-center p-3 sm:p-6 lg:p-10 select-none overflow-hidden"
     >
-      {/* Glow haut gauche */}
-      <div className="pointer-events-none absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-emerald-500/5 blur-[120px]" />
-      {/* Glow bas droite */}
-      <div className="pointer-events-none absolute -bottom-48 -right-48 w-[400px] h-[400px] rounded-full bg-emerald-500/5 blur-[100px]" />
-      {/* Grille de fond */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03] bg-[linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] bg-[size:60px_60px]" />
+      {/* CADRE PRINCIPAL BLANC/GRIS ÉDITORIAL (Inspiré de l'image 1) */}
+      <div className="relative w-full max-w-[1400px] min-h-[92vh] bg-[#ebebeb] text-[#121212] rounded-[32px] sm:rounded-[44px] shadow-[0_25px_70px_rgba(0,0,0,0.55)] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-14">
+        
+        {/* FILIGRANE GÉANT D'ARRIÈRE-PLAN */}
+        <div className="absolute top-6 right-8 text-[12vw] sm:text-[14vw] font-black text-black/[0.035] leading-none pointer-events-none select-none tracking-tighter">
+          OB
+        </div>
 
-      {/* CONTENU CENTRÉ */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-16 pt-24 pb-16">
-        <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16">
+        {/* LIGNE SUPÉRIEURE : EN-TÊTE INTÉGRÉ AU HERO */}
+        <div className="relative z-20 flex items-center justify-between w-full">
+          <div className="flex items-center gap-3">
+            <span className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-black text-xs tracking-tighter shadow-md">
+              OB
+            </span>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 hidden sm:inline-block">
+              Portfolio
+            </span>
+          </div>
 
-          {/* ── GAUCHE : TEXTE ── */}
-          <div className="flex-1 flex flex-col items-start text-left">
+          <div className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-40" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-black" />
+            </span>
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-neutral-600">
+              {locale === "fr" ? "Disponible" : "Open for work"}
+            </span>
+          </div>
+        </div>
 
-            {/* Badge disponible */}
+        {/* CŒUR DU HERO : TEXTES + PORTRAIT ARTISTIQUE + TAGS FLOTTANTS */}
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto py-8">
+          
+          {/* COLONNE GAUCHE : IDENTITÉ & DESCRIPTION */}
+          <div className="lg:col-span-4 flex flex-col justify-center order-2 lg:order-1">
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.0 }}
-              className="flex items-center gap-2 mb-8"
+              transition={{ duration: 0.6 }}
             >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-              </span>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">
-                {locale === "fr" ? "Disponible pour des opportunités" : "Open to opportunities"}
-              </span>
+              <h1 className="text-5xl sm:text-6xl xl:text-7xl font-black tracking-tight text-black leading-[0.9]">
+                Oumarou
+                <span className="block text-neutral-500 font-extrabold mt-1">Billy</span>
+              </h1>
+              
+              <p className="mt-3 text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
+                {locale === "fr"
+                  ? "Développeur Full-Stack · Étudiant Master IA"
+                  : "Full-Stack Developer · AI Master Student"}
+              </p>
             </motion.div>
 
-            {/* Titre */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tighter text-white"
-            >
-              Oumarou
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300">
-                Billy
-              </span>
-            </motion.h1>
-
-            {/* Sous-titre */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-5 text-lg font-medium text-neutral-400"
-            >
-              {locale === "fr"
-                ? "Développeur Full-Stack · Étudiant Master IA"
-                : "Full-Stack Developer · AI Master Student"}
-            </motion.p>
-
-            {/* Description */}
-            <motion.p
+            {/* BLOC DESCRIPTION FORMATÉ TYPE FICHE DE PERSONNAGE */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-4 text-base text-neutral-500 leading-relaxed max-w-md"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-8 pt-6 border-t border-black/10 max-w-sm"
             >
-              {subtitle}
-            </motion.p>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-neutral-400 block mb-2">
+                {locale === "fr" ? "Profil" : "Summary"}
+              </span>
+              <p className="text-xs sm:text-sm leading-relaxed text-neutral-700 font-medium">
+                {subtitle}
+              </p>
+            </motion.div>
 
-            {/* CTAs */}
+            {/* ACTIONS */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-8 flex flex-wrap gap-4"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-8 flex items-center gap-3"
             >
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-bold px-6 py-3 rounded-full transition-colors duration-200 hover:shadow-[0_0_25px_rgba(52,211,153,0.35)]"
+                className="inline-flex items-center gap-2 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-6 py-3.5 rounded-full transition-all duration-200 active:scale-95 shadow-sm"
               >
-                {locale === "fr" ? "Voir mes projets" : "View my work"}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {locale === "fr" ? "Voir les projets" : "Explore work"}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
+
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 text-sm font-bold text-white px-6 py-3 rounded-full border border-neutral-700 hover:border-emerald-500 hover:text-emerald-400 transition-colors duration-200"
+                className="inline-flex items-center gap-2 bg-white/70 hover:bg-white text-black border border-black/15 text-xs font-bold px-5 py-3.5 rounded-full transition-all duration-200 active:scale-95"
               >
                 Contact
               </a>
             </motion.div>
+          </div>
 
-            {/* Stats */}
+          {/* COLONNE CENTRALE : PORTRAIT DÉTOURÉ/MONOCHROME & BADGES FLOTTANTS */}
+          <div className="lg:col-span-7 flex justify-center items-center relative order-1 lg:order-2">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-              className="mt-12 flex items-center gap-10 pt-8 border-t border-neutral-800 w-full"
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative w-[280px] h-[360px] sm:w-[370px] sm:h-[480px] xl:w-[430px] xl:h-[540px]"
             >
-              {[
-                { v: "5+",  l: locale === "fr" ? "Projets"     : "Projects"   },
-                { v: "11+", l: locale === "fr" ? "Technos"     : "Tech Stack" },
-                { v: "2",   l: locale === "fr" ? "Ans de code" : "Yrs coding" },
-              ].map(s => (
-                <div key={s.l}>
-                  <p className="text-2xl font-black text-white">{s.v}</p>
-                  <p className="text-xs text-neutral-500 uppercase tracking-widest mt-0.5">{s.l}</p>
+              {/* Image en dégradé de gris contrasté */}
+              <div className="relative w-full h-full rounded-[28px] overflow-hidden grayscale contrast-125 shadow-2xl bg-neutral-300">
+                <Image
+                  src="/me.jpeg"
+                  alt="Oumarou Billy"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                />
+                {/* Dégradé doux d'intégration vers le bas */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#ebebeb]/80 via-transparent to-transparent opacity-90" />
+              </div>
+
+              {/* BADGE FLOTTANT 1 : HAUT DROITE */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="absolute -right-3 sm:-right-8 top-12 bg-white/90 backdrop-blur-md border border-black/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-black" />
+                <span className="text-[11px] font-bold tracking-tight text-black">
+                  Next.js & Full-Stack
+                </span>
+              </motion.div>
+
+              {/* BADGE FLOTTANT 2 : BAS DROITE */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="absolute -right-2 sm:-right-6 bottom-16 bg-white/90 backdrop-blur-md border border-black/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-black" />
+                <span className="text-[11px] font-bold tracking-tight text-black">
+                  Python AI & Flask
+                </span>
+              </motion.div>
+
+              {/* BADGE STATS COMPACT : BAS GAUCHE */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="absolute -left-3 sm:-left-6 bottom-8 bg-black text-white rounded-2xl p-3 sm:p-4 shadow-xl flex items-center gap-4"
+              >
+                <div>
+                  <p className="text-xl font-black leading-none">5+</p>
+                  <p className="text-[9px] uppercase tracking-wider text-neutral-400 mt-0.5">Projects</p>
                 </div>
-              ))}
+                <div className="w-[1px] h-6 bg-neutral-800" />
+                <div>
+                  <p className="text-xl font-black leading-none">2+</p>
+                  <p className="text-[9px] uppercase tracking-wider text-neutral-400 mt-0.5">Years exp</p>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
 
-          {/* ── DROITE : PHOTO ── */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex-shrink-0 w-[280px] h-[340px] sm:w-[320px] sm:h-[390px] lg:w-[360px] lg:h-[440px]"
-          >
-            {/* Halo */}
-            <div className="absolute inset-0 rounded-3xl bg-emerald-500/10 blur-2xl scale-110" />
-
-            {/* Cadre photo */}
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl">
-              <Image
-                src="/me.jpeg"
-                alt="Oumarou Billy"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-              {/* Gradient bas */}
-              <div className="absolute bottom-0 inset-x-0 h-1/4 bg-gradient-to-t from-[#080808] to-transparent" />
+          {/* COLONNE DROITE : PAGINATION STYLE CAROUSEL (Image 1) */}
+          <div className="hidden lg:flex lg:col-span-1 flex-col items-center justify-center gap-4 order-3">
+            <span className="text-[11px] font-bold text-neutral-400 font-mono">01</span>
+            <div className="flex flex-col items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full border-2 border-black flex items-center justify-center">
+                <span className="w-1 h-1 rounded-full bg-black" />
+              </span>
+              <span className="w-1 h-1 rounded-full bg-neutral-400" />
+              <span className="w-1 h-1 rounded-full bg-neutral-400" />
+              <span className="w-1 h-1 rounded-full bg-neutral-400" />
+              <span className="w-1 h-1 rounded-full bg-neutral-400" />
             </div>
-
-            {/* Badge Stack */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="absolute -right-4 top-10 bg-[#111] border border-neutral-800 rounded-2xl px-4 py-3 shadow-xl hidden sm:block"
-            >
-              <p className="text-[10px] text-neutral-500 uppercase tracking-wider mb-1.5">Stack</p>
-              {["Next.js", "Flask", "Python AI"].map(t => (
-                <p key={t} className="text-xs font-semibold text-white leading-relaxed">{t}</p>
-              ))}
-            </motion.div>
-
-            {/* Badge Dispo */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="absolute -left-4 bottom-16 bg-[#111] border border-neutral-800 rounded-2xl px-4 py-2.5 shadow-xl hidden sm:block"
-            >
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-bold text-white">
-                  {locale === "fr" ? "Disponible" : "Available"}
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
+            <span className="text-[11px] font-bold text-neutral-400 font-mono">05</span>
+          </div>
 
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-5 h-8 border border-neutral-700 rounded-full flex justify-center pt-1.5"
-        >
-          <div className="w-0.5 h-2 bg-emerald-500 rounded-full" />
-        </motion.div>
-      </motion.div>
+        {/* PIED DE CARTE HERO : SCROLL MOUSE */}
+        <div className="relative z-20 flex items-center justify-between w-full pt-4 border-t border-black/5">
+          <a
+            href="#about"
+            className="flex items-center gap-2.5 text-neutral-500 hover:text-black transition-colors"
+          >
+            <div className="w-4 h-6 rounded-full border border-neutral-400 flex items-start justify-center p-1">
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1 h-1 bg-black rounded-full"
+              />
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-600">
+              Scroll Mouse
+            </span>
+          </a>
+
+          <div className="text-[10px] font-mono text-neutral-400">
+            2026 EDITION
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }
+

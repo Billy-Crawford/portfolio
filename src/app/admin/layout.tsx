@@ -6,5 +6,9 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  return <section>{children}</section>;
+  return (
+    <section className="min-h-screen bg-[#0a0a0a] text-neutral-100 antialiased selection:bg-white selection:text-black">
+      {children}
+    </section>
+  );
 }

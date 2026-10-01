@@ -12,8 +12,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
-      <body className="bg-[var(--background)] text-white">
+    <html lang="en" className="scroll-smooth bg-[#0c0c0c]">
+      <body className="min-h-screen bg-[#0c0c0c] text-neutral-100 antialiased selection:bg-white selection:text-black">
         {children}
       </body>
     </html>
