@@ -18,31 +18,28 @@ export default function Services({ locale }: Props) {
   return (
     <section
       id="services"
-      className="relative w-full bg-[#0c0c0c] text-white py-28 border-t border-neutral-900 select-none overflow-hidden"
+      className="relative w-full bg-[#0c0c0c] text-white py-36 sm:py-44 border-t border-neutral-900 select-none overflow-hidden"
     >
-      {/* MOT EN ARRIÈRE-PLAN GÉANT TYPE GAZOO EDITORIAL */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-white/[0.015] tracking-tighter leading-none pointer-events-none whitespace-nowrap">
         SERVICES
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10">
-        
-        {/* SUR-TITRE MINIMALISTE */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-12">
+
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="flex items-center gap-3 mb-6"
+          className="flex items-center gap-3 mb-10"
         >
           <span className="text-[10px] font-black uppercase tracking-[0.28em] text-neutral-500">
-            {locale === "fr" ? "05 — OFFRE" : "05 — WHAT I DO"}
+            {locale === "fr" ? "05 \u2014 OFFRE" : "05 \u2014 WHAT I DO"}
           </span>
           <div className="h-[1px] w-12 bg-neutral-800" />
         </motion.div>
 
-        {/* EN-TÊTE DE SECTION */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -61,13 +58,12 @@ export default function Services({ locale }: Props) {
             className="text-neutral-500 text-xs sm:text-sm uppercase tracking-widest max-w-xs font-mono"
           >
             {locale === "fr"
-              ? "// Accompagnement technique de l'idée au déploiement."
+              ? "// Accompagnement technique de l\u2019idee au deploiement."
               : "// End-to-end engineering from concept to scale."}
           </motion.p>
         </div>
 
-        {/* GRILLE SERVICES STYLE LOOKBOOK MINIMALISTE */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <motion.div
               key={i}
@@ -75,9 +71,9 @@ export default function Services({ locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
               viewport={{ once: true }}
-              className="group bg-[#141414] border border-neutral-800/80 hover:border-white/50 rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-[#141414] border border-neutral-800/80 hover:border-white/50 rounded-2xl p-8 transition-all duration-300 flex flex-col justify-between min-h-[220px]"
             >
-              <div className="flex items-center justify-between mb-8 pb-4 border-b border-neutral-800/80">
+              <div className="flex items-center justify-between mb-10 pb-5 border-b border-neutral-800/80">
                 <span className="text-xs font-mono font-bold text-neutral-500 group-hover:text-white transition-colors">
                   SERVICE // 0{i + 1}
                 </span>
@@ -88,7 +84,7 @@ export default function Services({ locale }: Props) {
                 {service}
               </p>
 
-              <div className="mt-8 pt-4 flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-neutral-600 group-hover:text-neutral-400 transition-colors">
+              <div className="mt-10 pt-5 flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-neutral-600 group-hover:text-neutral-400 transition-colors">
                 <span>[AVAILABLE FOR HIRE]</span>
               </div>
             </motion.div>

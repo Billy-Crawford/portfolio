@@ -16,10 +16,9 @@ export default function Footer({ locale }: Props) {
 
   return (
     <footer className="w-full bg-[#080808] border-t border-neutral-900 select-none">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        {/* LOGO & MENTIONS ÉDITORIALES */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 text-center sm:text-left">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-12 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-center sm:text-left">
           <span className="font-black text-lg tracking-tighter text-white uppercase">
             OB.
           </span>
@@ -28,8 +27,7 @@ export default function Footer({ locale }: Props) {
           </span>
         </div>
 
-        {/* LIENS & ADMINISTRATION */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-10">
           <a
             href="https://github.com"
             target="_blank"

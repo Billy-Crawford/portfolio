@@ -32,43 +32,43 @@ export default function About({ locale }: Props) {
     {
       icon: "03",
       label: "Stack",
-      value: "Next.js · Flask · Python · PostgreSQL",
+      value: "Next.js \u00b7 Flask \u00b7 Python \u00b7 PostgreSQL",
     },
     {
       icon: "04",
       label: "Focus",
-      value: locale === "fr" ? "Web · IA · Mobile" : "Web · AI · Mobile",
+      value: locale === "fr" ? "Web \u00b7 IA \u00b7 Mobile" : "Web \u00b7 AI \u00b7 Mobile",
     },
   ];
 
   return (
-    <section id="about" className="relative w-full bg-[#0c0c0c] py-28 overflow-hidden select-none border-t border-neutral-900">
-      
-      {/* MOT EN ARRIÈRE-PLAN GÉANT TYPE GAZOO / WATERMARK EDITORIAL */}
+    <section id="about" className="relative w-full bg-[#0c0c0c] py-36 sm:py-44 overflow-hidden select-none border-t border-neutral-900">
+
+      {/* WATERMARK */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none whitespace-nowrap">
         ABOUT
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10">
-        
-        {/* SUR-TITRE MINIMALISTE */}
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-12">
+
+        {/* LABEL */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="flex items-center gap-3 mb-10"
+          className="flex items-center gap-3 mb-14"
         >
           <span className="text-[10px] font-black uppercase tracking-[0.28em] text-neutral-500">
-            {locale === "fr" ? "02 — À PROPOS" : "02 — ABOUT ME"}
+            {locale === "fr" ? "02 \u2014 A PROPOS" : "02 \u2014 ABOUT ME"}
           </span>
           <div className="h-[1px] w-12 bg-neutral-800" />
         </motion.div>
 
-        {/* SECTION 2 COLONNES */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* COLONNE GAUCHE : TITRE GÉANT ET TEXTE */}
+        {/* 2 COLONNES */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+
+          {/* COL GAUCHE */}
           <div className="lg:col-span-6">
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
@@ -80,7 +80,7 @@ export default function About({ locale }: Props) {
               {locale === "fr" ? (
                 <>
                   Concevoir <br />
-                  <span className="text-neutral-500">avec précision</span>
+                  <span className="text-neutral-500">avec precision</span>
                 </>
               ) : (
                 <>
@@ -95,7 +95,7 @@ export default function About({ locale }: Props) {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-neutral-400 text-sm sm:text-base leading-relaxed mt-8 max-w-lg font-normal"
+              className="text-neutral-400 text-sm sm:text-base leading-[1.9] mt-10 max-w-lg font-normal"
             >
               {text}
             </motion.p>
@@ -105,11 +105,11 @@ export default function About({ locale }: Props) {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              className="mt-10"
+              className="mt-12"
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white border-b-2 border-white pb-2 hover:text-neutral-400 hover:border-neutral-400 transition-all duration-200"
+                className="inline-flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white border-b-2 border-white pb-2.5 hover:text-neutral-400 hover:border-neutral-400 transition-all duration-200"
               >
                 {locale === "fr" ? "Prendre contact" : "Get in touch"}
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,8 +119,8 @@ export default function About({ locale }: Props) {
             </motion.div>
           </div>
 
-          {/* COLONNE DROITE : CARTES ÉDITORIALES STYLE INDEX (Image 2) */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* COL DROITE : CARTES */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {cards.map((card, i) => (
               <motion.div
                 key={card.label}
@@ -128,9 +128,9 @@ export default function About({ locale }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.08 * i }}
                 viewport={{ once: true }}
-                className="bg-[#141414] border border-neutral-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-neutral-600 transition-colors group"
+                className="bg-[#141414] border border-neutral-800/80 rounded-2xl p-7 flex flex-col justify-between hover:border-neutral-600 transition-colors group min-h-[160px]"
               >
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-10">
                   <span className="text-[11px] font-mono text-neutral-500 font-bold group-hover:text-white transition-colors">
                     [{card.icon}]
                   </span>
