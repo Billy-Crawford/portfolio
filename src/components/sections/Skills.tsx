@@ -6,62 +6,64 @@ import { usePortfolio } from "@/context/PortfolioContext";
 
 type Props = { locale: string };
 
-const CATEGORIES: Record<string, string[]> = {
-  "Frontend":   ["Next.js", "React", "Tailwind CSS", "TypeScript"],
-  "Backend":    ["Django + DRF", "Flask", "Python"],
-  "IA & Data":  ["Python AI (TensorFlow, PyTorch, Scikit-learn)", "NLP / Computer Vision"],
-  "Databases":  ["Databases (PostgreSQL, MongoDB, MySQL, SQLServer)"],
-  "Tooling":    ["Git", "GitHub", "WordPress"],
+const getLevelLabel = (level: number, locale: string) => {
+  if (level >= 80) return locale === "fr" ? "Expert" : "Expert";
+  if (level >= 65) return locale === "fr" ? "Avancé" : "Advanced";
+  return locale === "fr" ? "Intermédiaire" : "Mid-level";
+};
+
+const getLevelColor = (level: number) => {
+  if (level >= 80) return "text-[#10b981]";
+  if (level >= 65) return "text-[#34d399]";
+  return "text-[#6ee7b7]";
 };
 
 export default function Skills({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { skills, loading } = usePortfolio();
 
-  const getLevelLabel = (level: number) => {
-    if (level >= 80) return locale === "fr" ? "Expert" : "Expert";
-    if (level >= 65) return locale === "fr" ? "Avancé" : "Advanced";
-    return locale === "fr" ? "Intermédiaire" : "Intermediate";
-  };
-
-  const getLevelColor = (level: number) => {
-    if (level >= 80) return "bg-[#0A0A0A] text-[#FAFAF9]";
-    if (level >= 65) return "bg-[#374151] text-white";
-    return "bg-[#E5E5E3] text-[#6B7280]";
-  };
-
   return (
-    <section id="skills" className="py-28 border-t border-[#E5E5E3] bg-[#FAFAF9]">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
+    <section id="skills" className="py-28 bg-[#0a0a0a] relative overflow-hidden">
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[2px] bg-gradient-to-r from-transparent via-[#10b981]/30 to-transparent" />
 
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-3 mb-5"
-        >
-          <div className="w-6 h-px bg-[#C9A96E]" />
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
-            {t.skillsTitle}
-          </span>
-        </motion.div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }} viewport={{ once: true }}
+              className="flex items-center gap-3 mb-4"
+            >
+              <div className="w-8 h-px bg-[#10b981]" />
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#10b981]">
+                {t.skillsTitle}
+              </span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }} viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-black text-white tracking-tight"
+            >
+              {locale === "fr" ? "Mon arsenal\ntechnique" : "My tech\narsenal"}
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }} viewport={{ once: true }}
+            className="text-sm text-[#737373] max-w-xs md:text-right"
+          >
+            {locale === "fr"
+              ? "Technologies maîtrisées à travers des projets réels."
+              : "Technologies mastered through real-world projects."}
+          </motion.p>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-4xl sm:text-5xl xl:text-6xl font-black leading-[0.9] tracking-tighter text-[#0A0A0A] uppercase mb-16"
-        >
-          {locale === "fr" ? "Mon Stack\nTechnique" : "My Tech\nStack"}
-        </motion.h2>
-
+        {/* Grille */}
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-14 bg-[#F0EFED] rounded-xl animate-pulse" />
+              <div key={i} className="h-20 bg-[#0f0f0f] rounded-2xl animate-pulse border border-[#1f1f1f]" />
             ))}
           </div>
         ) : (
@@ -69,19 +71,31 @@ export default function Skills({ locale }: Props) {
             {skills.map((skill, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: i * 0.04 }}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
                 viewport={{ once: true }}
-                className="group relative flex items-center justify-between gap-3 bg-white border border-[#E5E5E3] rounded-xl px-5 py-4 hover:border-[#0A0A0A] hover:shadow-md transition-all duration-200 cursor-default"
+                whileHover={{ y: -4, borderColor: "rgba(16,185,129,0.4)" }}
+                className="flex flex-col justify-between bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-4 cursor-default transition-colors group"
                 title={skill.tooltip || skill.name}
               >
-                <span className="text-sm font-bold text-[#0A0A0A] leading-tight truncate">
+                <span className="text-sm font-bold text-white group-hover:text-[#10b981] transition-colors leading-tight">
                   {skill.name}
                 </span>
-                <span className={`shrink-0 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${getLevelColor(skill.level)}`}>
-                  {getLevelLabel(skill.level)}
-                </span>
+                <div className="flex items-center justify-between mt-3">
+                  <div className="flex-1 h-1 bg-[#1f1f1f] rounded-full overflow-hidden mr-3">
+                    <motion.div
+                      className="h-full rounded-full bg-gradient-to-r from-[#10b981] to-[#34d399]"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.level}%` }}
+                      transition={{ duration: 1, delay: 0.3 + i * 0.04 }}
+                      viewport={{ once: true }}
+                    />
+                  </div>
+                  <span className={`text-[10px] font-black uppercase tracking-wider shrink-0 ${getLevelColor(skill.level)}`}>
+                    {getLevelLabel(skill.level, locale)}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </div>

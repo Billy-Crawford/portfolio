@@ -5,56 +5,46 @@ import fr from "@/locales/fr.json";
 import { usePortfolio } from "@/context/PortfolioContext";
 
 type Props = { locale: string };
-
-const ICONS = ["→", "↗", "⌘", "◈"];
+const EMOJIS = ["🌐", "⚡", "🤖", "🎯", "📱", "🔒"];
 
 export default function Services({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content, services } = usePortfolio();
-  const title = (locale === "fr" ? content?.services_title?.value_fr : content?.services_title?.value_en) ?? t.servicesTitle;
+  const title = locale === "fr"
+    ? content?.services_title?.value_fr ?? t.servicesTitle
+    : content?.services_title?.value_en ?? t.servicesTitle;
 
   return (
-    <section id="services" className="py-28 border-t border-[#E5E5E3] bg-[#0A0A0A]">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-3 mb-5"
-        >
-          <div className="w-6 h-px bg-[#C9A96E]" />
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
-            {locale === "fr" ? "Ce que je fais" : "What I Do"}
+    <section id="services" className="py-28 bg-[#0a0a0a] relative overflow-hidden">
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[2px] bg-gradient-to-r from-transparent via-[#10b981]/30 to-transparent" />
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-px bg-[#10b981]" />
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#10b981]">
+            {locale === "fr" ? "Services" : "Services"}
           </span>
-        </motion.div>
-
+        </div>
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-4xl sm:text-5xl xl:text-6xl font-black leading-[0.9] tracking-tighter text-[#FAFAF9] uppercase mb-16"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }} viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-black text-white tracking-tight mb-16"
         >
           {title}
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#1F1F1F] border border-[#1F1F1F] rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               viewport={{ once: true }}
-              className="group bg-[#0A0A0A] hover:bg-[#141414] px-8 py-10 transition-colors duration-300"
+              whileHover={{ y: -4 }}
+              className="group bg-[#0f0f0f] border border-[#1f1f1f] hover:border-[#10b981]/30 rounded-2xl p-6 transition-all duration-300"
             >
-              <div className="text-2xl text-[#C9A96E] mb-5 group-hover:scale-110 transition-transform inline-block">
-                {ICONS[i % ICONS.length]}
-              </div>
-              <p className="text-base font-semibold text-[#E5E5E3] leading-relaxed">
+              <div className="text-3xl mb-4">{EMOJIS[i % EMOJIS.length]}</div>
+              <p className="text-sm font-medium text-[#a3a3a3] group-hover:text-white transition-colors leading-relaxed">
                 {service}
               </p>
             </motion.div>

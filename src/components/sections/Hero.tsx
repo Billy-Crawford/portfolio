@@ -7,194 +7,163 @@ import fr from "@/locales/fr.json";
 
 type Props = { locale: string };
 
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 32 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay },
+});
+
 export default function Hero({ locale }: Props) {
   const t = locale === "fr" ? fr : en;
   const { content } = usePortfolio();
-
-  const badge    = (locale === "fr" ? content?.hero_badge?.value_fr : content?.hero_badge?.value_en) ?? t.heroBadge;
-  const subtitle = (locale === "fr" ? content?.hero_subtitle?.value_fr : content?.hero_subtitle?.value_en) ?? t.heroSubtitle;
+  const subtitle = locale === "fr"
+    ? content?.hero_subtitle?.value_fr ?? t.heroSubtitle
+    : content?.hero_subtitle?.value_en ?? t.heroSubtitle;
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen bg-[#FAFAF9] flex flex-col pt-16 overflow-hidden"
-    >
-      {/* Ligne décorative dorée horizontale */}
-      <div className="absolute top-16 inset-x-0 h-px bg-[#E5E5E3]" />
+    <section id="home" className="relative min-h-screen w-full flex items-center bg-[#080808] overflow-hidden">
 
-      {/* ── GRILLE PRINCIPALE ── */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto w-full px-6 md:px-12 gap-0">
+      {/* Glow ambiant top-left */}
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#10b981]/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Glow ambiant bottom-right */}
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-[#10b981]/5 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* GAUCHE — TEXTE */}
-        <div className="flex flex-col justify-center pt-16 pb-12 lg:py-0 lg:pr-16 border-r border-[#E5E5E3]">
+      {/* Grid de fond subtile */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:72px_72px] pointer-events-none" />
 
-          {/* Eyebrow tag */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-3 mb-8"
-          >
-            <div className="w-6 h-px bg-[#C9A96E]" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
-              Portfolio — 2026
+      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        {/* ── GAUCHE : TEXTE ── */}
+        <div className="flex flex-col">
+
+          {/* Status badge */}
+          <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2 mb-8 w-fit">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]" />
+            </span>
+            <span className="text-xs font-semibold text-[#10b981] uppercase tracking-widest">
+              {locale === "fr" ? "Disponible pour des opportunités" : "Open to opportunities"}
             </span>
           </motion.div>
 
-          {/* Titre géant */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-5xl sm:text-6xl xl:text-7xl font-black leading-[0.9] tracking-tighter text-[#0A0A0A] uppercase"
-          >
+          {/* Titre principal */}
+          <motion.h1 {...fadeUp(0.1)} className="text-[clamp(2.8rem,7vw,5.5rem)] font-black leading-[1] tracking-tighter text-white">
             Oumarou<br />
-            <span className="text-[#C9A96E]">Billy</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b981] to-[#34d399]">
+              Billy
+            </span>
           </motion.h1>
 
-          {/* Badge rôle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 text-sm font-semibold text-[#6B7280] uppercase tracking-[0.15em]"
-          >
-            {badge}
+          {/* Role */}
+          <motion.p {...fadeUp(0.2)} className="mt-5 text-xl font-medium text-[#a3a3a3]">
+            {locale === "fr" ? "Développeur Full-Stack & Étudiant Master IA" : "Full-Stack Developer & AI Master Student"}
           </motion.p>
 
           {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-6 text-base text-[#6B7280] leading-relaxed max-w-md"
-          >
+          <motion.p {...fadeUp(0.3)} className="mt-4 text-base text-[#737373] leading-relaxed max-w-lg">
             {subtitle}
           </motion.p>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 bg-[#0A0A0A] text-[#FAFAF9] text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-[#2D2D2D] transition-colors duration-200"
-            >
-              {locale === "fr" ? "Voir mes projets" : "View Projects"}
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <motion.div {...fadeUp(0.4)} className="mt-10 flex flex-wrap gap-4">
+            <a href="#projects"
+              className="group relative inline-flex items-center gap-2 bg-[#10b981] text-[#080808] text-sm font-bold px-6 py-3 rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+              <span className="relative z-10">{locale === "fr" ? "Voir mes projets" : "View my work"}</span>
+              <svg className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full border border-[#E5E5E3] hover:border-[#0A0A0A] transition-colors duration-200 text-[#0A0A0A]"
-            >
+            <a href="#contact"
+              className="inline-flex items-center gap-2 text-sm font-bold text-white px-6 py-3 rounded-full border border-[#1f1f1f] hover:border-[#10b981] hover:text-[#10b981] transition-all duration-300">
               Contact
             </a>
           </motion.div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="mt-16 flex items-center gap-4"
-          >
-            <div className="w-5 h-8 border border-[#D1D5DB] rounded-full flex justify-center pt-1.5">
-              <motion.div
-                className="w-0.5 h-2 bg-[#0A0A0A] rounded-full"
-                animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </div>
-            <span className="text-xs font-medium text-[#9CA3AF] uppercase tracking-widest">
-              Scroll
-            </span>
+          {/* Stats */}
+          <motion.div {...fadeUp(0.5)} className="mt-14 flex gap-8 pt-8 border-t border-[#1f1f1f]">
+            {[
+              { value: "5+", label: locale === "fr" ? "Projets" : "Projects" },
+              { value: "11+", label: locale === "fr" ? "Technos" : "Tech Stack" },
+              { value: "2", label: locale === "fr" ? "Ans de code" : "Years coding" },
+            ].map(s => (
+              <div key={s.label}>
+                <p className="text-2xl font-black text-white">{s.value}</p>
+                <p className="text-xs text-[#737373] uppercase tracking-wider mt-0.5">{s.label}</p>
+              </div>
+            ))}
           </motion.div>
         </div>
 
-        {/* DROITE — PHOTO */}
-        <div className="hidden lg:flex flex-col justify-center items-center pl-12 relative">
-
-          {/* Numérotation éditoriale */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 flex flex-col items-center gap-3">
-            <span className="text-xs font-black text-[#0A0A0A] tracking-widest">01</span>
-            <div className="w-4 h-4 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center">
-              <div className="w-1.5 h-1.5 bg-[#0A0A0A] rounded-full" />
-            </div>
-            {[2,3,4].map(n => (
-              <div key={n} className="w-1.5 h-1.5 bg-[#D1D5DB] rounded-full" />
-            ))}
-            <span className="text-xs font-bold text-[#D1D5DB] tracking-widest">05</span>
+        {/* ── DROITE : PHOTO ── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+          className="hidden lg:flex justify-center items-center relative"
+        >
+          {/* Halo derrière la photo */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-[380px] h-[380px] bg-[#10b981]/10 rounded-full blur-3xl" />
           </div>
 
-          {/* Photo — cadre élégant */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
-            className="relative w-[380px] h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-[#E5E5E3] bg-[#F0EFED]"
-          >
+          {/* Cadre photo */}
+          <div className="relative w-[360px] h-[420px] rounded-3xl overflow-hidden border border-[#1f1f1f] shadow-2xl shadow-black/60">
             <Image
-              src="/profile.jpg"
+              src="/me.jpeg"
               alt="Oumarou Billy"
               fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              className="object-cover"
               priority
             />
-            {/* Overlay bas avec badge flottant */}
-            <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
-                <div className="w-2 h-2 bg-[#22C55E] rounded-full animate-pulse" />
-                <span className="text-xs font-bold text-[#0A0A0A] uppercase tracking-widest">
-                  {locale === "fr" ? "Disponible" : "Available for work"}
-                </span>
-              </div>
+            {/* Overlay gradient bas */}
+            <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-[#080808] to-transparent" />
+          </div>
+
+          {/* Badge Tech Stack — flottant */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="absolute -right-4 top-16 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl px-5 py-4 shadow-xl"
+          >
+            <p className="text-xs text-[#737373] uppercase tracking-wider mb-2">Stack</p>
+            <div className="flex flex-col gap-1">
+              {["Next.js", "Flask", "Python AI"].map(t => (
+                <span key={t} className="text-xs font-semibold text-white">{t}</span>
+              ))}
             </div>
           </motion.div>
 
-          {/* Stat badges */}
+          {/* Badge Dispo — flottant */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="absolute top-1/4 -left-4 bg-white border border-[#E5E5E3] shadow-lg px-5 py-3 rounded-2xl"
+            transition={{ duration: 0.6, delay: 1 }}
+            className="absolute -left-4 bottom-20 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl px-5 py-3 shadow-xl"
           >
-            <p className="text-2xl font-black text-[#0A0A0A]">5+</p>
-            <p className="text-xs text-[#6B7280] font-medium uppercase tracking-wider">
-              {locale === "fr" ? "Projets" : "Projects"}
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+              <span className="text-xs font-bold text-white">
+                {locale === "fr" ? "Disponible" : "Available"}
+              </span>
+            </div>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.75 }}
-            className="absolute bottom-1/4 -left-4 bg-[#0A0A0A] shadow-lg px-5 py-3 rounded-2xl"
-          >
-            <p className="text-2xl font-black text-[#C9A96E]">AI</p>
-            <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Master</p>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Barre de stat mobile (uniquement mobile) */}
-      <div className="lg:hidden border-t border-[#E5E5E3] grid grid-cols-3 divide-x divide-[#E5E5E3]">
-        {[
-          { value: "5+", label: locale === "fr" ? "Projets" : "Projects" },
-          { value: "AI", label: "Master" },
-          { value: "FS", label: "Full-Stack" },
-        ].map(s => (
-          <div key={s.label} className="py-5 flex flex-col items-center">
-            <p className="text-xl font-black text-[#0A0A0A]">{s.value}</p>
-            <p className="text-xs text-[#6B7280] uppercase tracking-wider">{s.label}</p>
-          </div>
-        ))}
-      </div>
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-8 border border-[#333] rounded-full flex justify-center pt-1.5"
+        >
+          <div className="w-0.5 h-2 bg-[#10b981] rounded-full" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
