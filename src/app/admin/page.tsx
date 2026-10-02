@@ -90,10 +90,6 @@ const formatServicePayload = (s: Omit<Service, "id"> | Service) => {
   return {
     text_fr,
     text_en,
-    title_fr: t_fr,
-    title_en: t_en,
-    description_fr: d_fr,
-    description_en: d_en,
     order_index: Number(s.order_index) || 0,
   };
 };
