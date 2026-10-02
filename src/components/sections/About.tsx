@@ -39,20 +39,18 @@ export default function About({ locale }: Props) {
   ];
 
   return (
-    <section id="about" className="py-28 bg-[#080808] border-t border-neutral-900/60 relative">
+    <section id="about" className="py-32 bg-[#09090b] border-t border-zinc-800/60 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
-        {/* En-tête de section */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-6">
           <div className="w-8 h-px bg-emerald-500" />
           <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
             {locale === "fr" ? "À Propos" : "About Me"}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Texte principal */}
           <div className="lg:col-span-6 space-y-6">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -71,14 +69,13 @@ export default function About({ locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-neutral-400 text-base leading-relaxed"
+              className="text-zinc-400 text-base leading-relaxed"
             >
               {text}
             </motion.p>
           </div>
 
-          {/* Grille de cartes repères */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {cards.map((c, i) => (
               <motion.div
                 key={c.label}
@@ -86,11 +83,11 @@ export default function About({ locale }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-neutral-900/60 border border-neutral-800/80 hover:border-neutral-700 rounded-2xl p-6 space-y-3 transition-colors"
+                className="bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-6 space-y-3 transition-colors"
               >
-                <span className="text-2xl">{c.icon}</span>
+                <span className="text-2xl block">{c.icon}</span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">{c.label}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">{c.label}</p>
                   <p className="text-sm font-bold text-white mt-1 leading-snug">{c.value}</p>
                 </div>
               </motion.div>

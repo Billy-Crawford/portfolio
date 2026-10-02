@@ -28,36 +28,33 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#080808]/90 backdrop-blur-md border-b border-neutral-800/80 py-4 shadow-lg"
+          ? "bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800/80 py-4 shadow-lg"
           : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         
-        {/* LOGO */}
         <Link href={`/${locale}`} className="flex items-center gap-2">
           <span className="font-black text-xl tracking-tight text-white">
             OB<span className="text-emerald-400">.</span>
           </span>
         </Link>
 
-        {/* NAVIGATION DESKTOP */}
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-xs uppercase tracking-widest font-semibold text-neutral-400 hover:text-emerald-400 transition-colors"
+              className="text-xs uppercase tracking-widest font-semibold text-zinc-400 hover:text-emerald-400 transition-colors"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* CHANGER LA LANGUE */}
         <Link
           href={otherPath}
-          className="text-xs font-bold uppercase tracking-widest text-neutral-300 hover:text-emerald-400 px-3.5 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 transition-all"
+          className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-emerald-400 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/80 transition-all"
         >
           {other}
         </Link>

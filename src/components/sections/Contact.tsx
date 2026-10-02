@@ -23,10 +23,10 @@ export default function Contact({ locale }: Props) {
   }, [state.succeeded]);
 
   const inputCls =
-    "w-full bg-neutral-900/80 border border-neutral-800 focus:border-emerald-500 text-white placeholder-neutral-500 rounded-xl px-4 py-3.5 text-sm outline-none transition-colors";
+    "w-full bg-zinc-900/90 border border-zinc-800 focus:border-emerald-500 text-white placeholder-zinc-500 rounded-xl px-5 py-4 text-sm outline-none transition-colors";
 
   return (
-    <section id="contact" className="py-28 bg-[#080808] border-t border-neutral-900/60 relative">
+    <section id="contact" className="py-32 bg-[#09090b] border-t border-zinc-800/60 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -47,13 +47,13 @@ export default function Contact({ locale }: Props) {
               {t.contactTitle}
             </motion.h2>
 
-            <p className="text-neutral-400 text-base leading-relaxed">
+            <p className="text-zinc-400 text-base leading-relaxed">
               {locale === "fr"
                 ? "Un projet en tête, une opportunité ou simplement envie d'échanger ? N'hésitez pas à me contacter."
                 : "Have a project in mind, an opportunity, or just want to connect? Feel free to reach out."}
             </p>
 
-            <div className="space-y-3 pt-2">
+            <div className="space-y-4 pt-4">
               {[
                 { label: "GitHub", href: "https://github.com" },
                 { label: "LinkedIn", href: "https://linkedin.com" },
@@ -63,9 +63,9 @@ export default function Contact({ locale }: Props) {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-neutral-900/60 border border-neutral-800 hover:border-emerald-500/40 px-5 py-4 rounded-xl group transition-colors"
+                  className="flex items-center justify-between bg-zinc-900/60 border border-zinc-800 hover:border-emerald-500/40 px-6 py-4.5 rounded-xl group transition-colors"
                 >
-                  <span className="text-sm font-semibold text-neutral-300 group-hover:text-white transition-colors">
+                  <span className="text-sm font-semibold text-zinc-300 group-hover:text-white transition-colors">
                     {l.label}
                   </span>
                   <span className="text-emerald-400 text-sm">↗</span>
@@ -79,7 +79,7 @@ export default function Contact({ locale }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 bg-neutral-900/40 border border-neutral-800 rounded-2xl p-8"
+            className="lg:col-span-7 bg-zinc-900/40 border border-zinc-800 rounded-2xl p-8 sm:p-10"
           >
             {state.succeeded && !showForm ? (
               <div className="text-center py-12 space-y-3">
@@ -90,7 +90,7 @@ export default function Contact({ locale }: Props) {
               </div>
             ) : (
               showForm && (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <input
                       type="text"
@@ -99,7 +99,7 @@ export default function Contact({ locale }: Props) {
                       required
                       className={inputCls}
                     />
-                    <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1.5" />
                   </div>
                   <div>
                     <input
@@ -109,7 +109,7 @@ export default function Contact({ locale }: Props) {
                       required
                       className={inputCls}
                     />
-                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1.5" />
                   </div>
                   <div>
                     <textarea
@@ -119,12 +119,12 @@ export default function Contact({ locale }: Props) {
                       required
                       className={`${inputCls} resize-none`}
                     />
-                    <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1" />
+                    <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1.5" />
                   </div>
                   <button
                     type="submit"
                     disabled={state.submitting}
-                    className="w-full bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm py-4 rounded-xl transition-all duration-300 active:scale-95 disabled:opacity-50"
+                    className="w-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-sm py-4 rounded-xl transition-all duration-300 active:scale-95 disabled:opacity-50 mt-2"
                   >
                     {state.submitting ? "..." : t.contactSubmit}
                   </button>
