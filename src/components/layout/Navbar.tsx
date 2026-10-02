@@ -11,53 +11,65 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
     { label: locale === "fr" ? "À propos" : "About", href: "#about" },
-    { label: locale === "fr" ? "Services" : "Services", href: "#services" },
-    { label: locale === "fr" ? "Compétences" : "Skills", href: "#skills" },
-    { label: locale === "fr" ? "Projets" : "Projects", href: "#projects" },
+    { label: locale === "fr" ? "Expertise" : "Services", href: "#services" },
+    { label: locale === "fr" ? "Arsenal" : "Skills", href: "#skills" },
+    { label: locale === "fr" ? "Travaux" : "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ];
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800/80 py-4 shadow-lg"
-          : "bg-transparent py-6"
+          ? "bg-[#080809]/80 backdrop-blur-xl border-b border-white/5 py-4"
+          : "bg-transparent py-7"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         
-        <Link href={`/${locale}`} className="flex items-center gap-2">
-          <span className="font-black text-xl tracking-tight text-white">
+        {/* LOGO ÉDITORIAL AVEC MONOGRAMME */}
+        <Link href={`/${locale}`} className="group flex items-center gap-3">
+          <span className="font-display font-black text-2xl tracking-tighter text-white group-hover:text-emerald-400 transition-colors">
             OB<span className="text-emerald-400">.</span>
+          </span>
+          <span className="hidden sm:inline-block text-[11px] font-mono uppercase tracking-[0.25em] text-neutral-500 font-semibold border-l border-white/10 pl-3">
+            STUDIO
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
+        {/* NAVIGATION CENTRÉE RAFFINÉE */}
+        <nav className="hidden md:flex items-center gap-9">
+          {links.map((link) => (
             <a
-              key={l.href}
-              href={l.href}
-              className="text-xs uppercase tracking-widest font-semibold text-zinc-400 hover:text-emerald-400 transition-colors"
+              key={link.href}
+              href={link.href}
+              className="text-[12px] uppercase tracking-[0.2em] font-medium text-neutral-400 hover:text-white transition-colors relative py-1 group"
             >
-              {l.label}
+              {link.label}
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-emerald-400 transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </nav>
 
-        <Link
-          href={otherPath}
-          className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-emerald-400 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/80 transition-all"
-        >
-          {other}
-        </Link>
+        {/* CHANGEMENT DE LANGUE DISCRET & CHIC */}
+        <div className="flex items-center gap-4">
+          <Link
+            href={otherPath}
+            className="text-[11px] font-mono uppercase font-bold tracking-widest text-neutral-300 hover:text-white px-4 py-1.5 rounded-full border border-white/10 hover:border-emerald-400/50 bg-white/[0.02] backdrop-blur-md transition-all"
+          >
+            {other.toUpperCase()}
+          </Link>
+        </div>
+
       </div>
     </header>
   );

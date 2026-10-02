@@ -17,142 +17,149 @@ export default function Hero({ locale }: Props) {
       : (content?.hero_subtitle?.value_en ?? t.heroSubtitle);
 
   return (
-    <section id="home" className="relative min-h-[90vh] w-full flex items-center justify-center bg-[#09090b] pt-32 pb-24 overflow-hidden">
-      {/* Light ambiante */}
-      <div className="absolute top-1/3 left-1/4 w-[450px] h-[450px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
+    <section id="home" className="relative min-h-screen w-full flex items-center justify-center bg-[#080809] pt-32 pb-24 overflow-hidden">
+      
+      {/* FILIGRANE ÉDITORIAL AWWWARDS */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[22vw] font-display font-black text-white/[0.015] select-none pointer-events-none tracking-tighter leading-none whitespace-nowrap z-0">
+        OUMAROU
+      </div>
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center z-10">
+      {/* Halo de lumière très subtil */}
+      <div className="absolute top-1/3 left-1/3 w-[600px] h-[600px] bg-emerald-500/[0.04] rounded-full blur-[160px] pointer-events-none" />
+
+      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-center z-10">
         
-        {/* TEXTE (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col items-start space-y-8">
+        {/* COLONNE GAUCHE : TYPOGRAPHIE MONUMENTALE (7 cols) */}
+        <div className="lg:col-span-7 flex flex-col items-start space-y-10">
           
+          {/* Badge statut chic */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-full px-4.5 py-2 shadow-sm"
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-full px-5 py-2"
           >
-            <span className="relative flex h-2.5 w-2.5">
+            <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-xs font-semibold text-emerald-400 uppercase tracking-widest">
-              {locale === "fr" ? "Disponible pour opportunités" : "Available for work"}
+            <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-neutral-300 font-medium">
+              {locale === "fr" ? "DISPONIBLE POUR MISSIONS" : "OPEN FOR OPPORTUNITIES"}
             </span>
           </motion.div>
 
+          {/* Grand titre éditorial */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-3"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="space-y-4"
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
+            <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[0.92] uppercase">
               Oumarou <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-300">
-                Billy
+              <span className="text-neutral-500 font-extrabold italic font-sans lowercase tracking-normal">
+                billy
               </span>
             </h1>
-            <p className="text-lg md:text-xl font-medium text-zinc-400 pt-1">
-              {locale === "fr"
-                ? "Développeur Full-Stack & Master en IA"
-                : "Full-Stack Developer & AI Master Student"}
+            <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-emerald-400 pt-3 font-semibold">
+              // {locale === "fr" ? "INGÉNIEUR FULL-STACK & MASTER IA" : "FULL-STACK ARCHITECT & AI ENGINEER"}
             </p>
           </motion.div>
 
+          {/* Description aérée */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base text-zinc-400 leading-relaxed max-w-xl font-normal"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-base sm:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal"
           >
             {subtitle}
           </motion.p>
 
+          {/* Boutons d'action grand style */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-4 pt-2"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="flex flex-wrap items-center gap-5 pt-2"
           >
             <a
               href="#projects"
-              className="inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-[0_0_25px_rgba(16,185,129,0.25)] hover:shadow-[0_0_35px_rgba(16,185,129,0.4)] active:scale-95"
+              className="group inline-flex items-center gap-4 bg-white text-black hover:bg-neutral-200 text-xs font-mono uppercase tracking-[0.2em] font-bold px-8 py-4.5 rounded-full transition-all duration-300 active:scale-95 shadow-[0_10px_30px_rgba(255,255,255,0.1)]"
             >
-              <span>{locale === "fr" ? "Voir mes projets" : "Explore my work"}</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <span>{locale === "fr" ? "DÉCOUVRIR LES TRAVAUX" : "SELECTED WORKS"}</span>
+              <span className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </a>
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-sm px-8 py-4 rounded-full border border-zinc-800 hover:border-zinc-700 transition-all duration-300 active:scale-95"
+              className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] font-bold text-neutral-300 hover:text-white px-8 py-4.5 rounded-full border border-white/15 hover:border-white/40 transition-all duration-300"
             >
-              <span>{locale === "fr" ? "Me contacter" : "Get in touch"}</span>
+              <span>CONTACT</span>
             </a>
           </motion.div>
 
+          {/* Métriques style catalogue éditorial */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="grid grid-cols-3 gap-8 pt-8 border-t border-zinc-800/80 w-full max-w-lg"
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="grid grid-cols-3 gap-10 pt-10 border-t border-white/10 w-full max-w-lg"
           >
             <div>
-              <p className="text-3xl font-black text-white tracking-tight">5+</p>
-              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider mt-1">
-                {locale === "fr" ? "Projets livrés" : "Projects Done"}
+              <p className="font-display text-4xl font-black text-white tracking-tighter">05+</p>
+              <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">
+                {locale === "fr" ? "PROJETS DEPLOYÉS" : "SYSTEMS BUILT"}
               </p>
             </div>
             <div>
-              <p className="text-3xl font-black text-white tracking-tight">11+</p>
-              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider mt-1">
-                {locale === "fr" ? "Technologies" : "Tech Stack"}
+              <p className="font-display text-4xl font-black text-white tracking-tighter">11+</p>
+              <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">
+                {locale === "fr" ? "TECHNOLOGIES" : "TECH STACK"}
               </p>
             </div>
             <div>
-              <p className="text-3xl font-black text-white tracking-tight">2+</p>
-              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider mt-1">
-                {locale === "fr" ? "Ans d'expérience" : "Years Exp."}
+              <p className="font-display text-4xl font-black text-white tracking-tighter">02+</p>
+              <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest mt-1">
+                {locale === "fr" ? "ANS EXPÉRIENCE" : "YEARS EXP."}
               </p>
             </div>
           </motion.div>
 
         </div>
 
-        {/* PORTRAIT (5 cols) */}
+        {/* COLONNE DROITE : PORTRAIT ÉDITORIAL HAUT DE GAMME (5 cols) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
           className="lg:col-span-5 flex justify-center items-center relative"
         >
-          <div className="relative w-full max-w-[360px] aspect-[4/5]">
-            <div className="absolute inset-0 bg-emerald-500/10 rounded-3xl blur-2xl transform scale-105" />
+          <div className="relative w-full max-w-[380px] aspect-[3.8/5]">
+            
+            {/* Cadre de luxe avec double liseré */}
+            <div className="absolute inset-0 border border-white/10 rounded-[32px] transform translate-x-3 translate-y-3 pointer-events-none" />
 
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl">
+            <div className="relative w-full h-full rounded-[32px] overflow-hidden border border-white/15 bg-neutral-900 shadow-[0_30px_90px_rgba(0,0,0,0.8)] group">
               <Image
                 src="/me.jpeg"
                 alt="Oumarou Billy"
                 fill
-                className="object-cover object-top hover:scale-105 transition-transform duration-700"
+                className="object-cover object-top filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#080809] via-transparent to-transparent opacity-60" />
             </div>
 
-            <div className="absolute -bottom-6 -left-6 bg-zinc-900/95 backdrop-blur-md border border-zinc-800 rounded-2xl p-4 shadow-xl flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-white">Full-Stack & IA</p>
-                <p className="text-[11px] text-zinc-400">Architecture & Developpement</p>
-              </div>
+            {/* Légende typographique en bas de l'image */}
+            <div className="absolute -bottom-6 -right-4 bg-[#101012] border border-white/10 rounded-2xl p-4.5 shadow-2xl backdrop-blur-md">
+              <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">// PROFILE</p>
+              <p className="font-display font-bold text-sm text-white mt-0.5">Oumarou Billy</p>
+              <p className="text-[11px] text-neutral-400 font-mono">Master AI · Full-Stack</p>
             </div>
+
           </div>
         </motion.div>
 

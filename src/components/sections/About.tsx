@@ -15,80 +15,97 @@ export default function About({ locale }: Props) {
       ? (content?.about_text?.value_fr ?? t.aboutText)
       : (content?.about_text?.value_en ?? t.aboutText);
 
-  const cards = [
+  const stats = [
     {
-      icon: "🎓",
-      label: locale === "fr" ? "Formation" : "Education",
-      value: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence",
+      num: "01",
+      title: locale === "fr" ? "FORMATION" : "EDUCATION",
+      desc: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence",
     },
     {
-      icon: "📍",
-      label: locale === "fr" ? "Localisation" : "Location",
-      value: "Ouagadougou, Burkina Faso",
+      num: "02",
+      title: locale === "fr" ? "LOCALISATION" : "LOCATION",
+      desc: "Ouagadougou, Burkina Faso",
     },
     {
-      icon: "⚡",
-      label: "Technologies Clés",
-      value: "Next.js · Flask · Python · PostgreSQL",
+      num: "03",
+      title: "STACK CORE",
+      desc: "Next.js · Flask · Python · PostgreSQL",
     },
     {
-      icon: "🎯",
-      label: "Domaines de Spécialité",
-      value: locale === "fr" ? "Applications Web · Modèles IA · Mobile" : "Web Apps · AI Models · Mobile",
+      num: "04",
+      title: "DOMAINES",
+      desc: locale === "fr" ? "Systèmes Distribués & Modèles IA" : "Distributed Systems & Applied AI",
     },
   ];
 
   return (
-    <section id="about" className="py-32 bg-[#09090b] border-t border-zinc-800/60 relative">
+    <section id="about" className="py-36 bg-[#080809] border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-px bg-emerald-500" />
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
-            {locale === "fr" ? "À Propos" : "About Me"}
+        {/* EN-TÊTE ÉDITORIALE */}
+        <div className="flex items-center gap-4 mb-8">
+          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-neutral-500 font-bold">
+            01 // {locale === "fr" ? "À PROPOS" : "ABOUT ME"}
           </span>
+          <div className="h-px flex-1 bg-white/10 max-w-xs" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
           
-          <div className="lg:col-span-6 space-y-6">
+          {/* TITRE ET PARAGRAPHE GAUCHE (7 cols) */}
+          <div className="lg:col-span-7 space-y-8">
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.02] uppercase"
             >
-              {locale === "fr"
-                ? "Concevoir des solutions robustes et intelligentes."
-                : "Building robust and intelligent solutions."}
+              {locale === "fr" ? (
+                <>
+                  Bâtir avec rigueur, <br />
+                  <span className="text-neutral-500 font-sans italic font-normal lowercase">innover par l'IA.</span>
+                </>
+              ) : (
+                <>
+                  Crafting with rigor, <br />
+                  <span className="text-neutral-500 font-sans italic font-normal lowercase">powered by applied AI.</span>
+                </>
+              )}
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-zinc-400 text-base leading-relaxed"
+              className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal"
             >
               {text}
             </motion.p>
           </div>
 
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {cards.map((c, i) => (
+          {/* LISTE ÉDITORIALE DROITE (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col divide-y divide-white/10 border-y border-white/10">
+            {stats.map((s, i) => (
               <motion.div
-                key={c.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
+                key={s.title}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-6 space-y-3 transition-colors"
+                className="py-6 flex items-start gap-6 group"
               >
-                <span className="text-2xl block">{c.icon}</span>
+                <span className="text-xs font-mono text-emerald-400 font-bold pt-0.5">
+                  [{s.num}]
+                </span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">{c.label}</p>
-                  <p className="text-sm font-bold text-white mt-1 leading-snug">{c.value}</p>
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 font-semibold mb-1">
+                    {s.title}
+                  </p>
+                  <p className="font-display font-bold text-base text-white group-hover:text-emerald-300 transition-colors">
+                    {s.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
