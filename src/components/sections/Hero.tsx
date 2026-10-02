@@ -17,22 +17,22 @@ export default function Hero({ locale }: Props) {
       : (content?.hero_subtitle?.value_en ?? t.heroSubtitle);
 
   return (
-    <section id="home" className="relative min-h-screen w-full flex items-center justify-center bg-[#080809] pt-36 pb-28 overflow-hidden">
+    <section id="home" className="relative min-h-[90vh] w-full flex items-center justify-center bg-[#080809] pt-36 pb-24 overflow-hidden">
       
-      {/* Halo de lumière très subtil en arrière-plan */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/[0.03] rounded-full blur-[160px] pointer-events-none" />
+      {/* Halo de lumière très subtil derrière le portrait */}
+      <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-emerald-500/[0.04] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center z-10">
+      <div className="relative w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-10">
         
-        {/* COLONNE GAUCHE : IDENTITÉ & TEXTE (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col items-start space-y-9">
+        {/* BLOC GAUCHE : TEXTE & ACTIONS (Largeur contrôlée pour ne jamais déborder) */}
+        <div className="w-full lg:w-[60%] flex flex-col items-start space-y-8">
           
-          {/* Badge statut chic */}
+          {/* Badge statut */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-full px-5 py-2"
+            className="inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-full px-4.5 py-2 shadow-sm"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -43,20 +43,20 @@ export default function Hero({ locale }: Props) {
             </span>
           </motion.div>
 
-          {/* Grand titre éditorial : OUMAROU BILLY en Majuscules monumentales */}
+          {/* Grand titre éditorial responsive (clamp & overflow-hidden sécurisé) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="space-y-4"
+            className="space-y-3 w-full"
           >
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-white leading-[1.02] uppercase">
+            <h1 className="font-display text-4xl sm:text-6xl xl:text-7xl font-black tracking-tight text-white leading-[1.05] uppercase break-words">
               Oumarou <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-300">
                 Billy
               </span>
             </h1>
-            <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.28em] text-neutral-400 pt-2 font-medium">
+            <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.25em] text-neutral-400 pt-1 font-medium">
               // {locale === "fr" ? "DÉVELOPPEUR FULL-STACK & INGÉNIERIE IA" : "FULL-STACK DEVELOPER & AI ENGINEER"}
             </p>
           </motion.div>
@@ -76,21 +76,21 @@ export default function Hero({ locale }: Props) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-5 pt-2"
+            className="flex flex-wrap items-center gap-4 pt-2"
           >
             <a
               href="#projects"
-              className="group inline-flex items-center gap-4 bg-white text-black hover:bg-neutral-200 text-xs font-mono uppercase tracking-[0.2em] font-bold px-8 py-4.5 rounded-full transition-all duration-300 active:scale-95 shadow-[0_10px_30px_rgba(255,255,255,0.1)]"
+              className="group inline-flex items-center gap-3 bg-white text-black hover:bg-neutral-200 text-xs font-mono uppercase tracking-[0.18em] font-bold px-7 py-4 rounded-full transition-all duration-300 active:scale-95 shadow-[0_10px_30px_rgba(255,255,255,0.1)]"
             >
               <span>{locale === "fr" ? "VOIR MES PROJETS" : "SELECTED WORKS"}</span>
-              <span className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs group-hover:translate-x-1 transition-transform">
+              <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-xs group-hover:translate-x-1 transition-transform">
                 →
               </span>
             </a>
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] font-bold text-neutral-300 hover:text-white px-8 py-4.5 rounded-full border border-white/15 hover:border-white/40 transition-all duration-300 active:scale-95"
+              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.18em] font-bold text-neutral-300 hover:text-white px-7 py-4 rounded-full border border-white/15 hover:border-white/40 transition-all duration-300 active:scale-95"
             >
               <span>CONTACT</span>
             </a>
@@ -101,7 +101,7 @@ export default function Hero({ locale }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.45 }}
-            className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10 w-full max-w-lg"
+            className="grid grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-white/10 w-full max-w-lg"
           >
             <div>
               <p className="font-display text-3xl sm:text-4xl font-black text-white tracking-tight">05+</p>
@@ -125,32 +125,31 @@ export default function Hero({ locale }: Props) {
 
         </div>
 
-        {/* COLONNE DROITE : PORTRAIT DÉLIMITÉ ET PARFAITEMENT DÉCALÉ (5 cols) */}
+        {/* BLOC DROITE : PORTRAIT DÉTOURÉ (me-rbg.png) INTÉGRÉ NATURELLEMENT */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="lg:col-span-5 flex justify-center items-center relative"
+          className="w-full lg:w-[40%] flex justify-center items-center relative"
         >
-          <div className="relative w-full max-w-[360px] aspect-[4/5]">
+          <div className="relative w-[280px] sm:w-[320px] lg:w-[360px] aspect-[3/4]">
             
-            {/* Liseré géométrique d'art */}
-            <div className="absolute inset-0 border border-white/10 rounded-[28px] transform translate-x-3 translate-y-3 pointer-events-none" />
+            {/* Halo lumineux d'aura subtile derrière le détourage */}
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/20 via-emerald-500/5 to-transparent rounded-full blur-3xl opacity-70 transform scale-90 translate-y-6" />
 
-            {/* Cadre de l'image */}
-            <div className="relative w-full h-full rounded-[28px] overflow-hidden border border-white/15 bg-neutral-900 shadow-[0_25px_70px_rgba(0,0,0,0.8)] group">
+            {/* Photo sans background */}
+            <div className="relative w-full h-full">
               <Image
-                src="/me.jpeg"
+                src="/me-rbg.png"
                 alt="Oumarou Billy"
                 fill
-                className="object-cover object-top filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                className="object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.9)] hover:scale-105 transition-transform duration-500"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080809] via-transparent to-transparent opacity-50" />
             </div>
 
-            {/* Badge légende en dessous */}
-            <div className="absolute -bottom-5 -right-3 bg-[#101012] border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-md">
+            {/* Petit badge élégant en coin */}
+            <div className="absolute bottom-2 right-0 bg-[#101012]/90 border border-white/10 rounded-2xl p-3.5 shadow-2xl backdrop-blur-md">
               <p className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">// INGÉNIEUR</p>
               <p className="font-display font-bold text-sm text-white mt-0.5">Oumarou Billy</p>
               <p className="text-[11px] text-neutral-400 font-mono">Full-Stack & IA</p>
