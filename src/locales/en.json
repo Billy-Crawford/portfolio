@@ -2,33 +2,85 @@
   "heroBadge": "AI Master’s Student • Fullstack Developer",
   "heroTitle": "OUMAROU BILLY — Building, learning, and creating intelligent solutions",
   "heroSubtitle": "AI Master’s student and fullstack developer designing modern web architectures, scalable services, and intelligent models based on real-world engineering challenges.",
-
   "aboutTitle": "About Me",
   "aboutText": "I am Oumarou Billy, a Master’s student in Artificial Intelligence and a fullstack developer. I build complete applications from backend architecture to high-fidelity frontend interfaces, while continuously advancing my applied AI research. My goal is to build reliable, scalable, and impactful solutions aligned with modern tech demands.",
-
   "servicesTitle": "Services & Core Expertise",
   "servicesList": [
-    "Architecture and engineering of modern web & mobile applications",
-    "Design and implementation of robust, scalable REST APIs",
-    "Integration of applied machine learning and deep learning models (NLP, CV)",
-    "Performance optimization and high-fidelity user experiences"
+    {
+      "title": "Fullstack Web Architecture & Engineering",
+      "description": "End-to-end design and engineering of modern, scalable web applications (Next.js, TypeScript, Django, PostgreSQL) pairing refined user interfaces with high SSR/SSG performance."
+    },
+    {
+      "title": "Scalable REST APIs & Backend Architectures",
+      "description": "Engineering robust backend architectures, microservices, secure JWT authentication, relational (PostgreSQL) / NoSQL data modeling, and serverless cloud workflows (AWS Lambda, S3)."
+    },
+    {
+      "title": "Applied AI Engineering, NLP & Computer Vision",
+      "description": "Training and operationalizing machine learning and deep learning models (PyTorch, TensorFlow, Scikit-learn): semantic document processing (NLP), facial emotion recognition (Computer Vision), and predictive pipelines."
+    },
+    {
+      "title": "Performance Optimization, Luxury UI/UX & Mobile Solutions",
+      "description": "Core Web Vitals auditing, high-fidelity responsive ergonomics (Tailwind CSS, Framer Motion), cross-platform mobile apps (Flutter / Dart), and decentralized traceability (Blockchain / Web3)."
+    }
   ],
-
   "skillsTitle": "Technical Arsenal",
   "skillsList": [
-    { "name": "Next.js", "level": 85, "tooltip": "Modern React framework for SSR/SSG workflows" },
-    { "name": "React", "level": 65, "tooltip": "Core library for building interactive web UI" },
-    { "name": "Tailwind CSS", "level": 80, "tooltip": "Utility-first framework for rapid responsive design" },
-    { "name": "TypeScript", "level": 75, "tooltip": "Static typing and robust application structure" },
-    { "name": "Django + DRF", "level": 70, "tooltip": "Python backend services and RESTful APIs" },
-    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Applied machine learning and neural networks" },
-    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "Natural language processing and vision algorithms" },
-    { "name": "Databases (PostgreSQL, MongoDB, MySQL)", "level": 75, "tooltip": "Optimized relational and NoSQL data modeling" },
-    { "name": "Git & Collaborative Workflow", "level": 70, "tooltip": "Version control, code reviews and CI integration" },
-    { "name": "GitHub & CI/CD", "level": 70, "tooltip": "Automated builds, testing and cloud deployment" },
-    { "name": "WordPress & Headless CMS", "level": 50, "tooltip": "Dynamic and scalable content management systems" }
+    {
+      "name": "Next.js",
+      "level": 85,
+      "tooltip": "Modern React framework for SSR/SSG workflows"
+    },
+    {
+      "name": "React",
+      "level": 65,
+      "tooltip": "Core library for building interactive web UI"
+    },
+    {
+      "name": "Tailwind CSS",
+      "level": 80,
+      "tooltip": "Utility-first framework for rapid responsive design"
+    },
+    {
+      "name": "TypeScript",
+      "level": 75,
+      "tooltip": "Static typing and robust application structure"
+    },
+    {
+      "name": "Django + DRF",
+      "level": 70,
+      "tooltip": "Python backend services and RESTful APIs"
+    },
+    {
+      "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)",
+      "level": 65,
+      "tooltip": "Applied machine learning and neural networks"
+    },
+    {
+      "name": "NLP / Computer Vision",
+      "level": 50,
+      "tooltip": "Natural language processing and vision algorithms"
+    },
+    {
+      "name": "Databases (PostgreSQL, MongoDB, MySQL)",
+      "level": 75,
+      "tooltip": "Optimized relational and NoSQL data modeling"
+    },
+    {
+      "name": "Git & Collaborative Workflow",
+      "level": 70,
+      "tooltip": "Version control, code reviews and CI integration"
+    },
+    {
+      "name": "GitHub & CI/CD",
+      "level": 70,
+      "tooltip": "Automated builds, testing and cloud deployment"
+    },
+    {
+      "name": "WordPress & Headless CMS",
+      "level": 50,
+      "tooltip": "Dynamic and scalable content management systems"
+    }
   ],
-
   "projectsTitle": "Selected Work",
   "project1Name": "Medical Blog",
   "project1Desc": "A medical publication platform enabling direct interactions and reading clarity with a frictionless user flow.",
@@ -40,13 +92,11 @@
   "project4Desc": "An election and event management platform developed with strong emphasis on interface simplicity and transaction reliability.",
   "project5Name": "AI CV Analyzer",
   "project5Desc": "A semantic analysis tool written in Python to audit resumes, extract key traits, and suggest targeted improvements.",
-
   "contactTitle": "Let's Connect",
   "contactName": "Your Name",
   "contactEmail": "Your Email",
   "contactMessage": "Your Message",
   "contactSubmit": "Send Message",
   "contactThanks": "Thank you! Your message has been sent.",
-
   "footerText": "© 2026 Oumarou Billy — Monochrome Editorial Portfolio."
 }

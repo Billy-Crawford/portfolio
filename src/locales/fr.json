@@ -2,33 +2,85 @@
   "heroBadge": "Étudiant en Master IA • Développeur Fullstack",
   "heroTitle": "OUMAROU BILLY — Construire, apprendre, et créer des solutions intelligentes",
   "heroSubtitle": "Étudiant en Master Intelligence Artificielle et développeur fullstack, je conçois des architectures web modernes, des services applicatifs et des modèles intelligents à partir de défis techniques réels.",
-  
   "aboutTitle": "À propos de moi",
   "aboutText": "Je suis Oumarou Billy, étudiant en master en Intelligence Artificielle et développeur fullstack. Je conçois et déploie des applications complètes du backend au frontend, tout en approfondissant mes recherches en IA appliquée. Mon objectif est de bâtir des solutions utiles, robustes et scalables, alignées sur les défis technologiques actuels.",
-
   "servicesTitle": "Services & Domaines d'Intervention",
   "servicesList": [
-    "Architecture et développement d'applications web & mobiles modernes",
-    "Conception d'APIs REST sécurisées et scalables",
-    "Intégration de modèles de machine learning et deep learning (NLP, Computer Vision)",
-    "Optimisation de performances et interfaces utilisateurs haute fidélité"
+    {
+      "title": "Architecture & Développement Web Fullstack",
+      "description": "Conception et déploiement d'applications web scalables et modernes de bout en bout (Next.js, TypeScript, Django, PostgreSQL) alliant interfaces soignées, sécurité et performances SSR/SSG."
+    },
+    {
+      "title": "Conception d'APIs REST & Architectures Backend Scalables",
+      "description": "Développement de backends robustes, microservices, authentification JWT sécurisée, modélisation relationnelle (PostgreSQL) / NoSQL, et intégration de services cloud (AWS Lambda, S3)."
+    },
+    {
+      "title": "Ingénierie IA Appliquée, NLP & Computer Vision",
+      "description": "Entraînement et intégration de modèles de machine learning et deep learning (PyTorch, TensorFlow, Scikit-learn) : analyse sémantique de texte (NLP), reconnaissance des expressions faciales (Computer Vision) et pipelines prédictifs."
+    },
+    {
+      "title": "Audit de Performance, Ergonomie UI/UX & Solutions Mobiles",
+      "description": "Optimisation Core Web Vitals, interfaces haute fidélité (Tailwind CSS, Framer Motion) réactives sur tous formats d'écrans, développement mobile multiplateforme (Flutter / Dart) et traçabilité décentralisée (Blockchain / Web3)."
+    }
   ],
-
   "skillsTitle": "Compétences Techniques",
   "skillsList": [
-    { "name": "Next.js", "level": 85, "tooltip": "Framework React moderne pour frontend SSR/SSG" },
-    { "name": "React", "level": 65, "tooltip": "Bibliothèque principale pour UI web interactive" },
-    { "name": "Tailwind CSS", "level": 80, "tooltip": "Framework utilitaire pour stylisation rapide et réactive" },
-    { "name": "TypeScript", "level": 75, "tooltip": "Typage statique et rigueur applicative" },
-    { "name": "Django + DRF", "level": 70, "tooltip": "Backend Python et APIs RESTful" },
-    { "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)", "level": 65, "tooltip": "Machine learning et deep learning appliqué" },
-    { "name": "NLP / Computer Vision", "level": 50, "tooltip": "Modèles de traitement du langage et analyse visuelle" },
-    { "name": "Bases de données (PostgreSQL, MongoDB, MySQL)", "level": 75, "tooltip": "Modélisation relationnelle et NoSQL optimisée" },
-    { "name": "Git & Workflow Collaboratif", "level": 70, "tooltip": "Versioning, revues de code et intégration continue" },
-    { "name": "GitHub & CI/CD", "level": 70, "tooltip": "Automatisation, déploiement et hébergement" },
-    { "name": "WordPress & Headless CMS", "level": 50, "tooltip": "Solutions de gestion de contenu dynamiques" }
+    {
+      "name": "Next.js",
+      "level": 85,
+      "tooltip": "Framework React moderne pour frontend SSR/SSG"
+    },
+    {
+      "name": "React",
+      "level": 65,
+      "tooltip": "Bibliothèque principale pour UI web interactive"
+    },
+    {
+      "name": "Tailwind CSS",
+      "level": 80,
+      "tooltip": "Framework utilitaire pour stylisation rapide et réactive"
+    },
+    {
+      "name": "TypeScript",
+      "level": 75,
+      "tooltip": "Typage statique et rigueur applicative"
+    },
+    {
+      "name": "Django + DRF",
+      "level": 70,
+      "tooltip": "Backend Python et APIs RESTful"
+    },
+    {
+      "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)",
+      "level": 65,
+      "tooltip": "Machine learning et deep learning appliqué"
+    },
+    {
+      "name": "NLP / Computer Vision",
+      "level": 50,
+      "tooltip": "Modèles de traitement du langage et analyse visuelle"
+    },
+    {
+      "name": "Bases de données (PostgreSQL, MongoDB, MySQL)",
+      "level": 75,
+      "tooltip": "Modélisation relationnelle et NoSQL optimisée"
+    },
+    {
+      "name": "Git & Workflow Collaboratif",
+      "level": 70,
+      "tooltip": "Versioning, revues de code et intégration continue"
+    },
+    {
+      "name": "GitHub & CI/CD",
+      "level": 70,
+      "tooltip": "Automatisation, déploiement et hébergement"
+    },
+    {
+      "name": "WordPress & Headless CMS",
+      "level": 50,
+      "tooltip": "Solutions de gestion de contenu dynamiques"
+    }
   ],
-
   "projectsTitle": "Projets Sélectionnés",
   "project1Name": "Blog Médecine",
   "project1Desc": "Plateforme de publication d’articles médicaux permettant interactions directes et lecture optimisée avec une expérience utilisateur simplifiée.",
@@ -40,13 +92,11 @@
   "project4Desc": "Plateforme de gestion électorale et d'événements développée avec une attention poussée sur la fiabilité et la simplicité du parcours utilisateur.",
   "project5Name": "Analyseur de CV IA",
   "project5Desc": "Modèle d'analyse sémantique développé en Python pour auditer un CV, détecter les compétences manquantes et proposer des axes d'optimisation.",
-
   "contactTitle": "Démarrer une Collaboration",
   "contactName": "Votre nom",
   "contactEmail": "Votre email",
   "contactMessage": "Votre message",
   "contactSubmit": "Envoyer le message",
   "contactThanks": "Merci ! Votre message a bien été envoyé.",
-
   "footerText": "© 2026 Oumarou Billy — Portfolio Éditorial Monochrome."
 }

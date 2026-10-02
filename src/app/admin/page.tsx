@@ -7,12 +7,96 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001";
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Project = { id: number; name_fr: string; name_en: string; description_fr: string; description_en: string; stack: string[]; link: string; order_index: number };
 type Skill   = { id: number; name: string; level: number; tooltip_fr: string; tooltip_en: string; order_index: number };
-type Service = { id: number; text_fr: string; text_en: string; order_index: number };
+type Service = {
+  id: number;
+  title_fr: string;
+  title_en: string;
+  description_fr: string;
+  description_en: string;
+  text_fr?: string;
+  text_en?: string;
+  order_index: number;
+};
 type Content = Record<string, { value_fr: string; value_en: string }>;
 
 const emptyProject = (): Omit<Project,"id"> => ({ name_fr:"", name_en:"", description_fr:"", description_en:"", stack:[], link:"#", order_index:0 });
 const emptySkill   = (): Omit<Skill,"id">   => ({ name:"", level:50, tooltip_fr:"", tooltip_en:"", order_index:0 });
-const emptyService = (): Omit<Service,"id"> => ({ text_fr:"", text_en:"", order_index:0 });
+const emptyService = (): Omit<Service, "id"> => ({
+  title_fr: "",
+  title_en: "",
+  description_fr: "",
+  description_en: "",
+  text_fr: "",
+  text_en: "",
+  order_index: 0,
+});
+
+// ─── Helpers Services parsing & payload ──────────────────────────────────────
+const parseRawService = (s: any): Service => {
+  let title_fr = s.title_fr || "";
+  let description_fr = s.description_fr || "";
+  let title_en = s.title_en || "";
+  let description_en = s.description_en || "";
+
+  if (s.text_fr && (!title_fr || !description_fr)) {
+    if (s.text_fr.includes("\n---\n")) {
+      const [t, ...d] = s.text_fr.split("\n---\n");
+      title_fr = title_fr || t.trim();
+      description_fr = description_fr || d.join("\n---\n").trim();
+    } else if (s.text_fr.includes(" ::: ")) {
+      const [t, ...d] = s.text_fr.split(" ::: ");
+      title_fr = title_fr || t.trim();
+      description_fr = description_fr || d.join(" ::: ").trim();
+    } else {
+      title_fr = title_fr || s.text_fr.trim();
+    }
+  }
+
+  if (s.text_en && (!title_en || !description_en)) {
+    if (s.text_en.includes("\n---\n")) {
+      const [t, ...d] = s.text_en.split("\n---\n");
+      title_en = title_en || t.trim();
+      description_en = description_en || d.join("\n---\n").trim();
+    } else if (s.text_en.includes(" ::: ")) {
+      const [t, ...d] = s.text_en.split(" ::: ");
+      title_en = title_en || t.trim();
+      description_en = description_en || d.join(" ::: ").trim();
+    } else {
+      title_en = title_en || s.text_en.trim();
+    }
+  }
+
+  return {
+    id: s.id,
+    title_fr,
+    title_en,
+    description_fr,
+    description_en,
+    text_fr: s.text_fr,
+    text_en: s.text_en,
+    order_index: s.order_index ?? 0,
+  };
+};
+
+const formatServicePayload = (s: Omit<Service, "id"> | Service) => {
+  const t_fr = (s.title_fr || "").trim();
+  const d_fr = (s.description_fr || "").trim();
+  const t_en = (s.title_en || "").trim();
+  const d_en = (s.description_en || "").trim();
+
+  const text_fr = d_fr ? `${t_fr}\n---\n${d_fr}` : t_fr;
+  const text_en = d_en ? `${t_en}\n---\n${d_en}` : t_en;
+
+  return {
+    text_fr,
+    text_en,
+    title_fr: t_fr,
+    title_en: t_en,
+    description_fr: d_fr,
+    description_en: d_en,
+    order_index: Number(s.order_index) || 0,
+  };
+};
 
 // ─── Zod Schemas ──────────────────────────────────────────────────────────────
 const ProjectSchema = z.object({
@@ -34,8 +118,10 @@ const SkillSchema = z.object({
 });
 
 const ServiceSchema = z.object({
-  text_fr: z.string().min(5, "Le service FR est trop court"),
-  text_en: z.string().min(5, "Le service EN est trop court"),
+  title_fr: z.string().min(2, "Le titre du service FR doit contenir au moins 2 caractères"),
+  title_en: z.string().min(2, "Le titre du service EN doit contenir au moins 2 caractères"),
+  description_fr: z.string().min(5, "La description FR doit contenir au moins 5 caractères"),
+  description_en: z.string().min(5, "La description EN doit contenir au moins 5 caractères"),
   order_index: z.number().int("L'ordre doit être un entier"),
 });
 
@@ -116,7 +202,7 @@ export default function AdminPage() {
       fetch(`${API_URL}/api/services`).then(r=>r.json()).catch(()=>[]),
       fetch(`${API_URL}/api/content`).then(r=>r.json()).catch(()=>({})),
     ]);
-    setProjects(pr); setSkills(sk); setServices(sv); setContent(ct);
+    setProjects(pr); setSkills(sk); setServices(Array.isArray(sv) ? sv.map(parseRawService) : []); setContent(ct);
   };
 
   useEffect(() => { if (token) loadAll(); }, [token]);
@@ -172,7 +258,8 @@ export default function AdminPage() {
     const parsed = ServiceSchema.safeParse(newService);
     if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
     setLoginErr("");
-    const r = await fetch(`${API_URL}/api/services`, { method:"POST", headers:headers(), body: JSON.stringify(newService) });
+    const payload = formatServicePayload(newService);
+    const r = await fetch(`${API_URL}/api/services`, { method:"POST", headers:headers(), body: JSON.stringify(payload) });
     if (r.ok) { flash("Service ajouté !"); setNewService(emptyService()); loadAll(); }
     else flash("Erreur");
   };
@@ -180,7 +267,8 @@ export default function AdminPage() {
     const parsed = ServiceSchema.safeParse(s);
     if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
     setLoginErr("");
-    const r = await fetch(`${API_URL}/api/services/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(s) });
+    const payload = formatServicePayload(s);
+    const r = await fetch(`${API_URL}/api/services/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(payload) });
     if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[s.id]:false})); loadAll(); }
     else flash("Erreur");
   };
@@ -427,16 +515,26 @@ export default function AdminPage() {
         {/* ── SERVICES ── */}
         {tab === "services" && (
           <div className="space-y-6">
-            <h2 className="text-lg font-black uppercase tracking-wider">Catalogue Services ({services.length})</h2>
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+              <h2 className="text-lg font-black uppercase tracking-wider">Catalogue Services ({services.length})</h2>
+              <span className="text-xs font-mono text-neutral-500">// Titres et descriptions complètes FR & EN</span>
+            </div>
 
+            {/* Formulaire ajout */}
             <div className="bg-[#121212] border border-neutral-800 p-6 rounded-2xl space-y-4">
               <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 block border-b border-neutral-800 pb-2">
                 + Nouveau service
               </span>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input label="Texte FR" value={newService.text_fr} onChange={v=>setNewService(s=>({...s,text_fr:v}))} />
-                <Input label="Texte EN" value={newService.text_en} onChange={v=>setNewService(s=>({...s,text_en:v}))} />
-                <Input label="Ordre" type="number" value={newService.order_index} onChange={v=>setNewService(s=>({...s,order_index:+v}))} />
+                <Input label="Titre du service (FR)" value={newService.title_fr} onChange={v=>setNewService(s=>({...s,title_fr:v}))} />
+                <Input label="Titre du service (EN)" value={newService.title_en} onChange={v=>setNewService(s=>({...s,title_en:v}))} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input label="Description détaillée (FR)" rows={3} value={newService.description_fr} onChange={v=>setNewService(s=>({...s,description_fr:v}))} />
+                <Input label="Detailed description (EN)" rows={3} value={newService.description_en} onChange={v=>setNewService(s=>({...s,description_en:v}))} />
+              </div>
+              <div className="w-full md:w-48">
+                <Input label="Ordre d'affichage" type="number" value={newService.order_index} onChange={v=>setNewService(s=>({...s,order_index:+v}))} />
               </div>
               <div className="pt-2">
                 <Btn onClick={addService} color="green">Ajouter le service</Btn>
@@ -449,8 +547,14 @@ export default function AdminPage() {
                   {editing[s.id] ? (
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Input label="Texte FR" value={s.text_fr} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_fr:v}:x))} />
-                        <Input label="Texte EN" value={s.text_en} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,text_en:v}:x))} />
+                        <Input label="Titre FR" value={s.title_fr} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,title_fr:v}:x))} />
+                        <Input label="Titre EN" value={s.title_en} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,title_en:v}:x))} />
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Input label="Description FR" rows={3} value={s.description_fr} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,description_fr:v}:x))} />
+                        <Input label="Description EN" rows={3} value={s.description_en} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,description_en:v}:x))} />
+                      </div>
+                      <div className="w-full md:w-48">
                         <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
                       </div>
                       <div className="flex gap-2">
@@ -459,15 +563,27 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                      <div>
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+                      <div className="space-y-2 flex-1">
                         <div className="flex items-center gap-3">
                           <span className="text-xs font-mono text-neutral-500">#{s.order_index}</span>
-                          <p className="font-bold text-white text-sm">{s.text_fr}</p>
+                          <p className="font-bold text-white text-base">{s.title_fr}</p>
                         </div>
-                        <p className="text-neutral-500 text-xs mt-1 font-mono">{s.text_en}</p>
+                        {s.description_fr && (
+                          <p className="text-neutral-300 text-xs font-sans leading-relaxed pl-7">
+                            {s.description_fr}
+                          </p>
+                        )}
+                        <div className="pt-2 border-t border-neutral-800/60 pl-7 space-y-1">
+                          <p className="text-xs font-mono text-neutral-400 font-semibold">{s.title_en}</p>
+                          {s.description_en && (
+                            <p className="text-neutral-500 text-xs font-sans italic leading-relaxed">
+                              {s.description_en}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex gap-2 shrink-0">
+                      <div className="flex gap-2 shrink-0 self-end md:self-start">
                         <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="gray">Modifier</Btn>
                         <Btn onClick={()=>delService(s.id)} color="red">Supprimer</Btn>
                       </div>

@@ -19,13 +19,19 @@ export type Skill = {
   tooltip?: string;
 };
 
+export type Service = {
+  id?: number;
+  title: string;
+  description: string;
+};
+
 export type Content = Record<string, { value_fr: string; value_en: string }>;
 
 type PortfolioData = {
   content: Content | null;
   projects: Project[];
   skills: Skill[];
-  services: string[];
+  services: Service[];
   loading: boolean;
 };
 
@@ -110,12 +116,63 @@ export function PortfolioProvider({
             }))
           : (t.skillsList as Skill[]);
 
-      const services =
-        servicesData && !servicesData.error
-          ? servicesData.map((s: any) =>
-              locale === "fr" ? s.text_fr : s.text_en
-            )
-          : t.servicesList;
+      const parseServiceItem = (item: any, lang: string): Service => {
+        if (!item) return { title: "", description: "" };
+        const DELIMITER = "\n---\n";
+        if (typeof item === "string") {
+          if (item.includes(DELIMITER)) {
+            const [tPart, ...dPart] = item.split(DELIMITER);
+            return { title: tPart.trim(), description: dPart.join(DELIMITER).trim() };
+          }
+          if (item.includes(" ::: ")) {
+            const [tPart, ...dPart] = item.split(" ::: ");
+            return { title: tPart.trim(), description: dPart.join(" ::: ").trim() };
+          }
+          return { title: item.trim(), description: "" };
+        }
+
+        if (typeof item.title === "string" && typeof item.description === "string") {
+          return {
+            id: item.id,
+            title: item.title,
+            description: item.description,
+          };
+        }
+
+        const rawText = lang === "fr" ? (item.text_fr || item.title_fr || item.title || "") : (item.text_en || item.title_en || item.title || "");
+        const rawDesc = lang === "fr" ? (item.description_fr || item.description || "") : (item.description_en || item.description || "");
+
+        if (rawDesc) {
+          const rawTitle = (lang === "fr" ? (item.title_fr || item.title) : (item.title_en || item.title)) || rawText;
+          return {
+            id: item.id,
+            title: rawTitle,
+            description: rawDesc,
+          };
+        }
+
+        if (typeof rawText === "string" && rawText.includes(DELIMITER)) {
+          const [tPart, ...dPart] = rawText.split(DELIMITER);
+          return { id: item.id, title: tPart.trim(), description: dPart.join(DELIMITER).trim() };
+        }
+        if (typeof rawText === "string" && rawText.includes(" ::: ")) {
+          const [tPart, ...dPart] = rawText.split(" ::: ");
+          return { id: item.id, title: tPart.trim(), description: dPart.join(" ::: ").trim() };
+        }
+
+        return {
+          id: item.id,
+          title: rawText || (lang === "fr" ? item.title_fr : item.title_en) || "",
+          description: rawDesc || "",
+        };
+      };
+
+      const fallbackServices: Service[] = (t.servicesList as any[]).map((s) => parseServiceItem(s, locale));
+
+      const services: Service[] =
+        servicesData && !servicesData.error && Array.isArray(servicesData) && servicesData.length > 0
+          ? servicesData.map((s: any) => parseServiceItem(s, locale))
+          : fallbackServices;
 
       setData({
         content: contentData && !contentData.error ? contentData : null,
@@ -143,4 +200,3 @@ export function usePortfolio() {
   }
   return context;
 }
-
