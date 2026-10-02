@@ -23,9 +23,12 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
 
   const links = [
     { label: locale === "fr" ? "À propos" : "About", href: "#about" },
-    { label: locale === "fr" ? "Expertise" : "Services", href: "#services" },
+    { label: locale === "fr" ? "Parcours" : "Education", href: "#education" },
+    { label: locale === "fr" ? "Pôle IA" : "AI Lab", href: "#ai-focus" },
     { label: locale === "fr" ? "Arsenal" : "Skills", href: "#skills" },
     { label: locale === "fr" ? "Travaux" : "Projects", href: "#projects" },
+    { label: locale === "fr" ? "Méthode" : "Methodology", href: "#methodology" },
+    { label: "CV", href: "#resume" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -49,13 +52,13 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           </span>
         </Link>
 
-        {/* NAVIGATION DESKTOP */}
-        <nav className="hidden md:flex items-center gap-8 lg:gap-9">
+        {/* NAVIGATION DESKTOP ÉTENDUE */}
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[12px] uppercase tracking-[0.2em] font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors relative py-1 group"
+              className="text-[11px] xl:text-[12px] uppercase tracking-[0.18em] font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors relative py-1 group"
             >
               {link.label}
               <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-emerald-500 dark:bg-emerald-400 transition-all duration-300 group-hover:w-full" />
@@ -94,7 +97,7 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           {/* BOUTON MENU BURGER MOBILE */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-8.5 h-8.5 rounded-full border border-neutral-300 dark:border-white/10 flex items-center justify-center text-neutral-800 dark:text-white text-base hover:border-neutral-500 dark:hover:border-white/30 transition-colors"
+            className="lg:hidden w-8.5 h-8.5 rounded-full border border-neutral-300 dark:border-white/10 flex items-center justify-center text-neutral-800 dark:text-white text-base hover:border-neutral-500 dark:hover:border-white/30 transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? "✕" : "☰"}
@@ -105,7 +108,7 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
 
       {/* TIROIR MOBILE */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#fafaf9] dark:bg-[#080809] border-b border-black/10 dark:border-white/10 px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-[#fafaf9] dark:bg-[#080809] border-b border-black/10 dark:border-white/10 px-6 py-6 space-y-3">
           {links.map((link) => (
             <a
               key={link.href}
