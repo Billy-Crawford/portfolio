@@ -12,117 +12,75 @@ export default function Projects({ locale }: Props) {
   const { projects, loading } = usePortfolio();
 
   return (
-    <section
-      id="projects"
-      className="relative w-full bg-[#ebebeb] text-[#121212] py-36 sm:py-44 select-none overflow-hidden"
-    >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-black/[0.03] tracking-tighter leading-none pointer-events-none whitespace-nowrap">
-        PROJECTS
-      </div>
+    <section id="projects" className="py-28 bg-[#0a0a0a] border-t border-neutral-900/60 relative">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-px bg-emerald-500" />
+          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+            {locale === "fr" ? "Réalisations" : "Selected Work"}
+          </span>
+        </div>
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-12">
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="flex items-center gap-3 mb-10"
+          className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-14"
         >
-          <span className="text-[10px] font-black uppercase tracking-[0.28em] text-neutral-500">
-            {locale === "fr" ? "04 \u2014 REALISATIONS" : "04 \u2014 SELECTED WORK"}
-          </span>
-          <div className="h-[1px] w-12 bg-black/20" />
-        </motion.div>
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            viewport={{ once: true }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-[0.95]"
-          >
-            {t.projectsTitle || (locale === "fr" ? "Projets Cles" : "Key Works")}
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            viewport={{ once: true }}
-            className="text-neutral-500 text-xs sm:text-sm font-mono uppercase tracking-widest max-w-xs"
-          >
-            {locale === "fr"
-              ? "// Solutions completes & architectures evolutives."
-              : "// End-to-end systems & scalable solutions."}
-          </motion.p>
-        </div>
+          {t.projectsTitle}
+        </motion.h2>
 
         {loading ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-96 bg-black/5 rounded-3xl animate-pulse border border-black/10"
-              />
+              <div key={i} className="h-64 bg-neutral-900/60 rounded-2xl animate-pulse border border-neutral-800" />
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="group relative bg-white border border-black/10 hover:border-black rounded-[28px] p-8 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between min-h-[340px]"
+                className="group bg-neutral-900/50 border border-neutral-800 hover:border-emerald-500/40 rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1"
               >
                 <div>
-                  <div className="flex items-start justify-between mb-10 pb-5 border-b border-black/5">
-                    <span className="text-xs font-mono font-bold text-neutral-400">
-                      [{String(i + 1).padStart(2, "0")}]
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-bold text-emerald-400">
+                      0{i + 1}
                     </span>
                     {project.link && project.link !== "#" && (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="w-9 h-9 rounded-full border border-black/15 group-hover:border-black group-hover:bg-black group-hover:text-white flex items-center justify-center transition-all duration-200"
-                        title="Ouvrir le projet"
+                        className="text-neutral-400 hover:text-white transition-colors"
                       >
-                        <svg
-                          className="w-3.5 h-3.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2.5}
-                            d="M7 17L17 7m0 0H7m10 0v10"
-                          />
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </a>
                     )}
                   </div>
 
-                  <h3 className="text-xl font-black text-black uppercase tracking-tight mb-4 group-hover:opacity-80 transition-opacity">
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
                     {project.name}
                   </h3>
-                  <p className="text-sm text-neutral-600 leading-[1.8] font-normal">
+                  <p className="text-sm text-neutral-400 leading-relaxed">
                     {project.description}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mt-10 pt-6 border-t border-black/5">
+                <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-neutral-800/80">
                   {(project.stack || []).map((tech, ti) => (
                     <span
                       key={ti}
-                      className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-neutral-100 text-neutral-800 border border-black/5"
+                      className="text-xs font-medium px-3 py-1 rounded-full bg-neutral-800/80 text-neutral-300 border border-neutral-700/50"
                     >
                       {tech}
                     </span>

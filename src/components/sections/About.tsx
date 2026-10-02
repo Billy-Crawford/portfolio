@@ -17,135 +17,88 @@ export default function About({ locale }: Props) {
 
   const cards = [
     {
-      icon: "01",
+      icon: "🎓",
       label: locale === "fr" ? "Formation" : "Education",
-      value:
-        locale === "fr"
-          ? "Master Intelligence Artificielle"
-          : "MSc Artificial Intelligence",
+      value: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence",
     },
     {
-      icon: "02",
+      icon: "📍",
       label: locale === "fr" ? "Localisation" : "Location",
       value: "Ouagadougou, Burkina Faso",
     },
     {
-      icon: "03",
-      label: "Stack",
-      value: "Next.js \u00b7 Flask \u00b7 Python \u00b7 PostgreSQL",
+      icon: "⚡",
+      label: "Technologies Clés",
+      value: "Next.js · Flask · Python · PostgreSQL",
     },
     {
-      icon: "04",
-      label: "Focus",
-      value: locale === "fr" ? "Web \u00b7 IA \u00b7 Mobile" : "Web \u00b7 AI \u00b7 Mobile",
+      icon: "🎯",
+      label: "Domaines de Spécialité",
+      value: locale === "fr" ? "Applications Web · Modèles IA · Mobile" : "Web Apps · AI Models · Mobile",
     },
   ];
 
   return (
-    <section id="about" className="relative w-full bg-[#0c0c0c] py-36 sm:py-44 overflow-hidden select-none border-t border-neutral-900">
-
-      {/* WATERMARK */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black text-white/[0.02] tracking-tighter leading-none pointer-events-none whitespace-nowrap">
-        ABOUT
-      </div>
-
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-12">
-
-        {/* LABEL */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-3 mb-14"
-        >
-          <span className="text-[10px] font-black uppercase tracking-[0.28em] text-neutral-500">
-            {locale === "fr" ? "02 \u2014 A PROPOS" : "02 \u2014 ABOUT ME"}
+    <section id="about" className="py-28 bg-[#080808] border-t border-neutral-900/60 relative">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
+        {/* En-tête de section */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-px bg-emerald-500" />
+          <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+            {locale === "fr" ? "À Propos" : "About Me"}
           </span>
-          <div className="h-[1px] w-12 bg-neutral-800" />
-        </motion.div>
+        </div>
 
-        {/* 2 COLONNES */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-
-          {/* COL GAUCHE */}
-          <div className="lg:col-span-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mt-6">
+          
+          {/* Texte principal */}
+          <div className="lg:col-span-6 space-y-6">
             <motion.h2
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.95] tracking-tight uppercase"
+              className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight"
             >
-              {locale === "fr" ? (
-                <>
-                  Concevoir <br />
-                  <span className="text-neutral-500">avec precision</span>
-                </>
-              ) : (
-                <>
-                  Building <br />
-                  <span className="text-neutral-500">that matters</span>
-                </>
-              )}
+              {locale === "fr"
+                ? "Concevoir des solutions robustes et intelligentes."
+                : "Building robust and intelligent solutions."}
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-neutral-400 text-sm sm:text-base leading-[1.9] mt-10 max-w-lg font-normal"
+              className="text-neutral-400 text-base leading-relaxed"
             >
               {text}
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="mt-12"
-            >
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white border-b-2 border-white pb-2.5 hover:text-neutral-400 hover:border-neutral-400 transition-all duration-200"
-              >
-                {locale === "fr" ? "Prendre contact" : "Get in touch"}
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </motion.div>
           </div>
 
-          {/* COL DROITE : CARTES */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {cards.map((card, i) => (
+          {/* Grille de cartes repères */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {cards.map((c, i) => (
               <motion.div
-                key={card.label}
+                key={c.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.08 * i }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-[#141414] border border-neutral-800/80 rounded-2xl p-7 flex flex-col justify-between hover:border-neutral-600 transition-colors group min-h-[160px]"
+                className="bg-neutral-900/60 border border-neutral-800/80 hover:border-neutral-700 rounded-2xl p-6 space-y-3 transition-colors"
               >
-                <div className="flex items-center justify-between mb-10">
-                  <span className="text-[11px] font-mono text-neutral-500 font-bold group-hover:text-white transition-colors">
-                    [{card.icon}]
-                  </span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-500">
-                    {card.label}
-                  </span>
+                <span className="text-2xl">{c.icon}</span>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">{c.label}</p>
+                  <p className="text-sm font-bold text-white mt-1 leading-snug">{c.value}</p>
                 </div>
-                <p className="text-sm font-bold text-white tracking-tight leading-snug">
-                  {card.value}
-                </p>
               </motion.div>
             ))}
           </div>
 
         </div>
+
       </div>
     </section>
   );
