@@ -23,10 +23,10 @@ export default function Contact({ locale }: Props) {
   }, [state.succeeded]);
 
   const inputCls =
-    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-6 py-4.5 text-sm outline-none transition-all duration-300";
+    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-6 py-4.5 text-sm sm:text-base outline-none transition-all duration-300";
 
   return (
-    <section id="contact" className="py-36 bg-[#080809] border-t border-white/5 relative">
+    <section id="contact" className="py-32 sm:py-36 bg-[#080809] border-t border-white/5 relative">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* EN-TÊTE ÉDITORIALE */}
@@ -37,17 +37,18 @@ export default function Contact({ locale }: Props) {
           <div className="h-px flex-1 bg-white/10 max-w-xs" />
         </div>
 
-        {/* GRILLE 2 COLONNES ULTRA-AÉRÉE SANS AUCUNE COUPURE DE MOT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start w-full">
+        {/* SUR ÉCRAN GRAND (XL) : 2 COLONNES CÔTE À CÔTE
+            SUR ÉCRAN MOYEN ET PETIT (< XL) : 1 COLONNE AVEC FORMULAIRE PLEINE LARGEUR EN BAS */}
+        <div className="flex flex-col xl:flex-row items-start justify-between gap-12 sm:gap-16 xl:gap-20 w-full">
           
-          {/* GAUCHE : IDENTITÉ & RÉSEAUX (7 cols pour que le titre respire pleinement) */}
-          <div className="lg:col-span-7 flex flex-col justify-start space-y-8">
+          {/* HAUT (OU GAUCHE EN XL) : IDENTITÉ & LIENS */}
+          <div className="w-full xl:w-[50%] flex flex-col justify-start space-y-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.08]"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.08] break-words"
             >
               {locale === "fr" ? (
                 <>
@@ -62,13 +63,13 @@ export default function Contact({ locale }: Props) {
               )}
             </motion.h2>
 
-            <p className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal max-w-xl">
+            <p className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal max-w-2xl">
               {locale === "fr"
                 ? "Disponible pour des opportunités professionnelles, missions d'ingénierie full-stack ou intégration de solutions IA."
                 : "Available for engineering opportunities, full-stack architectures, and applied AI systems."}
             </p>
 
-            <div className="space-y-4 pt-4 border-t border-white/10 w-full max-w-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4 pt-4 border-t border-white/10 w-full max-w-2xl">
               {[
                 { label: "GITHUB", href: "https://github.com", desc: "// DÉPÔTS & CODE SOURCE" },
                 { label: "LINKEDIN", href: "https://linkedin.com", desc: "// PROFIL PROFESSIONNEL" },
@@ -94,25 +95,25 @@ export default function Contact({ locale }: Props) {
             </div>
           </div>
 
-          {/* DROITE : FORMULAIRE PROPREMENT CALIBRÉ (5 cols) */}
+          {/* BAS (OU DROITE EN XL) : LE FORMULAIRE BIEN GRAND, SPACIEUX ET TOTALEMENT VISIBLE */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="lg:col-span-5 bg-[#101012] border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl"
+            className="w-full xl:w-[48%] bg-[#101012] border border-white/10 rounded-3xl p-7 sm:p-10 lg:p-12 shadow-2xl"
           >
             {state.succeeded && !showForm ? (
-              <div className="text-center py-14 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold border border-emerald-500/20">
+              <div className="text-center py-16 space-y-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto text-2xl font-bold border border-emerald-500/20">
                   ✓
                 </div>
-                <p className="font-display font-black text-2xl text-white uppercase">{t.contactThanks}</p>
+                <p className="font-display font-black text-2xl sm:text-3xl text-white uppercase">{t.contactThanks}</p>
                 <p className="text-neutral-400 text-sm font-mono">// MESSAGE TRANSMIS AVEC SUCCÈS</p>
               </div>
             ) : (
               showForm && (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <input
                       type="text"
@@ -146,7 +147,7 @@ export default function Contact({ locale }: Props) {
                   <button
                     type="submit"
                     disabled={state.submitting}
-                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs py-5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 mt-3 cursor-pointer shadow-lg"
+                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs sm:text-sm py-5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 mt-3 cursor-pointer shadow-lg"
                   >
                     {state.submitting ? "ENVOI..." : t.contactSubmit.toUpperCase()}
                     <span>→</span>
