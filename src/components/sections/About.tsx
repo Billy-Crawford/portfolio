@@ -18,23 +18,23 @@ export default function About({ locale }: Props) {
   const stats = [
     {
       num: "01",
-      title: locale === "fr" ? "FORMATION" : "EDUCATION",
-      desc: locale === "fr" ? "Master Intelligence Artificielle" : "MSc Artificial Intelligence",
+      title: locale === "fr" ? "PROFIL & VISION" : "PROFILE & FOCUS",
+      desc: locale === "fr" ? "Développeur Full-Stack & Solutions Intelligentes" : "Full-Stack Developer & Smart Solutions",
     },
     {
       num: "02",
-      title: locale === "fr" ? "LOCALISATION" : "LOCATION",
-      desc: "Ouagadougou, Burkina Faso",
+      title: "STACK CORE",
+      desc: "Next.js · React · Python · Flask · PostgreSQL",
     },
     {
       num: "03",
-      title: "STACK CORE",
-      desc: "Next.js · Flask · Python · PostgreSQL",
+      title: locale === "fr" ? "DOMAINES D'EXPERTISE" : "CORE CAPABILITIES",
+      desc: locale === "fr" ? "Applications Web, APIs REST & Intégration IA" : "Web Platforms, REST APIs & AI Integration",
     },
     {
       num: "04",
-      title: "DOMAINES",
-      desc: locale === "fr" ? "Systèmes Distribués & Modèles IA" : "Distributed Systems & Applied AI",
+      title: locale === "fr" ? "APPROCHE" : "METHODOLOGY",
+      desc: locale === "fr" ? "Code Propre, Architecture Scalable & Rigueur" : "Clean Code, Scalable Architecture & Precision",
     },
   ];
 
@@ -63,13 +63,13 @@ export default function About({ locale }: Props) {
             >
               {locale === "fr" ? (
                 <>
-                  Bâtir avec rigueur, <br />
-                  <span className="text-neutral-500 font-sans italic font-normal lowercase">innover par l'IA.</span>
+                  Concevoir avec rigueur, <br />
+                  <span className="text-neutral-500 font-sans italic font-normal lowercase">créer des solutions durables.</span>
                 </>
               ) : (
                 <>
-                  Crafting with rigor, <br />
-                  <span className="text-neutral-500 font-sans italic font-normal lowercase">powered by applied AI.</span>
+                  Building with rigor, <br />
+                  <span className="text-neutral-500 font-sans italic font-normal lowercase">crafting resilient solutions.</span>
                 </>
               )}
             </motion.h2>

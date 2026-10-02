@@ -23,7 +23,7 @@ export default function Contact({ locale }: Props) {
   }, [state.succeeded]);
 
   const inputCls =
-    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-6 py-5 text-sm outline-none transition-all duration-300";
+    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-6 py-4.5 text-sm outline-none transition-all duration-300";
 
   return (
     <section id="contact" className="py-36 bg-[#080809] border-t border-white/5 relative">
@@ -37,12 +37,13 @@ export default function Contact({ locale }: Props) {
           <div className="h-px flex-1 bg-white/10 max-w-xs" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+        {/* GRILLE 2 COLONNES TOTALEMENT INDÉPENDANTES AVEC GAP GÉNÉREUX */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* GAUCHE : IDENTITÉ & LIENS RÉSEAUX (5 cols) */}
-          <div className="lg:col-span-5 space-y-10">
+          {/* GAUCHE : TITRE & RÉSEAUX (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-start space-y-8">
             <motion.h2
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
@@ -51,23 +52,23 @@ export default function Contact({ locale }: Props) {
               {t.contactTitle || (locale === "fr" ? "Démarrons un projet" : "Let's connect")}
             </motion.h2>
 
-            <p className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal">
+            <p className="text-neutral-400 text-base leading-relaxed font-normal">
               {locale === "fr"
-                ? "Disponible pour des projets de développement full-stack, intégration de modèles d'IA, ou opportunités techniques ambitieuses."
-                : "Available for full-stack engineering, applied AI integration, or high-impact technical opportunities."}
+                ? "Disponible pour des opportunités professionnelles, missions d'ingénierie full-stack ou intégration de solutions IA."
+                : "Available for engineering opportunities, full-stack architectures, and applied AI systems."}
             </p>
 
-            <div className="space-y-4 pt-4 border-t border-white/10">
+            <div className="space-y-4 pt-4 border-t border-white/10 w-full">
               {[
-                { label: "GITHUB", href: "https://github.com", desc: "// REPOSITORIES & OPEN SOURCE" },
-                { label: "LINKEDIN", href: "https://linkedin.com", desc: "// PROFESSIONAL NETWORK" },
+                { label: "GITHUB", href: "https://github.com", desc: "// DÉPÔTS & CODE SOURCE" },
+                { label: "LINKEDIN", href: "https://linkedin.com", desc: "// PROFIL PROFESSIONNEL" },
               ].map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-white/[0.02] border border-white/10 hover:border-white/30 px-6 py-5 rounded-2xl group transition-all duration-300"
+                  className="flex items-center justify-between bg-white/[0.02] border border-white/10 hover:border-white/30 px-6 py-4.5 rounded-2xl group transition-all duration-300"
                 >
                   <div>
                     <span className="font-display font-bold text-sm tracking-widest text-white group-hover:text-emerald-400 transition-colors">
@@ -83,25 +84,25 @@ export default function Contact({ locale }: Props) {
             </div>
           </div>
 
-          {/* DROITE : FORMULAIRE HAUTE PRÉCISION (7 cols) */}
+          {/* DROITE : FORMULAIRE PROPREMENT ISOLÉ (7 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 bg-[#101012] border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl"
+            className="lg:col-span-7 bg-[#101012] border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl"
           >
             {state.succeeded && !showForm ? (
-              <div className="text-center py-16 space-y-4">
+              <div className="text-center py-14 space-y-4">
                 <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto text-xl font-bold border border-emerald-500/20">
                   ✓
                 </div>
                 <p className="font-display font-black text-2xl text-white uppercase">{t.contactThanks}</p>
-                <p className="text-neutral-400 text-sm font-mono">// RÉPONSE SOUS 24 HEURES</p>
+                <p className="text-neutral-400 text-sm font-mono">// MESSAGE TRANSMIS AVEC SUCCÈS</p>
               </div>
             ) : (
               showForm && (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <input
                       type="text"
@@ -110,7 +111,7 @@ export default function Contact({ locale }: Props) {
                       required
                       className={inputCls}
                     />
-                    <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-2 block font-mono" />
+                    <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs mt-1.5 block font-mono" />
                   </div>
                   <div>
                     <input
@@ -120,7 +121,7 @@ export default function Contact({ locale }: Props) {
                       required
                       className={inputCls}
                     />
-                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-2 block font-mono" />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs mt-1.5 block font-mono" />
                   </div>
                   <div>
                     <textarea
@@ -130,12 +131,12 @@ export default function Contact({ locale }: Props) {
                       required
                       className={`${inputCls} resize-none`}
                     />
-                    <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-2 block font-mono" />
+                    <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs mt-1.5 block font-mono" />
                   </div>
                   <button
                     type="submit"
                     disabled={state.submitting}
-                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs py-5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3"
+                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs py-5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 mt-2 cursor-pointer"
                   >
                     {state.submitting ? "ENVOI..." : t.contactSubmit.toUpperCase()}
                     <span>→</span>
