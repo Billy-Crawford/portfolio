@@ -1,9 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --bg-dark: #09090b;
-  --card-dark: #121215;
-  --border-dark: #27272a;
+  --background: #09090b;
+  --foreground: #f4f4f5;
 }
 
 * {
@@ -17,9 +18,9 @@ html {
 }
 
 body {
-  background-color: var(--bg-dark);
-  color: #f4f4f5;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
