@@ -1,6 +1,6 @@
-// src/app/[locale]/layout.tsx
 import Navbar from "@/components/layout/Navbar";
 import { PortfolioProvider } from "@/context/PortfolioContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 type Props = {
   children: React.ReactNode;
@@ -8,19 +8,17 @@ type Props = {
 };
 
 export default async function LocaleLayout({ children, params }: Props) {
-  // Next.js 16 → params est une Promise
   const { locale } = await params;
-
-  // sécurité type
   const safeLocale: "en" | "fr" = locale === "fr" ? "fr" : "en";
 
   return (
-    <PortfolioProvider locale={safeLocale}>
-      <div className="relative w-full min-h-screen bg-[#0c0c0c] text-white">
-        <Navbar locale={safeLocale} />
-        {children}
-      </div>
-    </PortfolioProvider>
+    <ThemeProvider>
+      <PortfolioProvider locale={safeLocale}>
+        <div className="relative w-full min-h-screen bg-[#fafaf9] dark:bg-[#080809] text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
+          <Navbar locale={safeLocale} />
+          {children}
+        </div>
+      </PortfolioProvider>
+    </ThemeProvider>
   );
 }
-

@@ -39,27 +39,27 @@ export default function About({ locale }: Props) {
   ];
 
   return (
-    <section id="about" className="py-36 bg-[#080809] border-t border-white/5 relative">
-      <div className="max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
+    <section id="about" className="py-28 sm:py-36 bg-[#fafaf9] dark:bg-[#080809] border-t border-black/5 dark:border-white/5 relative transition-colors duration-300">
+      <div className="max-w-[1600px] mx-auto px-5 sm:px-12 lg:px-16">
         
         {/* EN-TÊTE ÉDITORIALE */}
         <div className="flex items-center gap-4 mb-8">
           <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-neutral-500 font-bold">
             01 // {locale === "fr" ? "À PROPOS" : "ABOUT ME"}
           </span>
-          <div className="h-px flex-1 bg-white/10 max-w-xs" />
+          <div className="h-px flex-1 bg-black/10 dark:bg-white/10 max-w-xs" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
           
           {/* TITRE ET PARAGRAPHE GAUCHE (7 cols) */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.02] uppercase"
+              className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 dark:text-white tracking-tight leading-[1.05] uppercase"
             >
               {locale === "fr" ? (
                 <>
@@ -79,14 +79,14 @@ export default function About({ locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal"
+              className="text-neutral-600 dark:text-neutral-400 text-base sm:text-lg leading-relaxed font-normal"
             >
               {text}
             </motion.p>
           </div>
 
           {/* LISTE ÉDITORIALE DROITE (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col divide-y divide-white/10 border-y border-white/10">
+          <div className="lg:col-span-5 flex flex-col divide-y divide-black/10 dark:divide-white/10 border-y border-black/10 dark:border-white/10">
             {stats.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -94,16 +94,16 @@ export default function About({ locale }: Props) {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="py-6 flex items-start gap-6 group"
+                className="py-5 sm:py-6 flex items-start gap-4 sm:gap-6 group"
               >
-                <span className="text-xs font-mono text-emerald-400 font-bold pt-0.5">
+                <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold pt-0.5">
                   [{s.num}]
                 </span>
                 <div>
                   <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 font-semibold mb-1">
                     {s.title}
                   </p>
-                  <p className="font-display font-bold text-base text-white group-hover:text-emerald-300 transition-colors">
+                  <p className="font-display font-bold text-base text-neutral-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
                     {s.desc}
                   </p>
                 </div>
