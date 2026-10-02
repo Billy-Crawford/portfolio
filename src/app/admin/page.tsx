@@ -158,6 +158,7 @@ export default function AdminPage() {
   const [newProject, setNewProject] = useState(emptyProject());
   const [newSkill,   setNewSkill]   = useState(emptySkill());
   const [newService, setNewService] = useState(emptyService());
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editing, setEditing]       = useState<Record<number, boolean>>({});
 
   const flash = (m: string) => { setMsg(m); setTimeout(() => setMsg(""), 3000); };
@@ -251,22 +252,59 @@ export default function AdminPage() {
 
   // ── CRUD Services ──────────────────────────────────────────────────────────
   const addService = async () => {
+    if (isSubmitting) return;
+
+    const tFr = (newService.title_fr || newService.text_fr || "").trim().toLowerCase();
+    const tEn = (newService.title_en || newService.text_en || "").trim().toLowerCase();
+
+    const isDuplicate = services.some(s => {
+      const sFr = (s.title_fr || s.text_fr || "").split("\n---\n")[0].trim().toLowerCase();
+      const sEn = (s.title_en || s.text_en || "").split("\n---\n")[0].trim().toLowerCase();
+      return (tFr && sFr === tFr) || (tEn && sEn === tEn);
+    });
+
+    if (isDuplicate) {
+      setLoginErr("Un service portant ce titre existe déjà. Modifiez le service existant pour éviter les doublons.");
+      return;
+    }
+
     const parsed = ServiceSchema.safeParse(newService);
     if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
     setLoginErr("");
-    const payload = formatServicePayload(newService);
-    const r = await fetch(`${API_URL}/api/services`, { method:"POST", headers:headers(), body: JSON.stringify(payload) });
-    if (r.ok) { flash("Service ajouté !"); setNewService(emptyService()); loadAll(); }
-    else flash("Erreur");
+    setIsSubmitting(true);
+    try {
+      const payload = formatServicePayload(newService);
+      const r = await fetch(`${API_URL}/api/services`, { method:"POST", headers:headers(), body: JSON.stringify(payload) });
+      if (r.ok) { flash("Service ajouté avec succès !"); setNewService(emptyService()); await loadAll(); }
+      else {
+        const errJson = await r.json().catch(() => ({}));
+        flash(errJson.error || "Erreur lors de l'ajout");
+      }
+    } catch {
+      flash("Erreur réseau");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   const saveService = async (s: Service) => {
+    if (isSubmitting) return;
     const parsed = ServiceSchema.safeParse(s);
     if (!parsed.success) { setLoginErr(parsed.error.issues[0].message); return; }
     setLoginErr("");
-    const payload = formatServicePayload(s);
-    const r = await fetch(`${API_URL}/api/services/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(payload) });
-    if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[s.id]:false})); loadAll(); }
-    else flash("Erreur");
+    setIsSubmitting(true);
+    try {
+      const payload = formatServicePayload(s);
+      const r = await fetch(`${API_URL}/api/services/${s.id}`, { method:"PUT", headers:headers(), body: JSON.stringify(payload) });
+      if (r.ok) { flash("Sauvegardé !"); setEditing(e=>({...e,[s.id]:false})); await loadAll(); }
+      else {
+        const errJson = await r.json().catch(() => ({}));
+        flash(errJson.error || "Erreur");
+      }
+    } catch {
+      flash("Erreur réseau");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   const delService = async (id: number) => {
     if (!confirm("Supprimer ?")) return;
@@ -533,7 +571,7 @@ export default function AdminPage() {
                 <Input label="Ordre d'affichage" type="number" value={newService.order_index} onChange={v=>setNewService(s=>({...s,order_index:+v}))} />
               </div>
               <div className="pt-2">
-                <Btn onClick={addService} color="green">Ajouter le service</Btn>
+                <Btn onClick={addService} color="green" disabled={isSubmitting}>{isSubmitting ? "Ajout en cours..." : "Ajouter le service"}</Btn>
               </div>
             </div>
 
@@ -554,7 +592,7 @@ export default function AdminPage() {
                         <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setServices(sv=>sv.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
                       </div>
                       <div className="flex gap-2">
-                        <Btn onClick={()=>saveService(s)} color="green">Sauvegarder</Btn>
+                        <Btn onClick={()=>saveService(s)} color="green" disabled={isSubmitting}>{isSubmitting ? "Sauvegarde..." : "Sauvegarder"}</Btn>
                         <Btn onClick={()=>setEditing(e=>({...e,[s.id]:false}))} color="gray">Annuler</Btn>
                       </div>
                     </div>
