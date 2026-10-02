@@ -23,42 +23,52 @@ export default function Contact({ locale }: Props) {
   }, [state.succeeded]);
 
   const inputCls =
-    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-5 py-4 text-sm outline-none transition-all duration-300";
+    "w-full bg-[#101012] border border-white/10 focus:border-white/40 text-white placeholder-neutral-500 rounded-2xl px-6 py-4.5 text-sm outline-none transition-all duration-300";
 
   return (
     <section id="contact" className="py-36 bg-[#080809] border-t border-white/5 relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* EN-TÊTE ÉDITORIALE */}
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-10">
           <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-neutral-500 font-bold">
             05 // {locale === "fr" ? "CONTACT & COLLABORATION" : "GET IN TOUCH"}
           </span>
           <div className="h-px flex-1 bg-white/10 max-w-xs" />
         </div>
 
-        {/* CONTENEUR EN 2 COLONNES FLEXIBLES STRICTEMENT SÉPARÉES */}
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-16 w-full">
+        {/* GRILLE 2 COLONNES ULTRA-AÉRÉE SANS AUCUNE COUPURE DE MOT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start w-full">
           
-          {/* GAUCHE : TEXTES ET RÉSEAUX (Largeur fixe/max pour ne jamais empiéter) */}
-          <div className="w-full lg:w-[48%] flex flex-col justify-start space-y-8">
+          {/* GAUCHE : IDENTITÉ & RÉSEAUX (7 cols pour que le titre respire pleinement) */}
+          <div className="lg:col-span-7 flex flex-col justify-start space-y-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.05] break-words"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight uppercase leading-[1.08]"
             >
-              {t.contactTitle || (locale === "fr" ? "Démarrons un projet" : "Let's connect")}
+              {locale === "fr" ? (
+                <>
+                  Démarrer <br />
+                  <span className="text-neutral-400 font-sans italic font-normal lowercase tracking-normal">une collaboration</span>
+                </>
+              ) : (
+                <>
+                  Let's <br />
+                  <span className="text-neutral-400 font-sans italic font-normal lowercase tracking-normal">connect</span>
+                </>
+              )}
             </motion.h2>
 
-            <p className="text-neutral-400 text-base leading-relaxed font-normal max-w-lg">
+            <p className="text-neutral-400 text-base sm:text-lg leading-relaxed font-normal max-w-xl">
               {locale === "fr"
                 ? "Disponible pour des opportunités professionnelles, missions d'ingénierie full-stack ou intégration de solutions IA."
                 : "Available for engineering opportunities, full-stack architectures, and applied AI systems."}
             </p>
 
-            <div className="space-y-4 pt-4 border-t border-white/10 w-full max-w-lg">
+            <div className="space-y-4 pt-4 border-t border-white/10 w-full max-w-xl">
               {[
                 { label: "GITHUB", href: "https://github.com", desc: "// DÉPÔTS & CODE SOURCE" },
                 { label: "LINKEDIN", href: "https://linkedin.com", desc: "// PROFIL PROFESSIONNEL" },
@@ -68,7 +78,7 @@ export default function Contact({ locale }: Props) {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-white/[0.02] border border-white/10 hover:border-white/30 px-6 py-4.5 rounded-2xl group transition-all duration-300"
+                  className="flex items-center justify-between bg-white/[0.02] border border-white/10 hover:border-white/30 px-7 py-5 rounded-2xl group transition-all duration-300"
                 >
                   <div>
                     <span className="font-display font-bold text-sm tracking-widest text-white group-hover:text-emerald-400 transition-colors">
@@ -84,13 +94,13 @@ export default function Contact({ locale }: Props) {
             </div>
           </div>
 
-          {/* DROITE : FORMULAIRE DANS SA PROPRE ZONE DISTINCTE */}
+          {/* DROITE : FORMULAIRE PROPREMENT CALIBRÉ (5 cols) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="w-full lg:w-[48%] bg-[#101012] border border-white/10 rounded-3xl p-7 sm:p-10 shadow-2xl"
+            className="lg:col-span-5 bg-[#101012] border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl"
           >
             {state.succeeded && !showForm ? (
               <div className="text-center py-14 space-y-4">
@@ -102,7 +112,7 @@ export default function Contact({ locale }: Props) {
               </div>
             ) : (
               showForm && (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <input
                       type="text"
@@ -136,7 +146,7 @@ export default function Contact({ locale }: Props) {
                   <button
                     type="submit"
                     disabled={state.submitting}
-                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs py-4.5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 mt-2 cursor-pointer"
+                    className="w-full bg-white hover:bg-neutral-200 text-black font-mono uppercase tracking-[0.2em] font-bold text-xs py-5 rounded-2xl transition-all duration-300 active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 mt-3 cursor-pointer shadow-lg"
                   >
                     {state.submitting ? "ENVOI..." : t.contactSubmit.toUpperCase()}
                     <span>→</span>

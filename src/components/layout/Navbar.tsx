@@ -34,7 +34,7 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           : "bg-transparent py-7"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16 flex items-center justify-between">
         
         {/* LOGO ÉDITORIAL AVEC MONOGRAMME */}
         <Link href={`/${locale}`} className="group flex items-center gap-3">
