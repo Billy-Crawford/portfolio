@@ -72,7 +72,7 @@ export default function Methodology({ locale }: Props) {
         </div>
 
         {/* 3 GRANDS PILIERS ÉDITORIAUX */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.step}
@@ -80,7 +80,7 @@ export default function Methodology({ locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-[#101012] border border-neutral-200 dark:border-white/10 hover:border-neutral-400 dark:hover:border-white/30 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 group shadow-sm dark:shadow-none hover:-translate-y-1.5"
+              className={`bg-white dark:bg-[#101012] border border-neutral-200 dark:border-white/10 hover:border-neutral-400 dark:hover:border-white/30 rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between transition-all duration-300 group shadow-sm dark:shadow-none hover:-translate-y-1.5 ${i === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
             >
               <div>
                 <div className="flex items-center justify-between mb-8 pb-5 border-b border-neutral-100 dark:border-white/10">

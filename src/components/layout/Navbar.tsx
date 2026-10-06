@@ -55,11 +55,11 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled || mobileMenuOpen
-          ? "bg-[#fafaf9]/90 dark:bg-[#080809]/95 backdrop-blur-xl border-b border-black/5 dark:border-white/5 py-3.5 sm:py-4 shadow-sm"
-          : "bg-transparent py-5 sm:py-7"
+          ? "bg-[#fafaf9]/95 dark:bg-[#080809]/95 backdrop-blur-xl border-b border-black/5 dark:border-white/5 py-3.5 sm:py-4 shadow-sm"
+          : "bg-transparent py-4 sm:py-6 lg:py-7"
       }`}
     >
-      <div className="max-w-[1600px] mx-auto px-5 sm:px-12 lg:px-16 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex items-center justify-between">
         
         {/* LOGO */}
         <Link href={`/${locale}`} className="group flex items-center gap-2.5">
@@ -100,7 +100,7 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           <button
             onClick={toggleTheme}
             aria-label="Changer de thème"
-            className="w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-full border border-neutral-300 dark:border-white/10 hover:border-neutral-500 dark:hover:border-white/30 flex items-center justify-center text-neutral-800 dark:text-neutral-200 transition-all duration-200 bg-black/[0.03] dark:bg-white/[0.03]"
+            className="w-9 h-9 rounded-full border border-neutral-300 dark:border-white/10 hover:border-neutral-500 dark:hover:border-white/30 flex items-center justify-center text-neutral-800 dark:text-neutral-200 transition-all duration-200 bg-black/[0.03] dark:bg-white/[0.03] active:scale-95"
           >
             {theme === "dark" ? (
               <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,8 +124,9 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           {/* BOUTON MENU BURGER MOBILE */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-8.5 h-8.5 rounded-full border border-neutral-300 dark:border-white/10 flex items-center justify-center text-neutral-800 dark:text-white text-base hover:border-neutral-500 dark:hover:border-white/30 transition-colors"
-            aria-label="Menu"
+            className="lg:hidden w-9 h-9 rounded-full border border-neutral-300 dark:border-white/10 flex items-center justify-center text-neutral-800 dark:text-white text-base hover:border-neutral-500 dark:hover:border-white/30 transition-colors active:scale-95"
+            aria-label="Menu de navigation"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? "✕" : "☰"}
           </button>
@@ -135,13 +136,13 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
 
       {/* TIROIR MOBILE */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#fafaf9] dark:bg-[#080809] border-b border-black/10 dark:border-white/10 px-6 py-6 space-y-3">
+        <div className="lg:hidden bg-[#fafaf9]/98 dark:bg-[#080809]/98 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 px-6 sm:px-12 py-6 sm:py-8 space-y-2 sm:space-y-3 shadow-2xl transition-all">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className={`block text-sm uppercase tracking-[0.2em] font-semibold py-2 border-b border-black/5 dark:border-white/5 transition-colors ${
+              className={`block text-sm sm:text-base uppercase tracking-[0.2em] font-semibold py-2.5 sm:py-3 border-b border-black/5 dark:border-white/5 transition-colors ${
                 link.active
                   ? "text-emerald-600 dark:text-emerald-400 font-bold"
                   : "text-neutral-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400"

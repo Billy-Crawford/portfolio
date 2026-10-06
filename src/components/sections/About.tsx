@@ -86,7 +86,7 @@ export default function About({ locale }: Props) {
           </div>
 
           {/* LISTE ÉDITORIALE DROITE (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col divide-y divide-black/10 dark:divide-white/10 border-y border-black/10 dark:border-white/10">
+          <div className="lg:col-span-5 grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-col gap-4 md:gap-5 lg:gap-0 lg:divide-y divide-black/10 dark:divide-white/10 border-t md:border-t-0 lg:border-y border-black/10 dark:border-white/10 pt-4 md:pt-0">
             {stats.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -94,7 +94,7 @@ export default function About({ locale }: Props) {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 viewport={{ once: true }}
-                className="py-5 sm:py-6 flex items-start gap-4 sm:gap-6 group"
+                className="py-4 sm:py-5 lg:py-6 md:p-5 md:rounded-2xl md:bg-black/[0.02] md:dark:bg-white/[0.02] md:border md:border-neutral-200/80 md:dark:border-white/10 lg:p-0 lg:rounded-none lg:bg-transparent lg:border-none flex items-start gap-4 sm:gap-6 group"
               >
                 <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold pt-0.5">
                   [{s.num}]

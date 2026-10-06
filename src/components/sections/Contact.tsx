@@ -38,10 +38,10 @@ export default function Contact({ locale }: Props) {
         </div>
 
         {/* 2 COLONNES EN XL, 1 COLONNE EN DESSOUS */}
-        <div className="flex flex-col xl:flex-row items-start justify-between gap-10 sm:gap-16 xl:gap-20 w-full">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-10 sm:gap-14 lg:gap-14 xl:gap-20 w-full">
           
           {/* HAUT / GAUCHE : IDENTITÉ & LIENS */}
-          <div className="w-full xl:w-[50%] flex flex-col justify-start space-y-6 sm:space-y-8">
+          <div className="w-full lg:w-[48%] flex flex-col justify-start space-y-6 sm:space-y-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +100,7 @@ export default function Contact({ locale }: Props) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="w-full xl:w-[48%] bg-white dark:bg-[#101012] border border-neutral-200 dark:border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl dark:shadow-2xl"
+            className="w-full lg:w-[48%] bg-white dark:bg-[#101012] border border-neutral-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 xl:p-12 shadow-xl dark:shadow-2xl"
           >
             {state.succeeded && !showForm ? (
               <div className="text-center py-16 space-y-4">

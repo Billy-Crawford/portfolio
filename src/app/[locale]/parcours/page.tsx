@@ -80,7 +80,7 @@ export default function ParcoursPage({ params }: Props) {
 
             <Link
               href={`/${safeLocale}/contact`}
-              className="px-8 py-4 rounded-full bg-emerald-500 text-black font-display font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-colors shrink-0 shadow-md"
+              className="px-8 py-4 rounded-full bg-emerald-500 text-black font-display font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-colors shrink-0 shadow-md w-full sm:w-auto text-center"
             >
               {isFr ? "Me contacter →" : "Contact me →"}
             </Link>
