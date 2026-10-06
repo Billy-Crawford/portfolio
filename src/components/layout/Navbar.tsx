@@ -21,15 +21,34 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isHome = pathname === `/${locale}` || pathname === `/${locale}/`;
+
   const links = [
-    { label: locale === "fr" ? "À propos" : "About", href: "#about" },
-    { label: locale === "fr" ? "Parcours" : "Education", href: "#education" },
-    { label: locale === "fr" ? "Pôle IA" : "AI Lab", href: "#ai-focus" },
-    { label: locale === "fr" ? "Arsenal" : "Skills", href: "#skills" },
-    { label: locale === "fr" ? "Travaux" : "Projects", href: "#projects" },
-    { label: locale === "fr" ? "Méthode" : "Methodology", href: "#methodology" },
-    { label: "CV", href: "#resume" },
-    { label: "Contact", href: "#contact" },
+    {
+      label: locale === "fr" ? "Accueil" : "Home",
+      href: `/${locale}`,
+      active: isHome,
+    },
+    {
+      label: locale === "fr" ? "Projets" : "Projects",
+      href: `/${locale}/projects`,
+      active: pathname.includes("/projects"),
+    },
+    {
+      label: locale === "fr" ? "Services" : "Services",
+      href: `/${locale}/services`,
+      active: pathname.includes("/services"),
+    },
+    {
+      label: locale === "fr" ? "Parcours & IA" : "Education & AI",
+      href: `/${locale}/parcours`,
+      active: pathname.includes("/parcours"),
+    },
+    {
+      label: "Contact",
+      href: `/${locale}/contact`,
+      active: pathname.includes("/contact"),
+    },
   ];
 
   return (
@@ -52,17 +71,25 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
           </span>
         </Link>
 
-        {/* NAVIGATION DESKTOP ÉTENDUE */}
+        {/* NAVIGATION DESKTOP */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="text-[11px] xl:text-[12px] uppercase tracking-[0.18em] font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors relative py-1 group"
+              className={`text-[11px] xl:text-[12px] uppercase tracking-[0.18em] font-semibold transition-colors relative py-1 group ${
+                link.active
+                  ? "text-neutral-900 dark:text-white font-bold"
+                  : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+              }`}
             >
               {link.label}
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-emerald-500 dark:bg-emerald-400 transition-all duration-300 group-hover:w-full" />
-            </a>
+              <span
+                className={`absolute bottom-0 left-0 h-[2px] bg-emerald-500 dark:bg-emerald-400 transition-all duration-300 ${
+                  link.active ? "w-full" : "w-0 group-hover:w-full"
+                }`}
+              />
+            </Link>
           ))}
         </nav>
 
@@ -110,14 +137,18 @@ export default function Navbar({ locale }: { locale: "en" | "fr" }) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#fafaf9] dark:bg-[#080809] border-b border-black/10 dark:border-white/10 px-6 py-6 space-y-3">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm uppercase tracking-[0.2em] font-semibold text-neutral-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400 py-2 border-b border-black/5 dark:border-white/5"
+              className={`block text-sm uppercase tracking-[0.2em] font-semibold py-2 border-b border-black/5 dark:border-white/5 transition-colors ${
+                link.active
+                  ? "text-emerald-600 dark:text-emerald-400 font-bold"
+                  : "text-neutral-700 dark:text-neutral-300 hover:text-emerald-500 dark:hover:text-emerald-400"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       )}
