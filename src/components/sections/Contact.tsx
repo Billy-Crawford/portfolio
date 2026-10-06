@@ -68,10 +68,10 @@ export default function Contact({ locale }: Props) {
                 : "Available for engineering opportunities, full-stack architectures, and applied AI systems."}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4 pt-4 border-t border-black/10 dark:border-white/10 w-full max-w-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 pt-4 border-t border-black/10 dark:border-white/10 w-full max-w-2xl">
               {[
                 { label: "GITHUB", href: "https://github.com/Billy-Crawford", desc: "// DÉPÔTS & CODE SOURCE" },
-                { label: "LINKEDIN", href: "https://linkedin.com", desc: "// PROFIL PROFESSIONNEL" },
+                { label: "LINKEDIN", href: "https://www.linkedin.com/in/oumarou-billy-n-a8107328a", desc: "// PROFIL PROFESSIONNEL" },
               ].map((l) => (
                 <a
                   key={l.label}

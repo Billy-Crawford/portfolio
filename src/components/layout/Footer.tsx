@@ -35,7 +35,7 @@ export default function Footer({ locale }: Props) {
             GitHub
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/oumarou-billy-n-a8107328a"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors"
