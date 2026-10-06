@@ -27,7 +27,7 @@ export default function Footer({ locale }: Props) {
 
         <div className="flex items-center gap-6 sm:gap-8">
           <a
-            href="https://github.com"
+            href="https://github.com/Billy-Crawford"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-mono uppercase tracking-widest text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors"
