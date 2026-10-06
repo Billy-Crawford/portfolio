@@ -17,10 +17,11 @@ export default function ContactPage({ params }: Props) {
 
   return (
     <PageTransition>
-      <main className="w-full min-h-screen bg-[#fafaf9] dark:bg-[#080809] text-neutral-900 dark:text-white pt-28 sm:pt-36 transition-colors duration-300">
-        <div className="max-w-[1600px] mx-auto px-5 sm:px-12 lg:px-16">
+      <main className="w-full min-h-screen bg-[#fafaf9] dark:bg-[#080809] text-neutral-900 dark:text-white pt-24 sm:pt-32 transition-colors duration-300">
+        <div className="max-w-[1600px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
           
-          <div className="mb-8 flex items-center justify-between">
+          {/* LIEN RETOUR & INDICATEUR D'INDEX */}
+          <div className="mb-4 sm:mb-6 flex items-center justify-between">
             <Link
               href={`/${safeLocale}`}
               className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group"
@@ -34,28 +35,12 @@ export default function ContactPage({ params }: Props) {
             </span>
           </div>
 
-          <div className="mb-8 sm:mb-14 space-y-6">
-            <div className="flex items-center gap-4">
-              <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400 font-bold">
-                {isFr ? "CONTACT & DISPONIBILITÉ" : "GET IN TOUCH & AVAILABILITY"}
-              </span>
-              <div className="h-px flex-1 bg-black/10 dark:bg-white/10 max-w-sm" />
-            </div>
-
-            <h1 className="font-display text-3xl sm:text-6xl lg:text-7xl font-black text-neutral-900 dark:text-white tracking-tight uppercase">
-              {isFr ? "Démarrer une Collaboration" : "Let's Connect & Build"}
-            </h1>
-
-            <p className="text-sm sm:text-lg text-neutral-600 dark:text-neutral-400 font-sans max-w-3xl leading-relaxed">
-              {isFr
-                ? "Vous avez un projet applicatif, un défi architectural ou une intégration de modèle d'IA à réaliser ? Échangeons dès aujourd'hui."
-                : "Looking to architect a new platform, audit technical performance, or integrate intelligent models? Reach out directly below."}
-            </p>
-          </div>
         </div>
 
+        {/* SECTION FORMULAIRE & COORDONNÉES */}
         <Contact locale={safeLocale} />
 
+        {/* PIED DE PAGE */}
         <Footer locale={safeLocale} />
       </main>
     </PageTransition>
