@@ -619,7 +619,7 @@ export default function AdminPage() {
                       </div>
                       <div className="flex gap-2 shrink-0 self-end md:self-start">
                         <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="gray">Modifier</Btn>
-                        <Btn onClick={()=>delService(s.id)} color="red">Supprimer</Btn>
+                        <Btn onClick={()=>delService(s.id)} color="red" disabled={isSubmitting}>Supprimer</Btn>
                       </div>
                     </div>
                   )}
@@ -649,7 +649,7 @@ export default function AdminPage() {
                     <Input label="English" value={val.value_en} onChange={v=>updateContent(key,"value_en",v)} rows={3} />
                   </div>
                   <div className="pt-2">
-                    <Btn onClick={()=>saveContent(key)} color="green">Sauvegarder les modifications</Btn>
+                    <Btn onClick={()=>saveContent(key)} color="green" disabled={isSubmitting}>{isSubmitting ? "Sauvegarde..." : "Sauvegarder les modifications"}</Btn>
                   </div>
                 </div>
               ))}
