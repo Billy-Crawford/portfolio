@@ -152,29 +152,29 @@ const Select = ({ label, value, onChange, options }: { label:string; value:strin
 const getAdminSkillTier = (level: number) => {
   if (level >= 80) {
     return {
-      label: "🟢 EN PRODUCTION",
-      desc: "Core Stack · Déployé sur systèmes réels",
-      badgeCls: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+      label: "Core Stack",
+      desc: "Déployé en production",
+      badgeCls: "text-neutral-200 border-neutral-700 bg-neutral-900",
     };
   }
   if (level >= 65) {
     return {
-      label: "🔵 ARCHITECTURE & SYSTÈMES",
-      desc: "Conception avancée & Scalabilité",
-      badgeCls: "bg-sky-500/10 text-sky-400 border-sky-500/30",
+      label: "Avancé",
+      desc: "Architecture & Systèmes",
+      badgeCls: "text-neutral-400 border-neutral-800 bg-neutral-900/60",
     };
   }
   return {
-    label: "🟣 R&D & RECHERCHE APPLIQUÉE",
-    desc: "Modélisation IA, Deep Learning & R&D",
-    badgeCls: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    label: "R&D",
+    desc: "Recherche appliquée & Modèles IA",
+    badgeCls: "text-neutral-400 border-neutral-800 bg-neutral-900/60",
   };
 };
 
 const skillTierOptions = [
-  { value: 90, label: "🟢 Production & Core Stack (Éprouvé sur systèmes réels)" },
-  { value: 75, label: "🔵 Architecture & Systèmes (Conception avancée, APIs)" },
-  { value: 55, label: "🟣 R&D & Recherche Appliquée (Modélisation IA, deep learning)" },
+  { value: 90, label: "Core Stack (Production quotidienne)" },
+  { value: 75, label: "Avancé (Architecture logicielle & APIs)" },
+  { value: 55, label: "R&D & Modélisation (Intelligence Artificielle)" },
 ];
 
 const Btn = ({ onClick, children, color="blue", disabled=false }: { onClick:()=>void; children:React.ReactNode; color?:string; disabled?:boolean }) => {
@@ -576,8 +576,8 @@ export default function AdminPage() {
                           const tier = getAdminSkillTier(s.level);
                           return (
                             <div className="flex flex-wrap items-center gap-3 mt-2">
-                              <span className={`inline-flex items-center text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${tier.badgeCls}`}>
-                                {tier.label}
+                              <span className={`inline-flex items-center text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${tier.badgeCls}`}>
+                                [{tier.label}]
                               </span>
                               <span className="text-xs text-neutral-400 font-mono">// {tier.desc}</span>
                               {s.tooltip_fr && (
