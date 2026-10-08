@@ -132,6 +132,51 @@ const Input = ({ label, value, onChange, type="text", rows=0 }: { label:string; 
   </div>
 );
 
+const Select = ({ label, value, onChange, options }: { label:string; value:string|number; onChange:(v:string)=>void; options:{ value:string|number; label:string }[] }) => (
+  <div className="flex flex-col gap-1.5">
+    <label className="text-[11px] font-mono uppercase tracking-wider text-neutral-400">{label}</label>
+    <select
+      className="bg-[#121212] border border-neutral-800 focus:border-white text-white rounded-xl p-3 text-sm outline-none transition-colors cursor-pointer"
+      value={value}
+      onChange={e=>onChange(e.target.value)}
+    >
+      {options.map(opt => (
+        <option key={opt.value} value={opt.value} className="bg-[#18181b] text-white">
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+const getAdminSkillTier = (level: number) => {
+  if (level >= 80) {
+    return {
+      label: "🟢 EN PRODUCTION",
+      desc: "Core Stack · Déployé sur systèmes réels",
+      badgeCls: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    };
+  }
+  if (level >= 65) {
+    return {
+      label: "🔵 ARCHITECTURE & SYSTÈMES",
+      desc: "Conception avancée & Scalabilité",
+      badgeCls: "bg-sky-500/10 text-sky-400 border-sky-500/30",
+    };
+  }
+  return {
+    label: "🟣 R&D & RECHERCHE APPLIQUÉE",
+    desc: "Modélisation IA, Deep Learning & R&D",
+    badgeCls: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+  };
+};
+
+const skillTierOptions = [
+  { value: 90, label: "🟢 Production & Core Stack (Éprouvé sur systèmes réels)" },
+  { value: 75, label: "🔵 Architecture & Systèmes (Conception avancée, APIs)" },
+  { value: 55, label: "🟣 R&D & Recherche Appliquée (Modélisation IA, deep learning)" },
+];
+
 const Btn = ({ onClick, children, color="blue", disabled=false }: { onClick:()=>void; children:React.ReactNode; color?:string; disabled?:boolean }) => {
   const colors: Record<string,string> = {
     blue: "bg-white text-black hover:bg-neutral-200",
@@ -492,11 +537,11 @@ export default function AdminPage() {
                 + Nouvelle compétence
               </span>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input label="Nom" value={newSkill.name} onChange={v=>setNewSkill(s=>({...s,name:v}))} />
-                <Input label="Niveau (0-100)" type="number" value={newSkill.level} onChange={v=>setNewSkill(s=>({...s,level:Math.min(100,Math.max(0,+v))}))} />
-                <Input label="Infobulle FR" value={newSkill.tooltip_fr} onChange={v=>setNewSkill(s=>({...s,tooltip_fr:v}))} />
-                <Input label="Infobulle EN" value={newSkill.tooltip_en} onChange={v=>setNewSkill(s=>({...s,tooltip_en:v}))} />
-                <Input label="Ordre" type="number" value={newSkill.order_index} onChange={v=>setNewSkill(s=>({...s,order_index:+v}))} />
+                <Input label="Nom de la technologie" value={newSkill.name} onChange={v=>setNewSkill(s=>({...s,name:v}))} />
+                <Select label="Maturité Opérationnelle" value={newSkill.level} onChange={v=>setNewSkill(s=>({...s,level:+v}))} options={skillTierOptions} />
+                <Input label="Rôle & Contexte d'usage FR" value={newSkill.tooltip_fr} onChange={v=>setNewSkill(s=>({...s,tooltip_fr:v}))} />
+                <Input label="Rôle & Contexte d'usage EN" value={newSkill.tooltip_en} onChange={v=>setNewSkill(s=>({...s,tooltip_en:v}))} />
+                <Input label="Ordre d'affichage" type="number" value={newSkill.order_index} onChange={v=>setNewSkill(s=>({...s,order_index:+v}))} />
               </div>
               <div className="pt-2">
                 <Btn onClick={addSkill} color="green">Ajouter la compétence</Btn>
@@ -509,11 +554,11 @@ export default function AdminPage() {
                   {editing[s.id] ? (
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Input label="Nom" value={s.name} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,name:v}:x))} />
-                        <Input label="Niveau" type="number" value={s.level} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,level:+v}:x))} />
-                        <Input label="Infobulle FR" value={s.tooltip_fr} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_fr:v}:x))} />
-                        <Input label="Infobulle EN" value={s.tooltip_en} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_en:v}:x))} />
-                        <Input label="Ordre" type="number" value={s.order_index} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
+                        <Input label="Nom de la technologie" value={s.name} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,name:v}:x))} />
+                        <Select label="Maturité Opérationnelle" value={s.level} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,level:+v}:x))} options={skillTierOptions} />
+                        <Input label="Rôle & Contexte d'usage FR" value={s.tooltip_fr} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_fr:v}:x))} />
+                        <Input label="Rôle & Contexte d'usage EN" value={s.tooltip_en} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,tooltip_en:v}:x))} />
+                        <Input label="Ordre d'affichage" type="number" value={s.order_index} onChange={v=>setSkills(sk=>sk.map(x=>x.id===s.id?{...x,order_index:+v}:x))} />
                       </div>
                       <div className="flex gap-2">
                         <Btn onClick={()=>saveSkill(s)} color="green">Sauvegarder</Btn>
@@ -527,12 +572,22 @@ export default function AdminPage() {
                           <span className="text-xs font-mono text-neutral-500">#{s.order_index}</span>
                           <p className="font-bold text-base text-white">{s.name}</p>
                         </div>
-                        <div className="flex items-center gap-3 mt-2">
-                          <div className="h-1.5 bg-neutral-800 rounded-full w-40 overflow-hidden">
-                            <div className="h-full bg-white rounded-full" style={{width:`${s.level}%`}} />
-                          </div>
-                          <span className="text-xs font-mono text-neutral-400">{s.level}%</span>
-                        </div>
+                        {(() => {
+                          const tier = getAdminSkillTier(s.level);
+                          return (
+                            <div className="flex flex-wrap items-center gap-3 mt-2">
+                              <span className={`inline-flex items-center text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${tier.badgeCls}`}>
+                                {tier.label}
+                              </span>
+                              <span className="text-xs text-neutral-400 font-mono">// {tier.desc}</span>
+                              {s.tooltip_fr && (
+                                <span className="text-xs text-neutral-500 font-sans italic block w-full mt-1">
+                                  "{s.tooltip_fr}"
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </div>
                       <div className="flex gap-2 shrink-0">
                         <Btn onClick={()=>setEditing(e=>({...e,[s.id]:true}))} color="gray">Modifier</Btn>

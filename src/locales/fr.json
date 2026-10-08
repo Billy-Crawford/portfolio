@@ -23,62 +23,62 @@
       "description": "Optimisation Core Web Vitals, interfaces haute fidélité (Tailwind CSS, Framer Motion) réactives sur tous formats d'écrans, développement mobile multiplateforme (Flutter / Dart) et traçabilité décentralisée (Blockchain / Web3)."
     }
   ],
-  "skillsTitle": "Compétences Techniques",
+  "skillsTitle": "Arsenal & Technologies",
   "skillsList": [
     {
       "name": "Next.js",
-      "level": 85,
-      "tooltip": "Framework React moderne pour frontend SSR/SSG"
+      "level": 90,
+      "tooltip": "Framework React moderne pour architectures SSR/SSG & App Router haute performance"
     },
     {
       "name": "React",
-      "level": 65,
-      "tooltip": "Bibliothèque principale pour UI web interactive"
+      "level": 75,
+      "tooltip": "Architecture de composants réactifs, custom hooks et interfaces dynamiques"
     },
     {
       "name": "Tailwind CSS",
-      "level": 80,
-      "tooltip": "Framework utilitaire pour stylisation rapide et réactive"
+      "level": 90,
+      "tooltip": "Design system utilitaire, ergonomie multi-écrans et animations fluides"
     },
     {
       "name": "TypeScript",
       "level": 75,
-      "tooltip": "Typage statique et rigueur applicative"
+      "tooltip": "Typage statique strict, architecture logicielle robuste et maintenabilité"
     },
     {
       "name": "Django + DRF",
-      "level": 70,
-      "tooltip": "Backend Python et APIs RESTful"
+      "level": 75,
+      "tooltip": "Backends Python modulaires, APIs RESTful sécurisées avec JWT & ORM"
     },
     {
       "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)",
-      "level": 65,
-      "tooltip": "Machine learning et deep learning appliqué"
+      "level": 75,
+      "tooltip": "Entraînement de réseaux de neurones profonds et pipelines prédictifs"
     },
     {
       "name": "NLP / Computer Vision",
-      "level": 50,
-      "tooltip": "Modèles de traitement du langage et analyse visuelle"
+      "level": 60,
+      "tooltip": "Traitement automatique du langage naturel et classification d'images CNN"
     },
     {
       "name": "Bases de données (PostgreSQL, MongoDB, MySQL)",
-      "level": 75,
-      "tooltip": "Modélisation relationnelle et NoSQL optimisée"
+      "level": 85,
+      "tooltip": "Modélisation relationnelle ACID, indexation, requêtes SQL optimisées & NoSQL"
     },
     {
       "name": "Git & Workflow Collaboratif",
-      "level": 70,
-      "tooltip": "Versioning, revues de code et intégration continue"
+      "level": 85,
+      "tooltip": "Gestion de versions, branches Gitflow rigoureuses et revues de code"
     },
     {
       "name": "GitHub & CI/CD",
-      "level": 70,
-      "tooltip": "Automatisation, déploiement et hébergement"
+      "level": 85,
+      "tooltip": "Automatisation des tests, intégration continue et déploiements cloud"
     },
     {
       "name": "WordPress & Headless CMS",
-      "level": 50,
-      "tooltip": "Solutions de gestion de contenu dynamiques"
+      "level": 55,
+      "tooltip": "Gestion de contenu découplée et intégration d'APIs tierces"
     }
   ],
   "projectsTitle": "Projets Sélectionnés",

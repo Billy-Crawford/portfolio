@@ -23,62 +23,62 @@
       "description": "Core Web Vitals auditing, high-fidelity responsive ergonomics (Tailwind CSS, Framer Motion), cross-platform mobile apps (Flutter / Dart), and decentralized traceability (Blockchain / Web3)."
     }
   ],
-  "skillsTitle": "Technical Arsenal",
+  "skillsTitle": "Technical Arsenal & Systems",
   "skillsList": [
     {
       "name": "Next.js",
-      "level": 85,
-      "tooltip": "Modern React framework for SSR/SSG workflows"
+      "level": 90,
+      "tooltip": "High-performance SSR/SSG workflows, App Router patterns & edge rendering"
     },
     {
       "name": "React",
-      "level": 65,
-      "tooltip": "Core library for building interactive web UI"
+      "level": 75,
+      "tooltip": "Reactive UI architecture, custom hooks, and scalable state machines"
     },
     {
       "name": "Tailwind CSS",
-      "level": 80,
-      "tooltip": "Utility-first framework for rapid responsive design"
+      "level": 90,
+      "tooltip": "Utility-first design systems, responsive ergonomics, and micro-animations"
     },
     {
       "name": "TypeScript",
       "level": 75,
-      "tooltip": "Static typing and robust application structure"
+      "tooltip": "Strict static typing, robust enterprise architecture, and maintainability"
     },
     {
       "name": "Django + DRF",
-      "level": 70,
-      "tooltip": "Python backend services and RESTful APIs"
+      "level": 75,
+      "tooltip": "Modular Python backends, secure JWT authentication & relational ORM"
     },
     {
       "name": "Python AI (TensorFlow, PyTorch, Scikit-learn)",
-      "level": 65,
-      "tooltip": "Applied machine learning and neural networks"
+      "level": 75,
+      "tooltip": "Deep neural network training, transfer learning, and predictive pipelines"
     },
     {
       "name": "NLP / Computer Vision",
-      "level": 50,
-      "tooltip": "Natural language processing and vision algorithms"
+      "level": 60,
+      "tooltip": "Semantic natural language processing and convolutional image classification"
     },
     {
       "name": "Databases (PostgreSQL, MongoDB, MySQL)",
-      "level": 75,
-      "tooltip": "Optimized relational and NoSQL data modeling"
+      "level": 85,
+      "tooltip": "ACID relational modeling, query optimization, indexing & NoSQL storage"
     },
     {
       "name": "Git & Collaborative Workflow",
-      "level": 70,
-      "tooltip": "Version control, code reviews and CI integration"
+      "level": 85,
+      "tooltip": "Rigorous version control, Gitflow branching, and structured code reviews"
     },
     {
       "name": "GitHub & CI/CD",
-      "level": 70,
-      "tooltip": "Automated builds, testing and cloud deployment"
+      "level": 85,
+      "tooltip": "Automated testing, continuous integration, and cloud delivery pipelines"
     },
     {
       "name": "WordPress & Headless CMS",
-      "level": 50,
-      "tooltip": "Dynamic and scalable content management systems"
+      "level": 55,
+      "tooltip": "Decoupled headless architectures and third-party API integrations"
     }
   ],
   "projectsTitle": "Selected Work",
