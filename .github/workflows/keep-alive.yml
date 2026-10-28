@@ -1,0 +1,31 @@
+name: Keep-Alive Supabase & Backend
+
+on:
+  schedule:
+    # Exécute toutes les 6 heures pour maintenir Supabase et le backend actifs
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simuler des appels API (Backend Flask -> Supabase)
+        run: |
+          BACKEND_URL="https://portfolio-backend-0xfo.onrender.com"
+          echo "=== 1. Réveil du backend & Ping Supabase (/api/health) ==="
+          curl -fsSL --retry 3 --retry-delay 10 --max-time 90 "$BACKEND_URL/api/health"
+          echo -e "\n"
+
+          echo "=== 2. Lecture table projects (/api/projects) ==="
+          curl -fsSL --retry 2 --retry-delay 5 --max-time 60 "$BACKEND_URL/api/projects" | head -c 300
+          echo -e "\n"
+
+          echo "=== 3. Lecture table skills (/api/skills) ==="
+          curl -fsSL --retry 2 --retry-delay 5 --max-time 60 "$BACKEND_URL/api/skills" | head -c 300
+          echo -e "\n"
+
+          echo "=== 4. Lecture table services (/api/services) ==="
+          curl -fsSL --retry 2 --retry-delay 5 --max-time 60 "$BACKEND_URL/api/services" | head -c 300
+          echo -e "\n\nKeep-alive terminé avec succès !"
+
